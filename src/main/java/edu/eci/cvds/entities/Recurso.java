@@ -15,7 +15,6 @@ public class Recurso implements Serializable {
     private String nombre;
     private String ubicacion;
     private int capacidad;
-    private LocalDate fecha;
     private Time horario_inicial;
     private Time horario_final;
     private String disponibilidad;
@@ -28,7 +27,6 @@ public class Recurso implements Serializable {
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.capacidad = capacidad;
-        this.fecha = fecha;
         this.horario_inicial=horario_inicial;
         this.horario_final=horario_final;
         this.disponibilidad=disponibilidad;
@@ -58,10 +56,6 @@ public class Recurso implements Serializable {
         this.capacidad = capacidad;
     }
 
-    public LocalDate getFecha(){
-        return fecha;
-    }
-
     public Time getHorario_inicial(){
         return horario_inicial;
     }
@@ -76,10 +70,6 @@ public class Recurso implements Serializable {
 
     public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
     }
 
     public void setHorario_inicial(Time horario_inicial) {
