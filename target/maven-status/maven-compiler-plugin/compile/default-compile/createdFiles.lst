@@ -6,6 +6,9 @@ edu\eci\cvds\persistence\mybatisimpl\MyBatisHorarioDAO.class
 edu\eci\cvds\services\impl\ECILibraryServicesImpl.class
 edu\eci\cvds\guice\GuiceContextListener$1.class
 edu\eci\cvds\entities\User.class
+edu\eci\cvds\persistence\ReservaDAO.class
+edu\eci\cvds\persistence\mybatisimpl\MyBatisReservaDAO.class
+edu\eci\cvds\entities\Reserva.class
 edu\eci\cvds\services\ECILibraryServicesFactory$1.class
 edu\eci\cvds\persistence\UserDAO.class
 edu\eci\cvds\Seguridad\noautenticado.class
@@ -22,5 +25,6 @@ edu\eci\cvds\persistence\mappers\HorarioMapper.class
 edu\eci\cvds\persistence\HorarioDAO.class
 edu\eci\cvds\services\ECILibraryServicesFactory.class
 edu\eci\cvds\persistence\mybatisimpl\MyBatisRecursoDAO.class
+edu\eci\cvds\persistence\mappers\ReservaMapper.class
 edu\eci\cvds\services\main.class
 edu\eci\cvds\entities\Horario.class
