@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
 Test set: edu.eci.cvds.test.BibliotecaTest
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.378 s <<< FAILURE! - in edu.eci.cvds.test.BibliotecaTest
-deberiaregistrarRecurso(edu.eci.cvds.test.BibliotecaTest)  Time elapsed: 1.373 s  <<< ERROR!
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.652 s <<< FAILURE! - in edu.eci.cvds.test.BibliotecaTest
+deberiaregistrarRecurso(edu.eci.cvds.test.BibliotecaTest)  Time elapsed: 1.572 s  <<< ERROR!
 edu.eci.cvds.Exceptions.BibliotecaException: Error al consultar recursos
 	at edu.eci.cvds.test.BibliotecaTest.deberiaregistrarRecurso(BibliotecaTest.java:32)
 Caused by: org.apache.ibatis.exceptions.PersistenceException: Error al consultar recursos mb

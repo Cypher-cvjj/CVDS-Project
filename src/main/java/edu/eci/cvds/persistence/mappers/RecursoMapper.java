@@ -12,4 +12,5 @@ public interface RecursoMapper {
 
     public void agregarRecursos(@Param("Recurso") Recurso recurso);
 
+    public void cambiarEstadoRecurso(@Param("Recurso") Recurso recurso);
    }

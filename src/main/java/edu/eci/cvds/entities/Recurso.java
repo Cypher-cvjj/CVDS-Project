@@ -34,7 +34,6 @@ public class Recurso implements Serializable {
 
     }
 
-
     @Override
     public String toString() {
         return "Recurso{" + " id= " + id + " nombre= " + nombre + " ubicacion= " + ubicacion + " capacidad= "+ capacidad + " Hora_inicial= " + horario_inicial + " Hora_final= " + horario_final + " disponibilidad= " + disponibilidad + " tipo= " + tiporecurso + "}";

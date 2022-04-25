@@ -62,6 +62,14 @@ public class RecursoBean extends BasePageBean {
         }
     }
 
+    public void cambiarEstadoRecurso(Recurso recurso){
+        try{
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
     public String[] getTypeRecurso() {
         return typeRecurso;
     }
