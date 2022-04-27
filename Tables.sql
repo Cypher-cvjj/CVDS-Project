@@ -24,12 +24,12 @@ tiporecurso VARCHAR(50) NOT NULL
 
 create table tiporecurso(
 idtipo VARCHAR(20) not null,
-nombre VARCHAR(20) not NULL
+nombre VARCHAR(50) not NULL
 );
 
 create table ubicacion(
 idubicacion VARCHAR(20) not null,
-nombre VARCHAR(20) not NULL
+nombre VARCHAR(50) not NULL
 );
 
 
@@ -53,7 +53,6 @@ ALTER TABLE recursos ADD CONSTRAINT pk_recursos PRIMARY KEY (id_recursos);
 ALTER TABLE TipoUsuario  ADD CONSTRAINT pk_tipousuario PRIMARY KEY (id);
 ALTER TABLE Tiporecurso ADD CONSTRAINT pk_tiporecurso PRIMARY KEY (idtipo);
 ALTER TABLE ubicacion  ADD CONSTRAINT pk_tipoubicacion PRIMARY KEY (nombre);
-ALTER TABLE ubicacion  ADD CONSTRAINT pk_tipoubicacion PRIMARY KEY (idubicacion);
 ALTER TABLE reserva  ADD CONSTRAINT pk_reserva PRIMARY KEY (id_reserva);
 
 
@@ -68,7 +67,7 @@ ADD FOREIGN KEY (reserva) REFERENCES reserva (id_reserva);
 ALTER TABLE recursos
 ADD FOREIGN KEY (ubicacion) REFERENCES ubicacion (nombre);
 ALTER TABLE recursos
-ADD FOREIGN KEY (tiporecurso) REFERENCES tiporecurso (nombre);
+ADD FOREIGN KEY (tiporecurso) REFERENCES tiporecurso (idtipo);
 ALTER TABLE reserva
 ADD FOREIGN KEY (recurso) REFERENCES recursos (id_recursos);
 
@@ -82,27 +81,13 @@ alter table ubicacion
 
 --POBLAR
 insert into ubicacion (idubicacion,nombre) values (1,'BloqueG');
+insert into ubicacion (idubicacion,nombre) values (2,'BloqueB');
+insert into ubicacion (idubicacion,nombre) values (3,'BiliotecaJorgeAlvarez');
 insert into tiporecurso (idtipo,nombre) values (2,'Saladeestudio');
 INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso)
 VALUES (6,'libro','BloqueG',1,'05:00:00','06:00:00',true,'Saladeestudio');
 
 
-
-
---DROP
-drop TABLE usuarios cascade;
-drop TABLE recursos cascade;
-DROP TABLE tipousuario cascade;
-DROP TABLE ubicacion cascade;
-DROP TABLE tiporecurso cascade;
-drop table reserva cascade;
-
---DELETE
-ADD FOREIGN KEY (ubicacion) REFERENCES ubicacion (idubicacion);
-ALTER TABLE recursos
-ADD FOREIGN KEY (tiporecurso) REFERENCES tiporecurso (idtipo);
-ALTER TABLE reserva
-ADD FOREIGN KEY (recurso) REFERENCES recursos (id_recursos);
 
 
 
@@ -121,13 +106,12 @@ INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,tiporecurso,fecha,h
 VALUES (4,'sala','bibliotecaa1',8,'sala','2020-11-11','13:00:00','15:00:00');
 
 --DROP
-DROP TABLE usuarios;
-DROP TABLE recursos;
-DROP TABLE tipousuario;
-DROP TABLE ubicacion;
-DROP TABLE tiporecurso;
-drop table reserva;
-
+drop TABLE usuarios cascade;
+drop TABLE recursos cascade;
+DROP TABLE tipousuario cascade;
+DROP TABLE ubicacion cascade;
+DROP TABLE tiporecurso cascade;
+drop table reserva cascade;
 --DELETE
 Delete from recursos;
 delete from usuarios;
