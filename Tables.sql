@@ -16,15 +16,12 @@ id_recursos INT NOT NULL,
 nombre VARCHAR(20) NOT NULL,
 ubicacion VARCHAR(20) NOT NULL,
 capacidad INT NOT NULL,
-<<<<<<< HEAD
 horario_inicial DATE not null,
 horario_final DATE not null,
 disponibilidad BOOLEAN NOT null,
-=======
 disponibilidad BOOLEAN NOT null,
 horario_inicial TIME not null,
 horario_final TIME not null,
->>>>>>> ad099caa1d32ee0259aea30f18cbaa92f70eaa5c
 tiporecurso VARCHAR(20) NOT NULL
 );
 
@@ -58,11 +55,8 @@ ALTER TABLE usuarios ADD CONSTRAINT pk_usuario PRIMARY KEY (documento);
 ALTER TABLE recursos ADD CONSTRAINT pk_recursos PRIMARY KEY (id_recursos);
 ALTER TABLE TipoUsuario  ADD CONSTRAINT pk_tipousuario PRIMARY KEY (id);
 ALTER TABLE Tiporecurso ADD CONSTRAINT pk_tiporecurso PRIMARY KEY (idtipo);
-<<<<<<< HEAD
 ALTER TABLE ubicacion  ADD CONSTRAINT pk_tipoubicacion PRIMARY KEY (nombre);
-=======
 ALTER TABLE ubicacion  ADD CONSTRAINT pk_tipoubicacion PRIMARY KEY (idubicacion);
->>>>>>> ad099caa1d32ee0259aea30f18cbaa92f70eaa5c
 ALTER TABLE reserva  ADD CONSTRAINT pk_reserva PRIMARY KEY (id_reserva);
 
 
@@ -75,7 +69,6 @@ ADD FOREIGN KEY (tipousuario) REFERENCES tipousuario (id);
 ALTER TABLE usuarios
 ADD FOREIGN KEY (reserva) REFERENCES reserva (id_reserva);
 ALTER TABLE recursos
-<<<<<<< HEAD
 ADD FOREIGN KEY (ubicacion) REFERENCES ubicacion (nombre);
 ALTER TABLE recursos
 ADD FOREIGN KEY (tiporecurso) REFERENCES tiporecurso (nombre);
@@ -108,7 +101,6 @@ DROP TABLE tiporecurso cascade;
 drop table reserva cascade;
 
 --DELETE
-=======
 ADD FOREIGN KEY (ubicacion) REFERENCES ubicacion (idubicacion);
 ALTER TABLE recursos
 ADD FOREIGN KEY (tiporecurso) REFERENCES tiporecurso (idtipo);
@@ -139,8 +131,7 @@ DROP TABLE ubicacion;
 DROP TABLE tiporecurso;
 drop table reserva;
 
---DELETE 
->>>>>>> ad099caa1d32ee0259aea30f18cbaa92f70eaa5c
+--DELETE
 Delete from recursos;
 delete from usuarios;
 delete from tipousuario;

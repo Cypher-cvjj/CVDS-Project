@@ -84,80 +84,78 @@ public class RecursoBean extends BasePageBean {
         }
     }
 
-<<<<<<< HEAD
     public ECILibraryServices getEciLibraryServices() {
         return eciLibraryServices;
-=======
-    public void cambiarEstadoRecurso(Recurso recurso){
-        try{
+    }
 
-        }catch (Exception e){
-            e.printStackTrace();
+        public void cambiarEstadoRecurso (Recurso recurso){
+            try {
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+
+
+        public void setEciLibraryServices (ECILibraryServices eciLibraryServices){
+            this.eciLibraryServices = eciLibraryServices;
+        }
+
+
+        public TipoRecurso getTypeRecursore () {
+            return typeRecursore;
+        }
+
+        public void setTypeRecursore (TipoRecurso typeRecursore){
+            this.typeRecursore = typeRecursore;
+        }
+
+        public Ubicacion getUbicacion () {
+            return ubicacion;
+        }
+
+        public void setUbicacion (Ubicacion ubicacion){
+            this.ubicacion = ubicacion;
+        }
+
+        public int getId () {
+            return id;
+        }
+
+        public void setId ( int id){
+            this.id = id;
+        }
+
+        public Date getTime1 () {
+            return time1;
+        }
+
+        public void setTime1 (Date time1){
+            this.time1 = time1;
+        }
+
+        public Date getTime2 () {
+            return time2;
+        }
+
+        public void setTime2 (Date time2){
+            this.time2 = time2;
+        }
+
+        public List<SelectItem> getListaUbicaciones () {
+            return listaUbicaciones;
+        }
+
+        public void setListaUbicaciones (List < SelectItem > listaUbicaciones) {
+            this.listaUbicaciones = listaUbicaciones;
+        }
+
+        public List<SelectItem> getListaTipoRecursos () {
+            return listaTipoRecursos;
+        }
+
+        public void setListaTipoRecursos (List < SelectItem > listaTipoRecursos) {
+            this.listaTipoRecursos = listaTipoRecursos;
         }
     }
-
-    public String[] getTypeRecurso() {
-        return typeRecurso;
->>>>>>> ad099caa1d32ee0259aea30f18cbaa92f70eaa5c
-    }
-
-    public void setEciLibraryServices(ECILibraryServices eciLibraryServices) {
-        this.eciLibraryServices = eciLibraryServices;
-    }
-
-    public TipoRecurso getTypeRecursore() {
-        return typeRecursore;
-    }
-
-    public void setTypeRecursore(TipoRecurso typeRecursore) {
-        this.typeRecursore = typeRecursore;
-    }
-
-    public Ubicacion getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(Ubicacion ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public List<SelectItem> getListaUbicaciones() {
-        return listaUbicaciones;
-    }
-
-    public void setListaUbicaciones(List<SelectItem> listaUbicaciones) {
-        this.listaUbicaciones = listaUbicaciones;
-    }
-
-    public List<SelectItem> getListaTipoRecursos() {
-        return listaTipoRecursos;
-    }
-
-    public void setListaTipoRecursos(List<SelectItem> listaTipoRecursos) {
-        this.listaTipoRecursos = listaTipoRecursos;
-    }
-
-    public Date getTime1() {
-        return time1;
-    }
-
-    public void setTime1(Date time1) {
-        this.time1 = time1;
-    }
-
-    public Date getTime2() {
-        return time2;
-    }
-
-    public void setTime2(Date time2) {
-        this.time2 = time2;
-    }
-}
