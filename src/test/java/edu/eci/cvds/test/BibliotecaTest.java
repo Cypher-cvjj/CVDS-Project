@@ -34,7 +34,6 @@ public class BibliotecaTest {
         Date horaInicio = fechaHora.parse("11:30");
         DateFormat fechaHora1 = new SimpleDateFormat("HH:mm");
         Date horaFinal = fechaHora1.parse("12:30");
-        LocalDate fecha = LocalDate.of(2022, Month.APRIL,16);
         List<Recurso> listarecursos = eciLibraryServices.consultarRecursos();
         int long1 = listarecursos.size();
         int id = (int) Math.floor(Math.random()*(2000-1000+1)+2000);

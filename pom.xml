@@ -20,6 +20,7 @@
     </properties>
 
     <dependencies>
+
         <!--default-->
         <dependency>
             <groupId>junit</groupId>

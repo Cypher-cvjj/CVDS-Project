@@ -65,6 +65,9 @@
         <p:calendar id="time2" value="#{RecursoBean.time2}" pattern="HH:mm" timeOnly="true"  />
         <br></br>
         <div>
+            <p:commandButton update="recurso_form" class="Button" actionListener="#{RecursoBean.crearlistas()}" value="prueba"/>
+        </div>
+        <div>
             <p:commandButton update="recurso_form" class="Button" actionListener="#{RecursoBean.registrarRecursos(id.value,nombre.value,capacidad.value,disponibilidad.value)}" value="Registrar Recurso"/>
         </div>
 

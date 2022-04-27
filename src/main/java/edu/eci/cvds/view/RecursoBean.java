@@ -11,31 +11,82 @@ import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
 import java.sql.Time;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Month;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 @ManagedBean(name = "RecursoBean")
-@RequestScoped
+@SessionScoped
 public class RecursoBean extends BasePageBean {
+
 
     @Inject
     private ECILibraryServices eciLibraryServices;
 
     private TipoRecurso typeRecursore;
     private Ubicacion ubicacion;
-    private int id;
     private Date time1;
     private Date time2;
 
     private List<SelectItem> listaUbicaciones;
     private List<SelectItem> listaTipoRecursos;
 
-    @PostConstruct
-    public void init(){
+
+    /**
+     * consultar los recursos de la biblioteca
+     *
+     * @return lista de recursos
+     * @throws BibliotecaException
+     */
+    public List<Recurso> consultarRecursos() throws BibliotecaException {
+        List<Recurso> recursos = new ArrayList<>();
+        try {
+            recursos = eciLibraryServices.consultarRecursos();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recursos;
+    }
+
+
+    public void registrarRecursos(int id,String nombre,int capacidad,boolean disponiblidad) throws ParseException {
+        System.out.println("entro");
+        System.out.println(time1);
+        System.out.println(time2);
+        System.out.println(ubicacion);
+        System.out.println(disponiblidad);
+        System.out.println(typeRecursore);
+        DateFormat fechaHora = new SimpleDateFormat("HH:mm");
+        try {
+            eciLibraryServices.registrarRecursos(new Recurso(id,nombre,ubicacion,capacidad, time1, time2,disponiblidad,typeRecursore));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO , "registro exitoso", null));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public ECILibraryServices getEciLibraryServices() {
+        return this.eciLibraryServices;
+    }
+
+    public void cambiarEstadoRecurso (Recurso recurso){
+        try {
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void crearlistas(){
         //
         listaUbicaciones = new ArrayList<SelectItem>();
         int j=0;
@@ -58,49 +109,14 @@ public class RecursoBean extends BasePageBean {
         time1= new Date();
         time2 = new Date();
     }
-    /**
-     * consultar los recursos de la biblioteca
-     *
-     * @return lista de recursos
-     * @throws BibliotecaException
-     */
-    public List<Recurso> consultarRecursos() throws BibliotecaException {
-        List<Recurso> recursos = new ArrayList<>();
-        try {
-            recursos = eciLibraryServices.consultarRecursos();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return recursos;
-    }
-
-
-    public void registrarRecursos(int id,String nombre,int capacidad,boolean disponiblidad) {
-        try {
-            eciLibraryServices.registrarRecursos(new Recurso(id,nombre,ubicacion,capacidad, time1, time2,disponiblidad,typeRecursore));
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO , "registro exitoso", null));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    public ECILibraryServices getEciLibraryServices() {
-        return eciLibraryServices;
-    }
-
-        public void cambiarEstadoRecurso (Recurso recurso){
-            try {
-
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
 
 
 
-        public void setEciLibraryServices (ECILibraryServices eciLibraryServices){
+
+
+    public void setEciLibraryServices (ECILibraryServices eciLibraryServices){
             this.eciLibraryServices = eciLibraryServices;
-        }
+    }
 
 
         public TipoRecurso getTypeRecursore () {
@@ -119,13 +135,6 @@ public class RecursoBean extends BasePageBean {
             this.ubicacion = ubicacion;
         }
 
-        public int getId () {
-            return id;
-        }
-
-        public void setId ( int id){
-            this.id = id;
-        }
 
         public Date getTime1 () {
             return time1;
@@ -158,4 +167,5 @@ public class RecursoBean extends BasePageBean {
         public void setListaTipoRecursos (List < SelectItem > listaTipoRecursos) {
             this.listaTipoRecursos = listaTipoRecursos;
         }
-    }
+
+}

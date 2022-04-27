@@ -14,15 +14,12 @@ CREATE TABLE recursos(
 
 id_recursos INT NOT NULL,
 nombre VARCHAR(20) NOT NULL,
-ubicacion VARCHAR(20) NOT NULL,
+ubicacion VARCHAR(50) NOT NULL,
 capacidad INT NOT NULL,
 horario_inicial DATE not null,
 horario_final DATE not null,
 disponibilidad BOOLEAN NOT null,
-disponibilidad BOOLEAN NOT null,
-horario_inicial TIME not null,
-horario_final TIME not null,
-tiporecurso VARCHAR(20) NOT NULL
+tiporecurso VARCHAR(50) NOT NULL
 );
 
 create table tiporecurso(
