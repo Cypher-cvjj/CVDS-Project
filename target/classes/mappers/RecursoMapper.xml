@@ -7,7 +7,6 @@
         <result property='nombre' column='nombre'/>
         <result property='ubicacion' column='ubicacion'/>
         <result property='capacidad' column='capacidad'/>
-        <result property='fecha' column='fecha'/>
         <result property='horario_inicial' column='horario_inicial'/>
         <result property='horario_final' column='horario_final'/>
         <result property='disponibilidad' column='disponibilidad'/>
@@ -19,7 +18,6 @@
             r.nombre,
             r.ubicacion,
             r.capacidad,
-            r.fecha,
             r.horario_inicial,
             r.horario_final,
             r.disponibilidad,
@@ -29,8 +27,8 @@
     </select>
     <insert id="agregarRecursos" parameterType="edu.eci.cvds.entities.Recurso">
         INSERT INTO Recursos(
-        id_recursos,nombre,ubicacion,capacidad,fecha,horario_inicial,horario_final,disponibilidad,tiporecurso
+        id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso
         ) VALUES(
-        #{Recurso.id}, #{Recurso.nombre},#{Recurso.ubicacion},#{Recurso.capacidad},#{Recurso.fecha},#{Recurso.horario_inicial},#{Recurso.horario_final},#{Recurso.disponibilidad},#{Recurso.tiporecurso});
+        #{Recurso.id}, #{Recurso.nombre},#{Recurso.ubicacion},#{Recurso.capacidad},#{Recurso.horario_inicial},#{Recurso.horario_final},#{Recurso.disponibilidad},#{Recurso.tiporecurso});
     </insert>
 </mapper>

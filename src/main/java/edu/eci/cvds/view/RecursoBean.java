@@ -3,15 +3,19 @@ package edu.eci.cvds.view;
 import com.google.inject.Inject;
 import edu.eci.cvds.Exceptions.BibliotecaException;
 import edu.eci.cvds.entities.Recurso;
+import edu.eci.cvds.entities.TipoRecurso;
+import edu.eci.cvds.entities.Ubicacion;
 import edu.eci.cvds.services.ECILibraryServices;
 
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.faces.model.SelectItem;
 import java.sql.Time;
-import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @ManagedBean(name = "RecursoBean")
@@ -21,17 +25,39 @@ public class RecursoBean extends BasePageBean {
     @Inject
     private ECILibraryServices eciLibraryServices;
 
-    //recursos disponibles
-    private String[] typeRecurso = {"Equipo de computo","Sala de estudio","Equipos de multimedia",};
-    //disponibilidad de recursos
-    private String[] dispoRecursos = {"Disponible","No disponble","Daño"};
-    //ubicacion
-    private String[] ubicaciones = {"Bibilioteca Jorge Alvarez","Biblioteca bloque g","salas  bloque b"};
-    private String typeRecursore;
-    private String dispoRecursosre;
-    private String ubicacion;
+    private TipoRecurso typeRecursore;
+    private Ubicacion ubicacion;
     private int id;
+    private Date time1;
+    private Date time2;
 
+    private List<SelectItem> listaUbicaciones;
+    private List<SelectItem> listaTipoRecursos;
+
+    @PostConstruct
+    public void init(){
+        //
+        listaUbicaciones = new ArrayList<SelectItem>();
+        int j=0;
+        for(Ubicacion u: Ubicacion.values()) {
+            if(j<Ubicacion.values().length) {
+                listaUbicaciones.add(new SelectItem(u, u.getLabel()));
+                j += 1;
+            }
+        }
+        //
+        listaTipoRecursos = new ArrayList<SelectItem>();
+        int i=0;
+        for(TipoRecurso r: TipoRecurso.values()) {
+            if(i<TipoRecurso.values().length) {
+                listaTipoRecursos.add(new SelectItem(r, r.getLabel()));
+                i += 1;
+            }
+        }
+
+        time1= new Date();
+        time2 = new Date();
+    }
     /**
      * consultar los recursos de la biblioteca
      *
@@ -49,64 +75,36 @@ public class RecursoBean extends BasePageBean {
     }
 
 
-    public void registrarRecurso(String nombre,int capacidad, String fecha, String horario_inicial, String horario_final) {
+    public void registrarRecursos(int id,String nombre,int capacidad,boolean disponiblidad) {
         try {
-            java.sql.Time horainical = java.sql.Time.valueOf(horario_inicial);
-            java.sql.Time horafinal = java.sql.Time.valueOf(horario_final);
-            LocalDate fechas = LocalDate.parse(horario_final);
-            int id = (int) Math.floor(Math.random()*(90-11+1)+90);
-            eciLibraryServices.registrarRecursos(new Recurso(id,nombre,ubicacion,capacidad,fechas,horainical,horafinal,dispoRecursosre,typeRecursore));
+            eciLibraryServices.registrarRecursos(new Recurso(id,nombre,ubicacion,capacidad, time1, time2,disponiblidad,typeRecursore));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO , "registro exitoso", null));
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public String[] getTypeRecurso() {
-        return typeRecurso;
+    public ECILibraryServices getEciLibraryServices() {
+        return eciLibraryServices;
     }
 
-    public void setTypeRecurso(String[] typeRecurso) {
-        this.typeRecurso = typeRecurso;
+    public void setEciLibraryServices(ECILibraryServices eciLibraryServices) {
+        this.eciLibraryServices = eciLibraryServices;
     }
 
-    public String[] getDispoRecursos() {
-        return dispoRecursos;
-    }
-
-    public void setDispoRecursos(String[] dispoRecursos) {
-        this.dispoRecursos = dispoRecursos;
-    }
-
-    public String[] getUbicaciones() {
-        return ubicaciones;
-    }
-
-    public void setUbicaciones(String[] ubicaciones) {
-        this.ubicaciones = ubicaciones;
-    }
-
-    public String getTypeRecursore() {
+    public TipoRecurso getTypeRecursore() {
         return typeRecursore;
     }
 
-    public void setTypeRecursore(String typeRecursore) {
+    public void setTypeRecursore(TipoRecurso typeRecursore) {
         this.typeRecursore = typeRecursore;
     }
 
-    public String getDispoRecursosre() {
-        return dispoRecursosre;
-    }
-
-    public void setDispoRecursosre(String dispoRecursosre) {
-        this.dispoRecursosre = dispoRecursosre;
-    }
-
-    public String getUbicacion() {
+    public Ubicacion getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(String ubicacion) {
+    public void setUbicacion(Ubicacion ubicacion) {
         this.ubicacion = ubicacion;
     }
 
@@ -116,5 +114,37 @@ public class RecursoBean extends BasePageBean {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public List<SelectItem> getListaUbicaciones() {
+        return listaUbicaciones;
+    }
+
+    public void setListaUbicaciones(List<SelectItem> listaUbicaciones) {
+        this.listaUbicaciones = listaUbicaciones;
+    }
+
+    public List<SelectItem> getListaTipoRecursos() {
+        return listaTipoRecursos;
+    }
+
+    public void setListaTipoRecursos(List<SelectItem> listaTipoRecursos) {
+        this.listaTipoRecursos = listaTipoRecursos;
+    }
+
+    public Date getTime1() {
+        return time1;
+    }
+
+    public void setTime1(Date time1) {
+        this.time1 = time1;
+    }
+
+    public Date getTime2() {
+        return time2;
+    }
+
+    public void setTime2(Date time2) {
+        this.time2 = time2;
     }
 }
