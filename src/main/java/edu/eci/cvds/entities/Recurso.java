@@ -15,10 +15,17 @@ public class Recurso implements Serializable {
     private String nombre;
     private Ubicacion ubicacion;
     private int capacidad;
+<<<<<<< HEAD
     private Date horario_inicial;
     private Date horario_final;
     private boolean disponibilidad;
     private TipoRecurso tiporecurso;
+=======
+    private Time horario_inicial;
+    private Time horario_final;
+    private String disponibilidad;
+    private String tiporecurso;
+>>>>>>> ad099caa1d32ee0259aea30f18cbaa92f70eaa5c
 
     public Recurso(){
         this.ubicacion = Ubicacion.BloqueG;
@@ -37,7 +44,6 @@ public class Recurso implements Serializable {
         this.tiporecurso=tiporecurso;
 
     }
-
 
     @Override
     public String toString() {
@@ -59,8 +65,12 @@ public class Recurso implements Serializable {
         this.capacidad = capacidad;
     }
 
+<<<<<<< HEAD
 
     public Date getHorario_inicial(){
+=======
+    public Time getHorario_inicial(){
+>>>>>>> ad099caa1d32ee0259aea30f18cbaa92f70eaa5c
         return horario_inicial;
     }
 
@@ -73,7 +83,10 @@ public class Recurso implements Serializable {
     }
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> ad099caa1d32ee0259aea30f18cbaa92f70eaa5c
     public void setHorario_inicial(Time horario_inicial) {
         this.horario_inicial = horario_inicial;
     }

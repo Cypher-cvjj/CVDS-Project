@@ -84,8 +84,21 @@ public class RecursoBean extends BasePageBean {
         }
     }
 
+<<<<<<< HEAD
     public ECILibraryServices getEciLibraryServices() {
         return eciLibraryServices;
+=======
+    public void cambiarEstadoRecurso(Recurso recurso){
+        try{
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public String[] getTypeRecurso() {
+        return typeRecurso;
+>>>>>>> ad099caa1d32ee0259aea30f18cbaa92f70eaa5c
     }
 
     public void setEciLibraryServices(ECILibraryServices eciLibraryServices) {
