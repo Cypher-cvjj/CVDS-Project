@@ -80,7 +80,7 @@ public class RecursoBean extends BasePageBean {
 
     public void cambiarEstadoRecurso (Recurso recurso){
         try {
-
+            eciLibraryServices.cambiarEstadoRecurso(recurso);
         } catch (Exception e) {
             e.printStackTrace();
         }
