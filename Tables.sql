@@ -23,7 +23,7 @@ tiporecurso VARCHAR(50) NOT NULL
 );
 
 create table tiporecurso(
-idtipo VARCHAR(20) not null,
+idtipo VARCHAR(50) not null,
 nombre VARCHAR(50) not NULL
 );
 
@@ -61,15 +61,15 @@ ALTER TABLE usuarios ADD CONSTRAINT uk_correo UNIQUE (correo);
 
 --FK
 ALTER TABLE usuarios
-ADD FOREIGN KEY (tipousuario) REFERENCES tipousuario (id);
+ADD constraint usuarios_tipo FOREIGN KEY (tipousuario) REFERENCES tipousuario (id);
 ALTER TABLE usuarios
-ADD FOREIGN KEY (reserva) REFERENCES reserva (id_reserva);
+ADD constraint usuarios_reserva FOREIGN KEY (reserva) REFERENCES reserva (id_reserva);
 ALTER TABLE recursos
-ADD FOREIGN KEY (ubicacion) REFERENCES ubicacion (nombre);
+ADD constraint recursos_ubicacion FOREIGN KEY (ubicacion) REFERENCES ubicacion (nombre);
 ALTER TABLE recursos
-ADD FOREIGN KEY (tiporecurso) REFERENCES tiporecurso (idtipo);
+ADD constraint recursos_tiporecurso FOREIGN KEY (tiporecurso) REFERENCES tiporecurso (idtipo);
 ALTER TABLE reserva
-ADD FOREIGN KEY (recurso) REFERENCES recursos (id_recursos);
+ADD constraint reserva_recurso FOREIGN KEY (recurso) REFERENCES recursos (id_recursos);
 
 --Atributos
 alter table ubicacion
@@ -83,18 +83,16 @@ alter table ubicacion
 insert into ubicacion (idubicacion,nombre) values (1,'BloqueG');
 insert into ubicacion (idubicacion,nombre) values (2,'BloqueB');
 insert into ubicacion (idubicacion,nombre) values (3,'BibliotecaJorgeAlvarez');
+insert into tiporecurso (idtipo,nombre) values (1,'libro');
 insert into tiporecurso (idtipo,nombre) values (2,'Saladeestudio');
 INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso)
-VALUES (6,'libro','BloqueG',1,'05:00:00','06:00:00',true,'Saladeestudio');
-
-
-
+VALUES (6,'libro','BloqueG',1,'2021-12-13','2021-12-14',true,'1');
 
 
 
 --POBLAR
-INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,tiporecurso)
-VALUES (1,'libro','biblioteca1',1,'05:00:00','06:00:00','libro');
+INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad ,tiporecurso)
+VALUES (1,'libro','BloqueG',1,'2021-12-13','2021-12-14',true,'libro');
 
 INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,tiporecurso)
 VALUES (3,'Computador','biblioteca2',1,'10:00:00','12:00:00','computador');

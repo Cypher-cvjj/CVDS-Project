@@ -4,7 +4,7 @@ package edu.eci.cvds.entities;
 import java.io.Serializable;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * clase que representa un recurso
