@@ -75,14 +75,14 @@ ADD FOREIGN KEY (recurso) REFERENCES recursos (id_recursos);
 alter table ubicacion
 	add CONSTRAINT CK_ubicacion_recurso
 		check (
-				nombre in ('BloqueG','BibliotecJorgeAlvarez','BloqueB')
+				nombre in ('BloqueG','BibliotecaJorgeAlvarez','BloqueB')
 );
 
 
 --POBLAR
 insert into ubicacion (idubicacion,nombre) values (1,'BloqueG');
 insert into ubicacion (idubicacion,nombre) values (2,'BloqueB');
-insert into ubicacion (idubicacion,nombre) values (3,'BiliotecaJorgeAlvarez');
+insert into ubicacion (idubicacion,nombre) values (3,'BibliotecaJorgeAlvarez');
 insert into tiporecurso (idtipo,nombre) values (2,'Saladeestudio');
 INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso)
 VALUES (6,'libro','BloqueG',1,'05:00:00','06:00:00',true,'Saladeestudio');
@@ -93,17 +93,17 @@ VALUES (6,'libro','BloqueG',1,'05:00:00','06:00:00',true,'Saladeestudio');
 
 
 --POBLAR
-INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,tiporecurso,fecha,horario_inicial,horario_final)
-VALUES (1,'libro','biblioteca1',1,'libro','2020-11-11','05:00:00','06:00:00');
+INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,tiporecurso)
+VALUES (1,'libro','biblioteca1',1,'05:00:00','06:00:00','libro');
 
-INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,tiporecurso,fecha,horario_inicial,horario_final)
-VALUES (3,'Computador','biblioteca2',1,'computador','2020-11-11','10:00:00','12:00:00');
+INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,tiporecurso)
+VALUES (3,'Computador','biblioteca2',1,'10:00:00','12:00:00','computador');
 
-INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,tiporecurso,fecha,horario_inicial,horario_final)
-VALUES (2,'libro2','biblioteca2',1,'libro','2020-11-11','07:00:00','10:00:00');
+INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,tiporecurso)
+VALUES (2,'libro2','biblioteca2',1,'07:00:00','10:00:00','libro');
 
-INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,tiporecurso,fecha,horario_inicial,horario_final)
-VALUES (4,'sala','bibliotecaa1',8,'sala','2020-11-11','13:00:00','15:00:00');
+INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,tiporecurso)
+VALUES (4,'sala','bibliotecaa1',8,'13:00:00','15:00:00','sala');
 
 --DROP
 drop TABLE usuarios cascade;

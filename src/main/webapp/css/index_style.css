@@ -11,6 +11,15 @@ header{
     padding: 10px;
 }
 
+footer{
+    display: flex;
+    height : 110px;
+    background-image:linear-gradient(to right,rgb(252,106,106), rgb(255,31,31) );
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+}
+
 a{
     text-decoration: none;
     color: black;
