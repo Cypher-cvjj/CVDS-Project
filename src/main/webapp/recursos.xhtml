@@ -26,38 +26,50 @@
             color:black;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="./css/index_style.css"/>
 </h:head>
 <h:body>
-    <center><h1>Recursos Biblioteca</h1></center>
+    <header>
+        <div class="arrib">
+        <img src="./Images/icon.png"/>
+        <h2 class="titulo">Recursos Biblioteca</h2>
+    </div>
+    <nav>
+        <a href="./CVDS.Project/login.xhtml" class="nav-link">Iniciar Sesion</a>
+    </nav>
+    </header>
     <h:form>
         <p:dataTable id = "resourses" var="recursos" value="#{RecursoBean.consultarRecursos()}" >
 
-            <p:column headerText="Id" sortBy ="#{recursos.id}" filterBy="#{recursos.id}" filterMatchMode = "contains" >
+            <p:column headerText="Id">
                 <h:outputText value="#{recursos.id}" />
             </p:column>
 
-            <p:column headerText="Tiporecurso" sortBy ="#{recursos.tiporecurso}" filterBy="#{recursos.tiporecurso}" filterMatchMode = "contains">
-                <h:outputText value="#{recursos.tiporecurso}" />
-            </p:column>
 
-            <p:column headerText="Nombre" sortBy ="#{recursos.nombre}" filterBy="#{recursos.nombre}" filterMatchMode = "contains">
+            <p:column headerText="Nombre">
                 <h:outputText value="#{recursos.nombre}" />
             </p:column>
 
-            <p:column headerText="Ubicacion" sortBy ="#{recursos.ubicacion}" filterBy="#{recursos.ubicacion}" filterMatchMode = "contains">
+            <p:column headerText="Ubicacion" filterBy="#{recursos.ubicacion}" filterMatchMode = "contains">
                 <h:outputText value="#{recursos.ubicacion}" />
+            </p:column>
+
+            <p:column headerText="Tiporecurso" filterBy="#{recursos.tiporecurso}" filterMatchMode = "contains">
+                <h:outputText value="#{recursos.tiporecurso}" />
             </p:column>
 
             <p:column headerText="Disponibilidad">
                 <h:outputText value="#{recursos.disponibilidad}" />
             </p:column>
 
-            <p:column headerText="Capacidad" sortBy ="#{recursos.capacidad}" filterBy="#{recursos.capacidad}" filterMatchMode = "contains">
+            <p:column headerText="Capacidad" filterBy="#{recursos.capacidad}" filterMatchMode = "contains">
                 <h:outputText value="#{recursos.capacidad}" />
             </p:column>
 
-            <p:column headerText="Horarios">
-                <p:commandButton value="Seleccionar"  action="horarios?faces-redirect = true" />
+            <p:column headerText="Horas">
+                <h:outputText value="#{recursos.horario_inicial}"/>
+                <br></br>
+                <h:outputText value="#{recursos.horario_final}"/>
             </p:column>
         </p:dataTable>
     </h:form>

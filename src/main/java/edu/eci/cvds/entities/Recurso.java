@@ -13,22 +13,27 @@ public class Recurso implements Serializable {
 
     private int id;
     private String nombre;
-    private String ubicacion;
+    private Ubicacion ubicacion;
     private int capacidad;
-    private LocalDate fecha;
-    private Time horario_inicial;
-    private Time horario_final;
-    private String disponibilidad;
-    private String tiporecurso;
 
-    public Recurso(){super();}
+    private Date horario_inicial;
+    private Date horario_final;
+    private boolean disponibilidad;
+    private TipoRecurso tiporecurso;
 
-    public Recurso(int id, String nombre, String ubicacion, int capacidad, LocalDate fecha, Time horario_inicial, Time horario_final,String disponibilidad,String tiporecurso){
+
+
+    public Recurso(){
+        this.ubicacion = Ubicacion.BloqueG;
+        this.nombre = "";
+        this.disponibilidad = true;
+    }
+
+    public Recurso(int id, String nombre, Ubicacion ubicacion, int capacidad, Date horario_inicial, Date horario_final,boolean disponibilidad,TipoRecurso tiporecurso){
         this.id = id;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
         this.capacidad = capacidad;
-        this.fecha = fecha;
         this.horario_inicial=horario_inicial;
         this.horario_final=horario_final;
         this.disponibilidad=disponibilidad;
@@ -36,58 +41,9 @@ public class Recurso implements Serializable {
 
     }
 
-
     @Override
     public String toString() {
-        return "Recurso{" + " id= " + id + " nombre= " + nombre + " ubicacion= " + ubicacion + " capacidad= "+ capacidad +  " fecha = " + fecha + " Hora_inicial= " + horario_inicial + " Hora_final= " + horario_final + " disponibilidad= " + disponibilidad + " tipo= " + tiporecurso + "}";
-    }
-
-    public String getNombre(){
-        return nombre;
-    }
-
-    public String getUbicacion(){
-        return ubicacion;
-    }
-
-    public int getCapacidad() {
-        return capacidad;
-    }
-
-    public void setCapacidad(int capacidad) {
-        this.capacidad = capacidad;
-    }
-
-    public LocalDate getFecha(){
-        return fecha;
-    }
-
-    public Time getHorario_inicial(){
-        return horario_inicial;
-    }
-
-    public Time getHorario_final(){
-        return horario_final;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public void setUbicacion(String ubicacion) {
-        this.ubicacion = ubicacion;
-    }
-
-    public void setFecha(LocalDate fecha) {
-        this.fecha = fecha;
-    }
-
-    public void setHorario_inicial(Time horario_inicial) {
-        this.horario_inicial = horario_inicial;
-    }
-
-    public void setHorario_final(Time horario_final) {
-        this.horario_final = horario_final;
+        return "Recurso{" + " id= " + id + " nombre= " + nombre + " ubicacion= " + ubicacion + " capacidad= "+ capacidad + " Hora_inicial= " + horario_inicial + " Hora_final= " + horario_final + " disponibilidad= " + disponibilidad + " tipo= " + tiporecurso + "}";
     }
 
     public int getId() {
@@ -98,19 +54,63 @@ public class Recurso implements Serializable {
         this.id = id;
     }
 
-    public String getTiporecurso() {
-        return tiporecurso;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setTiporecurso(String tiporecurso) {
-        this.tiporecurso = tiporecurso;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getDisponibilidad() {
+    public Ubicacion getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(Ubicacion ubicacion) {
+        this.ubicacion = ubicacion;
+    }
+
+    public int getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(int capacidad) {
+        this.capacidad = capacidad;
+    }
+
+    public Date getHorario_inicial() {
+        return horario_inicial;
+    }
+
+    public void setHorario_inicial(Date horario_inicial) {
+        this.horario_inicial = horario_inicial;
+    }
+
+    public Date getHorario_final() {
+        return horario_final;
+    }
+
+    public void setHorario_final(Date horario_final) {
+        this.horario_final = horario_final;
+    }
+
+    public boolean isDisponibilidad() {
         return disponibilidad;
     }
 
-    public void setDisponibilidad(String disponibilidad) {
+    public boolean getDisponibilidad() {
+        return disponibilidad;
+    }
+
+    public void setDisponibilidad(boolean disponibilidad) {
         this.disponibilidad = disponibilidad;
+    }
+
+    public TipoRecurso getTiporecurso() {
+        return tiporecurso;
+    }
+
+    public void setTiporecurso(TipoRecurso tiporecurso) {
+        this.tiporecurso = tiporecurso;
     }
 }

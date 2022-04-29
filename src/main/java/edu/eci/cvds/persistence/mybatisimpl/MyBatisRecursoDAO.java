@@ -35,4 +35,14 @@ public class MyBatisRecursoDAO implements RecursoDAO {
         }
     }
 
+    @Override
+    public void cambiarEstadoRecurso(Recurso recurso) throws PersistenceException {
+        try{
+            recursoMapper.cambiarEstadoRecurso(recurso);
+        }catch (org.apache.ibatis.exceptions.PersistenceException e){
+            throw new PersistenceException("Error al cambiar recurso",e);
+        }
+    }
+
+
 }

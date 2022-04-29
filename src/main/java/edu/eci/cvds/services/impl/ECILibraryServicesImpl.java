@@ -38,4 +38,8 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
         }
     }
 
+    @Override
+    public void cambiarEstadoRecurso(Recurso recurso) throws BibliotecaException{
+
+    }
 }

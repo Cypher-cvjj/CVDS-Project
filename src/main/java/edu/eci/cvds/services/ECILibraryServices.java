@@ -14,4 +14,6 @@ public interface ECILibraryServices {
 
     public void registrarRecursos(Recurso recurso) throws BibliotecaException;
 
+    public void cambiarEstadoRecurso(Recurso recurso) throws  BibliotecaException;
+
 }
