@@ -14,7 +14,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -31,16 +31,17 @@ public class BibliotecaTest {
     @Test
     public void deberiaregistrarRecurso() throws BibliotecaException, ParseException {
         DateFormat fechaHora = new SimpleDateFormat("HH:mm");
-        Date horaInicio = fechaHora.parse("11:30");
+        java.util.Date horaInicio = fechaHora.parse("11:30");
         DateFormat fechaHora1 = new SimpleDateFormat("HH:mm");
-        Date horaFinal = fechaHora1.parse("12:30");
+        java.util.Date horaFinal = fechaHora1.parse("12:30");
         List<Recurso> listarecursos = eciLibraryServices.consultarRecursos();
         int long1 = listarecursos.size();
         int id = (int) Math.floor(Math.random()*(2000-1000+1)+2000);
-        eciLibraryServices.registrarRecursos(new Recurso(id,"manejo",Ubicacion.BloqueG,8,horaInicio,horaFinal,true, TipoRecurso.Equipodecomputo));
+        eciLibraryServices.registrarRecursos(new Recurso(id,"manejo","BloqueG",8,horaInicio,horaFinal,true,"Saladeestudio"));
         List<Recurso> listarecursos2 = eciLibraryServices.consultarRecursos();
         int long2 = listarecursos2.size();
         assertTrue(long2>long1);
 
     }
+
 }

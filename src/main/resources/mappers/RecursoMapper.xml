@@ -5,12 +5,17 @@
     <resultMap type='Recurso' id='RecursoResult'>
         <id property='id' column='id_recursos'/>
         <result property='nombre' column='nombre'/>
-        <result property='ubicacion' column='ubicacion'/>
         <result property='capacidad' column='capacidad'/>
         <result property='horario_inicial' column='horario_inicial'/>
         <result property='horario_final' column='horario_final'/>
         <result property='disponibilidad' column='disponibilidad'/>
-        <result property='tiporecurso' column='tiporecurso'/>
+        <result property="ubicacion" column="ubicacion"/>
+        <result property="tiporecurso" column="tiporecurso"/>
+
+        <!--
+        <association property="tiporecurso" javaType="TipoRecurso" resultMap="edu.eci.cvds.persistence.mappers.TipoRecursoMapper.TipoRecursoResult"/>
+        <association property="ubicacion" javaType="ubicacion" resultMap="edu.eci.cvds.persistence.mappers.UbicacionMapper.UbicacionResult"/>
+        -->
     </resultMap>
     <select id="consultarRecursos" resultMap="RecursoResult">
             select
@@ -24,6 +29,7 @@
             r.tiporecurso
             FROM
             recursos as r
+
     </select>
     <insert id="agregarRecursos" parameterType="edu.eci.cvds.entities.Recurso">
         INSERT INTO Recursos(

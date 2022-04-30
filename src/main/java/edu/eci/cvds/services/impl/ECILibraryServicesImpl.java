@@ -4,7 +4,11 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import edu.eci.cvds.Exceptions.BibliotecaException;
 import edu.eci.cvds.entities.Recurso;
+import edu.eci.cvds.entities.TipoRecurso;
+import edu.eci.cvds.entities.Ubicacion;
 import edu.eci.cvds.persistence.RecursoDAO;
+import edu.eci.cvds.persistence.TipoRecursoDAO;
+import edu.eci.cvds.persistence.UbicacionDAO;
 import edu.eci.cvds.services.ECILibraryServices;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.mybatis.guice.transactional.Transactional;
@@ -19,12 +23,36 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
     @Inject
     private RecursoDAO RecursoDAO;
 
+    @Inject
+    private TipoRecursoDAO tipoRecursoDAO;
+
+    @Inject
+    private UbicacionDAO ubicacionDAO;
+
     @Override
     public List<Recurso> consultarRecursos() throws BibliotecaException {
         try{
             return RecursoDAO.consultarRecursos();
         }catch (PersistenceException ex){
             throw new BibliotecaException("Error al consultar recursos",ex);
+        }
+    }
+
+    @Override
+    public List<TipoRecurso> consultarTiporec() throws BibliotecaException {
+        try {
+            return tipoRecursoDAO.consultarTiporec();
+        }catch (PersistenceException ex){
+            throw new BibliotecaException("Error al consultar tipo de recursos",ex);
+        }
+    }
+
+    @Override
+    public List<Ubicacion> consultarUbicacion() throws BibliotecaException {
+        try {
+            return ubicacionDAO.consultarUbicacion();
+        }catch (PersistenceException ex){
+            throw new BibliotecaException("Error al consultar ubicaciones",ex);
         }
     }
 

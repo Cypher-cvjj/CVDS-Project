@@ -13,23 +13,20 @@ public class Recurso implements Serializable {
 
     private int id;
     private String nombre;
-    private Ubicacion ubicacion;
+    private String ubicacion;
     private int capacidad;
 
     private Date horario_inicial;
     private Date horario_final;
     private boolean disponibilidad;
-    private TipoRecurso tiporecurso;
+    private String tiporecurso;
 
 
 
-    public Recurso(){
-        this.ubicacion = Ubicacion.BloqueG;
-        this.nombre = "";
-        this.disponibilidad = true;
-    }
+    public Recurso(){super();}
 
-    public Recurso(int id, String nombre, Ubicacion ubicacion, int capacidad, Date horario_inicial, Date horario_final,boolean disponibilidad,TipoRecurso tiporecurso){
+
+    public Recurso(int id, String nombre, String ubicacion, int capacidad, Date horario_inicial, Date horario_final,boolean disponibilidad,String tiporecurso){
         this.id = id;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
@@ -62,11 +59,11 @@ public class Recurso implements Serializable {
         this.nombre = nombre;
     }
 
-    public Ubicacion getUbicacion() {
+    public String getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(Ubicacion ubicacion) {
+    public void setUbicacion(String ubicacion) {
         this.ubicacion = ubicacion;
     }
 
@@ -106,11 +103,11 @@ public class Recurso implements Serializable {
         this.disponibilidad = disponibilidad;
     }
 
-    public TipoRecurso getTiporecurso() {
+    public String getTiporecurso() {
         return tiporecurso;
     }
 
-    public void setTiporecurso(TipoRecurso tiporecurso) {
+    public void setTiporecurso(String tiporecurso) {
         this.tiporecurso = tiporecurso;
     }
 }
