@@ -22,11 +22,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @ManagedBean(name = "RecursoBean")
-@SessionScoped
+@RequestScoped
 public class RecursoBean extends BasePageBean {
 
 
@@ -72,13 +72,7 @@ public class RecursoBean extends BasePageBean {
         System.out.println(typeRecursore);
 
         try {
-            DateFormat fechaHora = new SimpleDateFormat("HH:mm");
-            java.util.Date time_1 = fechaHora.parse(time1);
-            DateFormat fechaHora2 = new SimpleDateFormat("HH:mm");
-            java.util.Date time_2 = fechaHora2.parse(time2);
-            Recurso recurso = new Recurso(id,nombre, ubicacion,capacidad,time_1,time_2,disponibilidad,typeRecursore);
-            eciLibraryServices.registrarRecursos(recurso);
-            System.out.println("Recurso Agregado: "+ recurso.toString());
+
         } catch (Exception e) {
             e.printStackTrace();
         }

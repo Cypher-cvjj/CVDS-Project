@@ -9,32 +9,31 @@
         <result property='horario_inicial' column='horario_inicial'/>
         <result property='horario_final' column='horario_final'/>
         <result property='disponibilidad' column='disponibilidad'/>
-        <result property="ubicacion" column="ubicacion"/>
-        <result property="tiporecurso" column="tiporecurso"/>
-
-        <!--
-        <association property="tiporecurso" javaType="TipoRecurso" resultMap="edu.eci.cvds.persistence.mappers.TipoRecursoMapper.TipoRecursoResult"/>
-        <association property="ubicacion" javaType="ubicacion" resultMap="edu.eci.cvds.persistence.mappers.UbicacionMapper.UbicacionResult"/>
-        -->
+        <association property="tiporecurso" javaType="TipoRecurso" resultMap="edu.eci.cvds.persistence.mappers.TipoRecursoMapper.TipoRecursoResult" columnPrefix="tr_"/>
+        <association property="ubicacion" javaType="ubicacion" resultMap="edu.eci.cvds.persistence.mappers.UbicacionMapper.UbicacionResult" columnPrefix="ub_"/>
     </resultMap>
     <select id="consultarRecursos" resultMap="RecursoResult">
             select
             r.id_recursos,
             r.nombre,
-            r.ubicacion,
+            ub.id ub_id,
+            ub.ubicacion ub_ubicacion,
             r.capacidad,
             r.horario_inicial,
             r.horario_final,
             r.disponibilidad,
-            r.tiporecurso
+        tr.id tr_id,
+        tr.tipo tr_tipo
             FROM
             recursos as r
+            JOIN tiporecurso as tr ON(tr.id = r.tiporecurso)
+            JOIN ubicacion as ub ON(ub.id = r.ubicacion)
 
     </select>
     <insert id="agregarRecursos" parameterType="edu.eci.cvds.entities.Recurso">
         INSERT INTO Recursos(
         id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso
         ) VALUES(
-        #{Recurso.id}, #{Recurso.nombre},#{Recurso.ubicacion},#{Recurso.capacidad},#{Recurso.horario_inicial},#{Recurso.horario_final},#{Recurso.disponibilidad},#{Recurso.tiporecurso});
+        #{Recurso.id}, #{Recurso.nombre},#{Recurso.ubicacion.id},#{Recurso.capacidad},#{Recurso.horario_inicial},#{Recurso.horario_final},#{Recurso.disponibilidad},#{Recurso.tiporecurso.id});
     </insert>
 </mapper>
