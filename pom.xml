@@ -230,7 +230,7 @@
                                         <groupId>com.github.jsimone</groupId>
                                         <artifactId>webapp-runner</artifactId>
                                         <version>8.0.30.2</version>
-                                        <destFileName>webapp-runner.jar</destFileName>
+                                        <destFileName>webapp-runner</destFileName>
                                     </artifactItem>
                                 </artifactItems>
 
@@ -261,7 +261,7 @@
                                     <groupId>com.heroku</groupId>
                                     <artifactId>webapp-runner</artifactId>
                                     <version>9.0.52.1</version>
-                                    <destFileName>webapp-runner.jar</destFileName>
+                                    <destFileName>webapp-runner</destFileName>
                                 </artifactItem>
                             </artifactItems>
                         </configuration>
