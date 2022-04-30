@@ -8,6 +8,8 @@
 
     <typeAliases>
         <typeAlias type='edu.eci.cvds.entities.Recurso' alias='Recurso' />
+        <typeAlias type='edu.eci.cvds.entities.TipoRecurso' alias='TipoRecurso' />
+        <typeAlias type='edu.eci.cvds.entities.Ubicacion' alias='Ubicacion' />
         <typeAlias type='edu.eci.cvds.entities.User' alias='User' />
     </typeAliases>
 
@@ -25,6 +27,8 @@
 
     <mappers>
         <mapper resource="mappers/RecursoMapper.xml"></mapper>
+        <mapper resource="mappers/TipoRecursoMapper.xml"></mapper>
+        <mapper resource="mappers/UbicacionMapper.xml"></mapper>
     </mappers>
 
 </configuration>

@@ -1,17 +1,20 @@
 package edu.eci.cvds.entities;
 
-public enum TipoRecurso {
-    Equipodecomputo("Equipo de computo"),
-    Saladeestudio("Sala de Estudio"),
-    Equiposdemultimedia("Equipos de multimedia");
+import java.io.Serializable;
 
-    private String label;
+public class TipoRecurso implements Serializable {
 
-    TipoRecurso(String item){
-        this.label = item;
+    private String idtipo;
+
+    public TipoRecurso(String idtipo){
+        this.idtipo = idtipo;
     }
 
-    public String getLabel(){
-        return this.label;
+    public String getIdtipo() {
+        return idtipo;
+    }
+
+    public void setIdtipo(String idtipo) {
+        this.idtipo = idtipo;
     }
 }
