@@ -37,6 +37,9 @@ Al ingresar a la página -linkheroku-, se presenta lo siguiente
 ## 
 
 ![image](https://user-images.githubusercontent.com/60302534/166110036-0d1327cd-2a9a-4f78-8ec1-bd2d798967de.png)
+## 
+![image](https://user-images.githubusercontent.com/60302534/166110535-ea30525d-0038-45c2-ab69-61196fee0541.png)
+
 
 ## 
 **Al seleccionar ver recursos, nos lleva a una interfaz (visualización previa), lo cual nos permite, consultar la disponibilidad del recurso, horario y lugar.**
