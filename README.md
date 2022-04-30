@@ -1,9 +1,10 @@
 # Recursos BibliotecaECI
 ## Proyecto CVDS 
 ## Integrantes
-- Jose Olarte
-- Camilo Archila
 - Valentina Alvarado
+- Camilo Archila
+- Andrés Parra
+- Jose Olarte
 
 ## Profesor
 Julian Velasco
