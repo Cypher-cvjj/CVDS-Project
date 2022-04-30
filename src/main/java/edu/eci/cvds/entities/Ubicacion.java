@@ -3,17 +3,29 @@ package edu.eci.cvds.entities;
 import java.io.Serializable;
 
 public class Ubicacion implements Serializable {
-    private String idubicacion;
+    private int id;
+    private String ubicacion;
 
-    public Ubicacion(String idubicacion){
-        this.idubicacion = idubicacion;
+    public Ubicacion(){}
+
+    public Ubicacion(int id, String ubicacion) {
+        this.id = id;
+        this.ubicacion = ubicacion;
     }
 
-    public String getIdubicacion() {
-        return idubicacion;
+    public int getId() {
+        return id;
     }
 
-    public void setIdubicacion(String idubicacion) {
-        this.idubicacion = idubicacion;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(String ubicacion) {
+        this.ubicacion = ubicacion;
     }
 }

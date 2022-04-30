@@ -4,17 +4,29 @@ import java.io.Serializable;
 
 public class TipoRecurso implements Serializable {
 
-    private String idtipo;
+    private int id;
+    private String tipo;
 
-    public TipoRecurso(String idtipo){
-        this.idtipo = idtipo;
+    public TipoRecurso(){}
+
+    public TipoRecurso(int id, String tipo) {
+        this.id = id;
+        this.tipo = tipo;
     }
 
-    public String getIdtipo() {
-        return idtipo;
+    public int getId() {
+        return id;
     }
 
-    public void setIdtipo(String idtipo) {
-        this.idtipo = idtipo;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 }

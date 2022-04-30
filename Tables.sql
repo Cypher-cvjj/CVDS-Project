@@ -14,20 +14,22 @@ CREATE TABLE recursos(
 
 id_recursos INT NOT NULL,
 nombre VARCHAR(20) NOT NULL,
-ubicacion VARCHAR(50) NOT NULL,
+ubicacion INT NOT NULL,
 capacidad INT NOT NULL,
 horario_inicial DATE not null,
 horario_final DATE not null,
 disponibilidad BOOLEAN NOT null,
-tiporecurso VARCHAR(50) NOT NULL
+tiporecurso INT NOT NULL
 );
 
 create table tiporecurso(
-idtipo VARCHAR(50) not null
+id INT not null,
+tipo VARCHAR(50) not null
 );
 
 create table ubicacion(
-idubicacion VARCHAR(20) not null
+id INT not null,
+ubicacion VARCHAR(50) not null
 );
 
 
@@ -49,8 +51,8 @@ fechafin Date not null
 ALTER TABLE usuarios ADD CONSTRAINT pk_usuario PRIMARY KEY (documento);
 ALTER TABLE recursos ADD CONSTRAINT pk_recursos PRIMARY KEY (id_recursos);
 ALTER TABLE TipoUsuario  ADD CONSTRAINT pk_tipousuario PRIMARY KEY (id);
-ALTER TABLE Tiporecurso ADD CONSTRAINT pk_tiporecurso PRIMARY KEY (idtipo);
-ALTER TABLE ubicacion  ADD CONSTRAINT pk_tipoubicacion PRIMARY KEY (nombre);
+ALTER TABLE Tiporecurso ADD CONSTRAINT pk_tiporecurso PRIMARY KEY (id);
+ALTER TABLE ubicacion  ADD CONSTRAINT pk_ubicacion PRIMARY KEY (id);
 ALTER TABLE reserva  ADD CONSTRAINT pk_reserva PRIMARY KEY (id_reserva);
 
 
@@ -63,9 +65,9 @@ ADD constraint usuarios_tipo FOREIGN KEY (tipousuario) REFERENCES tipousuario (i
 ALTER TABLE usuarios
 ADD constraint usuarios_reserva FOREIGN KEY (reserva) REFERENCES reserva (id_reserva);
 ALTER TABLE recursos
-ADD constraint recursos_ubicacion FOREIGN KEY (ubicacion) REFERENCES ubicacion (nombre);
+ADD constraint recursos_ubicacion FOREIGN KEY (ubicacion) REFERENCES ubicacion (id);
 ALTER TABLE recursos
-ADD constraint recursos_tiporecurso FOREIGN KEY (tiporecurso) REFERENCES tiporecurso (idtipo);
+ADD constraint recursos_tiporecurso FOREIGN KEY (tiporecurso) REFERENCES tiporecurso (id);
 ALTER TABLE reserva
 ADD constraint reserva_recurso FOREIGN KEY (recurso) REFERENCES recursos (id_recursos);
 
@@ -78,11 +80,13 @@ alter table ubicacion
 
 
 --POBLAR
-insert into ubicacion (idubicacion) values ('BloqueG');
-insert into ubicacion (idubicacion) values ('BloqueB');
-insert into ubicacion (idubicacion) values ('BibliotecaJorgeAlvarez');
-insert into tiporecurso (idtipo,nombre) values (1,'libro');
-insert into tiporecurso (idtipo,nombre) values (2,'Saladeestudio');
+insert into ubicacion (id,ubicacion) values (1,'BloqueG');
+insert into ubicacion (id,ubicacion) values (2,'BloqueB');
+insert into ubicacion (id,ubicacion) values (3,'BibliotecaJorgeAlvarez');
+insert into tiporecurso (id,tipo) values (1,'equipodecomputo');
+insert into tiporecurso (id,tipo) values (2,'Saladeestudio');
+insert into tiporecurso (id,tipo) values (3,'equipoultimedia');
+
 INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso)
 VALUES (6,'libro','BloqueG',1,'2021-12-13','2021-12-14',true,'1');
 
@@ -115,3 +119,4 @@ delete from tipousuario;
 delete from ubicacion;
 delete from tiporecurso;
 delete from reserva;
+
