@@ -40,9 +40,9 @@
         <div>
             <label>Ubicacion</label>
             <p:selectOneMenu class="select" id="ubicacion" value = "#{RecursoBean.ubicacion}" >
-                <f:selectItem itemLabel="Bloque G" itemValue="Bloque G" />
-                <f:selectItem itemLabel="Bloque B" itemValue="Bloque B" />
-                <f:selectItem itemLabel="Biblioteca Jorge Alvarez" itemValue="biblioteca" />
+                <f:selectItem itemLabel="Bloque G" itemValue="1" />
+                <f:selectItem itemLabel="Bloque B" itemValue="2" />
+                <f:selectItem itemLabel="Biblioteca Jorge Alvarez" itemValue="3" />
             </p:selectOneMenu>
         </div>
         <p>Capacidad</p>
@@ -54,18 +54,18 @@
         <div>
             <label>Tipo de Recurso</label>
             <p:selectOneMenu class="select" id="Typerecurso" value = "#{RecursoBean.typeRecursore}" >
-                <f:selectItem itemLabel="Equipo de computo" itemValue="Equipodecomputo" />
-                <f:selectItem itemLabel="Equipo multimedia" itemValue="equipomultimedia" />
-                <f:selectItem itemLabel="Sala de estudio" itemValue="saladeestudio" />
+                <f:selectItem itemLabel="Equipo de computo" itemValue="1" />
+                <f:selectItem itemLabel="Equipo multimedia" itemValue="2" />
+                <f:selectItem itemLabel="Sala de estudio" itemValue="3" />
             </p:selectOneMenu>
         </div>
 
         <br></br>
         <p:outputLabel for="time1" value="Hora inicial:" />
-        <p:inputText id="time1" class="input" type="time" value="RecursoBean.time1" />
+        <p:datePicker id="time1" value="#{RecursoBean.time1}" timeOnly="true" pattern="HH:mm"/>
         <br></br>
         <p:outputLabel for="time2" value="Hora final:" />
-        <p:inputText id="time2" class="input" type="time" value="RecursoBean.time2" />
+        <p:datePicker id="time2" value="#{RecursoBean.time2}" timeOnly="true" pattern="HH:mm"/>
 
         <div>
             <p:commandButton update="recurso_form" class="Button" actionListener="#{RecursoBean.registrarRecursos()}" value="Registrar Recurso"/>
