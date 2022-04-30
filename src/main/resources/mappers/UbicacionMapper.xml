@@ -3,11 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.eci.cvds.persistence.mappers.UbicacionMapper">
     <resultMap id="UbicacionResult" type="Ubicacion">
-        <id property='idubicacion' column='idubicacion'/>
+        <id property='id' column='idubicacion'/>
+        <id property='ubicacion' column='ubicacion'/>
     </resultMap>
     <select id="consultarUbicacion" resultMap="UbicacionResult">
         select
-        ub.idubicacion
+        ub.id,
+        ub.ubicacion
         FROM
         ubicacion as ub
     </select>

@@ -4,7 +4,7 @@ package edu.eci.cvds.entities;
 import java.io.Serializable;
 import java.sql.Time;
 import java.time.LocalDate;
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * clase que representa un recurso
@@ -13,20 +13,20 @@ public class Recurso implements Serializable {
 
     private int id;
     private String nombre;
-    private String ubicacion;
+    private Ubicacion ubicacion;
     private int capacidad;
 
     private Date horario_inicial;
     private Date horario_final;
     private boolean disponibilidad;
-    private String tiporecurso;
+    private TipoRecurso tiporecurso;
 
 
 
     public Recurso(){super();}
 
 
-    public Recurso(int id, String nombre, String ubicacion, int capacidad, Date horario_inicial, Date horario_final,boolean disponibilidad,String tiporecurso){
+    public Recurso(int id, String nombre, Ubicacion ubicacion, int capacidad, Date horario_inicial, Date horario_final,boolean disponibilidad,TipoRecurso tiporecurso){
         this.id = id;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
@@ -38,9 +38,11 @@ public class Recurso implements Serializable {
 
     }
 
+
+
     @Override
     public String toString() {
-        return "Recurso{" + " id= " + id + " nombre= " + nombre + " ubicacion= " + ubicacion + " capacidad= "+ capacidad + " Hora_inicial= " + horario_inicial + " Hora_final= " + horario_final + " disponibilidad= " + disponibilidad + " tipo= " + tiporecurso + "}";
+        return "Recurso{" + " id= " + id + " nombre= " + nombre + " ubicacion= " + ubicacion.getUbicacion() + " capacidad= "+ capacidad + " Hora_inicial= " + horario_inicial + " Hora_final= " + horario_final + " disponibilidad= " + disponibilidad + " tipo= " + tiporecurso.getTipo() + "}";
     }
 
     public int getId() {
@@ -59,11 +61,11 @@ public class Recurso implements Serializable {
         this.nombre = nombre;
     }
 
-    public String getUbicacion() {
+    public Ubicacion getUbicacion() {
         return ubicacion;
     }
 
-    public void setUbicacion(String ubicacion) {
+    public void setUbicacion(Ubicacion ubicacion) {
         this.ubicacion = ubicacion;
     }
 
@@ -103,11 +105,11 @@ public class Recurso implements Serializable {
         this.disponibilidad = disponibilidad;
     }
 
-    public String getTiporecurso() {
+    public TipoRecurso getTiporecurso() {
         return tiporecurso;
     }
 
-    public void setTiporecurso(String tiporecurso) {
+    public void setTiporecurso(TipoRecurso tiporecurso) {
         this.tiporecurso = tiporecurso;
     }
 }

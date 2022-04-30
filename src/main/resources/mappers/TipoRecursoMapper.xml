@@ -3,11 +3,13 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.eci.cvds.persistence.mappers.TipoRecursoMapper">
     <resultMap id="TipoRecursoResult" type="TipoRecurso">
-        <id property='idtipo' column='idtipo'/>
+        <id property='id' column='id'/>
+        <id property='tipo' column='tipo'/>
     </resultMap>
     <select id="consultarTiporec" resultMap="TipoRecursoResult">
         select
-        tr.idtipo
+        tr.id,
+        tr.tipo
         FROM
         tiporecurso as tr
     </select>
