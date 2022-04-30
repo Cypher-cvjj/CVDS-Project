@@ -32,43 +32,43 @@
 <h:body>
     <h:form id = "recurso_form">
         <p>id</p>
-        <p:inputText class="form-control" id="id" type="number" binding="#{id}" />
+        <p:inputText class="form-control" id="id" type="number" value="#{RecursoBean.id}" />
         <br></br><br/>
         <p>Nombre</p>
-        <p:inputText class="form-control" id="Nombre" type="String" binding="#{nombre}" />
+        <p:inputText class="form-control" id="Nombre" type="String" value="#{RecursoBean.nombre}" />
         <br></br><br/>
         <div>
-            <label>Ubicación</label>
-            <h:selectOneMenu value="#{RecursoBean.ubicacion}" class="form-control" >
-                <f:selectItems value="#{RecursoBean.listaUbicaciones}" />
-            </h:selectOneMenu>
+            <label>Ubicacion</label>
+            <p:selectOneMenu class="select" id="ubicacion" value = "#{RecursoBean.ubicacion}" >
+                <f:selectItem itemLabel="Bloque G" itemValue="Bloque G" />
+                <f:selectItem itemLabel="Bloque B" itemValue="Bloque B" />
+                <f:selectItem itemLabel="Biblioteca Jorge Alvarez" itemValue="biblioteca" />
+            </p:selectOneMenu>
         </div>
         <p>Capacidad</p>
-        <p:inputText class="form-control" id="capacidad" type="number" binding="#{capacidad}" /> <br/>
+        <p:inputText class="form-control" id="capacidad" type="number" value="#{RecursoBean.capacidad}" /> <br/>
         <p>disponibilidad</p>
-        <p:inputText class="form-control" id="disponibilidad" type="Boolean" binding="#{disponibilidad}" />
+        <p:inputText class="form-control" id="disponibilidad" type="Boolean" value="#{RecursoBean.disponibilidad}" />
         <br></br>
 
         <div>
             <label>Tipo de Recurso</label>
-            <h:selectOneMenu value="#{RecursoBean.typeRecursore}" class="form-control" >
-                <f:selectItems value="#{RecursoBean.listaTipoRecursos}" />
-            </h:selectOneMenu>
+            <p:selectOneMenu class="select" id="Typerecurso" value = "#{RecursoBean.typeRecursore}" >
+                <f:selectItem itemLabel="Equipo de computo" itemValue="Equipodecomputo" />
+                <f:selectItem itemLabel="Equipo multimedia" itemValue="equipomultimedia" />
+                <f:selectItem itemLabel="Sala de estudio" itemValue="saladeestudio" />
+            </p:selectOneMenu>
         </div>
 
         <br></br>
-        <p:outputLabel for="time" value="Hora inicial:" />
-        <p:calendar id="time" value="#{RecursoBean.time1}" pattern="HH:mm" timeOnly="true"  />
+        <p:outputLabel for="time1" value="Hora inicial:" />
+        <p:inputText id="time1" class="input" type="time" value="RecursoBean.time1" />
         <br></br>
-        <br></br>
-        <p:outputLabel for="time" value="Hora final:" />
-        <p:calendar id="time2" value="#{RecursoBean.time2}" pattern="HH:mm" timeOnly="true"  />
-        <br></br>
+        <p:outputLabel for="time2" value="Hora final:" />
+        <p:inputText id="time2" class="input" type="time" value="RecursoBean.time2" />
+
         <div>
-            <p:commandButton update="recurso_form" class="Button" actionListener="#{RecursoBean.crearlistas()}" value="prueba"/>
-        </div>
-        <div>
-            <p:commandButton update="recurso_form" class="Button" actionListener="#{RecursoBean.registrarRecursos(id.value,nombre.value,capacidad.value,disponibilidad.value)}" value="Registrar Recurso"/>
+            <p:commandButton update="recurso_form" class="Button" actionListener="#{RecursoBean.registrarRecursos()}" value="Registrar Recurso"/>
         </div>
 
     </h:form>

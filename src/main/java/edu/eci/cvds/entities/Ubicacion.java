@@ -1,17 +1,19 @@
 package edu.eci.cvds.entities;
 
-public enum Ubicacion {
-    BloqueG("Bloque G"),
-    BiliotecaJorgeAlvarez("Biblioteca Jorge Alvarez"),
-    BloqueB("Bloque B");
+import java.io.Serializable;
 
-    private String label;
+public class Ubicacion implements Serializable {
+    private String idubicacion;
 
-    Ubicacion(String item){
-        this.label = item;
+    public Ubicacion(String idubicacion){
+        this.idubicacion = idubicacion;
     }
 
-    public String getLabel(){
-        return this.label;
+    public String getIdubicacion() {
+        return idubicacion;
+    }
+
+    public void setIdubicacion(String idubicacion) {
+        this.idubicacion = idubicacion;
     }
 }

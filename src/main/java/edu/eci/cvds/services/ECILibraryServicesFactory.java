@@ -2,7 +2,11 @@ package edu.eci.cvds.services;
 import com.google.inject.Injector;
 
 import edu.eci.cvds.persistence.RecursoDAO;
+import edu.eci.cvds.persistence.TipoRecursoDAO;
+import edu.eci.cvds.persistence.UbicacionDAO;
 import edu.eci.cvds.persistence.mybatisimpl.MyBatisRecursoDAO;
+import edu.eci.cvds.persistence.mybatisimpl.MyBatisTipoRecursoDAO;
+import edu.eci.cvds.persistence.mybatisimpl.MyBatisUbicacionDAO;
 import edu.eci.cvds.services.impl.ECILibraryServicesImpl;
 import org.apache.ibatis.transaction.TransactionFactory;
 import org.apache.ibatis.transaction.jdbc.JdbcTransactionFactory;
@@ -30,6 +34,8 @@ public class ECILibraryServicesFactory {
                 setClassPathResource(pathResource);
                 bind(ECILibraryServices.class).to(ECILibraryServicesImpl.class);
                 bind(RecursoDAO.class).to(MyBatisRecursoDAO.class);
+                bind(TipoRecursoDAO.class).to(MyBatisTipoRecursoDAO.class);
+                bind(UbicacionDAO.class).to(MyBatisUbicacionDAO.class);
 
             }
         });

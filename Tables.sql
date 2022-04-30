@@ -23,13 +23,11 @@ tiporecurso VARCHAR(50) NOT NULL
 );
 
 create table tiporecurso(
-idtipo VARCHAR(50) not null,
-nombre VARCHAR(50) not NULL
+idtipo VARCHAR(50) not null
 );
 
 create table ubicacion(
-idubicacion VARCHAR(20) not null,
-nombre VARCHAR(50) not NULL
+idubicacion VARCHAR(20) not null
 );
 
 
@@ -80,9 +78,9 @@ alter table ubicacion
 
 
 --POBLAR
-insert into ubicacion (idubicacion,nombre) values (1,'BloqueG');
-insert into ubicacion (idubicacion,nombre) values (2,'BloqueB');
-insert into ubicacion (idubicacion,nombre) values (3,'BibliotecaJorgeAlvarez');
+insert into ubicacion (idubicacion) values ('BloqueG');
+insert into ubicacion (idubicacion) values ('BloqueB');
+insert into ubicacion (idubicacion) values ('BibliotecaJorgeAlvarez');
 insert into tiporecurso (idtipo,nombre) values (1,'libro');
 insert into tiporecurso (idtipo,nombre) values (2,'Saladeestudio');
 INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso)
