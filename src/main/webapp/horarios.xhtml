@@ -37,9 +37,9 @@
         </div>
         <div>
             <p:outputLabel for="datetime" value="Fecha inicial:"/>
-            <p:calendar id="datetime" value="#{calendarJava8View.dateTime1}" pattern="MM/dd/yyyy HH:mm:ss"/>
+            <p:calendar id="datetime" value="#{ReservaBean.fechainicialreserva}" pattern="MM/dd/yyyy HH:mm"/>
             <p:outputLabel for="datetime" value="Fecha final:"/>
-            <p:calendar id="datetime2" value="#{calendarJava8View.dateTime1}" pattern="MM/dd/yyyy HH:mm:ss"/>
+            <p:calendar id="datetime2" value="#{ReservaBean.fechafinalreserva}" pattern="MM/dd/yyyy HH:mm"/>
 
             <p:commandButton value="Atras" onclick="history.back()"/>
         </div>
