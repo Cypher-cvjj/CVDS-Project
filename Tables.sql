@@ -88,9 +88,12 @@ insert into tiporecurso (id,tipo) values (2,'Saladeestudio');
 insert into tiporecurso (id,tipo) values (3,'equipoultimedia');
 
 INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso)
-VALUES (6,'libro','BloqueG',1,'2021-12-13','2021-12-14',true,'1');
+VALUES (6,'libro',1,1,'2021-12-13','2021-12-14',true,1);
 
-
+select * FROMgi
+            recursos as r
+            JOIN tiporecurso as tr ON(tr.id = r.tiporecurso)
+            JOIN ubicacion as ub ON(ub.id = r.ubicacion);
 
 --POBLAR
 INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad ,tiporecurso)
