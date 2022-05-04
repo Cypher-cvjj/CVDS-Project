@@ -4,39 +4,23 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/pe" >
 
-<h:head>
-    <title> Recursos ECI </title>
-    <style type = "text/css">
-        body{
-            background-image:url('./Images/img6.jpg');
-            background-size: 100% 100%;
-            background-attachment: fixed;
-            font-family: Arial;
-        }
-        .btn{
-            border: solid 1px;
-            padding: 5px 10px;
-        }
-        .btn-black{
-            border-color:black;
-            color:black;
-        }
-        .btn-black:hover{
-            background-image:linear-gradient(to right,rgb(252, 204, 199), rgb(247, 129, 116) );
-            border-color:black;
-            color:black;
-        }
-    </style>
-</h:head>
+<head>
+    <meta charset="UTF-8"/>
+    <title> registrar Recurso </title>
+    <link rel="shortcut icon" href="./Images/icon.png"/>
+    <link rel="stylesheet" href="./css/registrar.css" type="text/css"/>
+</head>
 
 <h:body>
+    <div class="regform"><h1>Registrar Recurso</h1></div>
+    <div class="main">
     <h:form id = "recurso_form">
-        <p>id</p>
+        <h2 class="id">Id</h2>
         <p:inputText class="form-control" id="id" type="number" value="#{RecursoBean.id}" />
-        <br></br><br/>
+        <br></br>
         <p>Nombre</p>
         <p:inputText class="form-control" id="Nombre" type="String" value="#{RecursoBean.nombre}" />
-        <br></br><br/>
+        <br></br>
         <div>
             <label>Ubicacion</label>
             <p:selectOneMenu class="select" id="ubicacion" value = "#{RecursoBean.ubicacion}" >
@@ -47,9 +31,13 @@
         </div>
         <p>Capacidad</p>
         <p:inputText class="form-control" id="capacidad" type="number" value="#{RecursoBean.capacidad}" /> <br/>
-        <p>disponibilidad</p>
-        <p:inputText class="form-control" id="disponibilidad" type="Boolean" value="#{RecursoBean.disponibilidad}" />
-        <br></br>
+        <div>
+            <label>Disponibilidad</label>
+            <p:selectOneMenu class="select" id="disponibilidad" value = "#{RecursoBean.disponibilidad}" >
+                <f:selectItem itemLabel="Disponible" itemValue="true" />
+                <f:selectItem itemLabel="No Disponible" itemValue="false" />
+            </p:selectOneMenu>
+        </div>
 
         <div>
             <label>Tipo de Recurso</label>
@@ -72,6 +60,7 @@
         </div>
 
     </h:form>
+    </div>
     <script type="text/javascript">
         PrimeFaces.locales['es'] = {
         timeOnlyTitle: 'Seleccione la hora',

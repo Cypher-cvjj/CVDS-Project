@@ -1,0 +1,23 @@
+
+        body{
+            background-image:url('../Images/img6.jpg');
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            font-family: Arial;
+        }
+        form{
+            background-color:rgb(0,0,0,0.20);
+            display: grid;
+            padding: 10px;
+            margin:0 auto;
+            width: 300px;
+            height: 550px;
+        }
+        regform{
+            width: 800px;
+            background-color:rgb(0,0,0,0.20);
+            margin: auto;
+            color:#FFFF;
+            padding: 10px 0px 10px 0px;
+            text-align: center;
+        }
