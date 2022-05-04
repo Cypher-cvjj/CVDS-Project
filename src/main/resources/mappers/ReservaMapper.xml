@@ -1,19 +1,21 @@
-?xml version="1.0" encoding="UTF-8" ?>
-        <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-                "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="edu.eci.cvds.persistence.mappers.ReservaMapper">
     <resultMap type='Reserva' id='ReservaResult'>
-        <id property='id' column='id_reserva'/>
+        <id property='id_reserva' column='id_reserva'/>
         <result property='nombre' column='nombre'/>
-        <result property='recurso' column='capacidad'/>
-        <result property='fechasoli' column='horario_inicial'/>
-        <result property='fechaini' column='horario_final'/>
-        <result property='fechafin' column='disponibilidad'/>
-        <association property="usuarios" javaType="usuarios" resultMap="edu.eci.cvds.persistence.mappers.UserMapper.UserResult" columnPrefix="tr_"/>
-        <association property="recursos" javaType="recursos" resultMap="edu.eci.cvds.persistence.mappers.RecursoMapperr.RecursoResult" columnPrefix="ub_"/>
+        <result property='fechasoli' column='fechasoli'/>
+        <result property='fechaini' column='fechaini'/>
+        <result property='fechafin' column='fechafin'/>
+        <association property="usuarios" javaType="usuario" resultMap="edu.eci.cvds.persistence.mappers.UserMapper.UserResult" columnPrefix="us_"/>
+        <association property="recursos" javaType="recurso" resultMap="edu.eci.cvds.persistence.mappers.RecursoMapper.RecursoResult" columnPrefix="r_"/>
+        <association property="tiporeserva" javaType="tiporeserva" resultMap="edu.eci.cvds.persistence.mappers.TipoReservaMapperr.TipoReservaResult" columnPrefix="tr_"/>
     </resultMap>
-    <insert id="agregarReserva" parameterType="edu.eci.cvds.entities.Reserva">
-
-
+    <insert id="reservarRecurso" parameterType="edu.eci.cvds.entities.Reserva">
+        INSERT INTO reserva(
+        id_reserva,nombre,fechasoli,fechaini,fechafin,usuario,recurso,tiporeserva
+        ) VALUES(
+        #{Reserva.id_reserva},#{Reserva.nombre},#{Reserva.fechasoli},#{Reserva.fechaini},#{Reserva.fechafin},#{Reserva.usuario.documento},#{Reserva.recurso.id},#{Reserva.tiporeserva.id});
     </insert>
 </mapper>

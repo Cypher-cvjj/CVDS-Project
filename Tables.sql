@@ -1,19 +1,18 @@
 --TABLES
 CREATE TABLE usuarios(
-
 documento INT NOT NULL,
-nombre VARCHAR(20) NOT NULL,
+nombre VARCHAR(50) NOT NULL,
 contrasena VARCHAR(16) NOT NULL,
-correo VARCHAR(20) NOT NULL,
-telefono VARCHAR(20),
-tipousuario INT NOT null,
-reserva int not null
+correo VARCHAR(50) NOT NULL,
+telefono VARCHAR(50),
+tipousuario INT NOT null
 );
+
 
 CREATE TABLE recursos(
 
 id_recursos INT NOT NULL,
-nombre VARCHAR(20) NOT NULL,
+nombre VARCHAR(50) NOT NULL,
 ubicacion INT NOT NULL,
 capacidad INT NOT NULL,
 horario_inicial DATE not null,
@@ -35,16 +34,24 @@ ubicacion VARCHAR(50) not null
 
 CREATE TABLE TipoUsuario(
 id INT not null,
-nombre VARCHAR(10) not null
+nombre VARCHAR(50) not null
 );
 
 create table reserva(
 id_reserva INT not null,
-nombre VARCHAR(20) not null,
-recurso INT not null,
+nombre VARCHAR(50) not null,
 fechasoli Date not null,
 fechaini Date not null,
-fechafin Date not null
+fechafin Date not null,
+usuario int not null,
+recurso INT not null,
+tiporeserva INT not null
+);
+
+
+create table tiporeserva(
+id INT not null,
+tipore VARCHAR (50)
 );
 
 --PK
@@ -54,7 +61,7 @@ ALTER TABLE TipoUsuario  ADD CONSTRAINT pk_tipousuario PRIMARY KEY (id);
 ALTER TABLE Tiporecurso ADD CONSTRAINT pk_tiporecurso PRIMARY KEY (id);
 ALTER TABLE ubicacion  ADD CONSTRAINT pk_ubicacion PRIMARY KEY (id);
 ALTER TABLE reserva  ADD CONSTRAINT pk_reserva PRIMARY KEY (id_reserva);
-
+alter TABLE tiporeserva add CONSTRAINT pk_tiporeserva PRIMARY key (id);
 
 --UK
 ALTER TABLE usuarios ADD CONSTRAINT uk_correo UNIQUE (correo);
@@ -62,21 +69,16 @@ ALTER TABLE usuarios ADD CONSTRAINT uk_correo UNIQUE (correo);
 --FK
 ALTER TABLE usuarios
 ADD constraint usuarios_tipo FOREIGN KEY (tipousuario) REFERENCES tipousuario (id);
-ALTER TABLE usuarios
-ADD constraint usuarios_reserva FOREIGN KEY (reserva) REFERENCES reserva (id_reserva);
+ALTER TABLE reserva
+ADD constraint usuarios_reserva FOREIGN KEY (usuario) references usuarios (documento);
 ALTER TABLE recursos
 ADD constraint recursos_ubicacion FOREIGN KEY (ubicacion) REFERENCES ubicacion (id);
 ALTER TABLE recursos
 ADD constraint recursos_tiporecurso FOREIGN KEY (tiporecurso) REFERENCES tiporecurso (id);
 ALTER TABLE reserva
 ADD constraint reserva_recurso FOREIGN KEY (recurso) REFERENCES recursos (id_recursos);
-
---Atributos
-alter table ubicacion
-	add CONSTRAINT CK_ubicacion_recurso
-		check (
-				nombre in ('BloqueG','BibliotecaJorgeAlvarez','BloqueB')
-);
+alter table reserva
+add constraint reserva_tiporeserva FOREIGN key (tiporeserva) REFERENCES tiporeserva(id);
 
 
 --POBLAR
@@ -86,27 +88,26 @@ insert into ubicacion (id,ubicacion) values (3,'BibliotecaJorgeAlvarez');
 insert into tiporecurso (id,tipo) values (1,'equipodecomputo');
 insert into tiporecurso (id,tipo) values (2,'Saladeestudio');
 insert into tiporecurso (id,tipo) values (3,'equipoultimedia');
+insert into tiporeserva  (id,tipore) values (1,'Diario');
+insert into tiporeserva (id,tipore) values (2,'Semanal');
+insert into tiporeserva (id,tipore) values (3,'mensual');
+insert into tiporeserva (id,tipore) values (4,'ninguna');
+insert into tipousuario (id,nombre) values (1,'admin');
+insert into tipousuario (id,nombre) values (2,'user');
+
+
+insert into usuarios(documento,nombre,contrasena,correo,telefono,tipousuario)
+values(00000,'pepito','9876','pepito@escuelaing.edu.co',876543,1);
 
 INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso)
 VALUES (6,'libro',1,1,'2021-12-13','2021-12-14',true,1);
 
-select * FROMgi
-            recursos as r
-            JOIN tiporecurso as tr ON(tr.id = r.tiporecurso)
-            JOIN ubicacion as ub ON(ub.id = r.ubicacion);
+insert into reserva(id_reserva,nombre,fechasoli,fechaini,fechafin,usuario,recurso,tiporeserva)
+VALUES (1,'reserva 1','2021-12-12','2022-12-13','2022-12-13',00000,6,1);
 
---POBLAR
-INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad ,tiporecurso)
-VALUES (1,'libro','BloqueG',1,'2021-12-13','2021-12-14',true,'libro');
 
-INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,tiporecurso)
-VALUES (3,'Computador','biblioteca2',1,'10:00:00','12:00:00','computador');
 
-INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,tiporecurso)
-VALUES (2,'libro2','biblioteca2',1,'07:00:00','10:00:00','libro');
 
-INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,tiporecurso)
-VALUES (4,'sala','bibliotecaa1',8,'13:00:00','15:00:00','sala');
 
 --DROP
 drop TABLE usuarios cascade;
@@ -115,6 +116,7 @@ DROP TABLE tipousuario cascade;
 DROP TABLE ubicacion cascade;
 DROP TABLE tiporecurso cascade;
 drop table reserva cascade;
+drop table tiporeserva cascade;
 --DELETE
 Delete from recursos;
 delete from usuarios;
@@ -122,4 +124,6 @@ delete from tipousuario;
 delete from ubicacion;
 delete from tiporecurso;
 delete from reserva;
+delete from tiporeserva;
+
 

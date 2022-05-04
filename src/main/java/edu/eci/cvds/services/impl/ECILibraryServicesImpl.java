@@ -3,12 +3,8 @@ package edu.eci.cvds.services.impl;
 import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import edu.eci.cvds.Exceptions.BibliotecaException;
-import edu.eci.cvds.entities.Recurso;
-import edu.eci.cvds.entities.TipoRecurso;
-import edu.eci.cvds.entities.Ubicacion;
-import edu.eci.cvds.persistence.RecursoDAO;
-import edu.eci.cvds.persistence.TipoRecursoDAO;
-import edu.eci.cvds.persistence.UbicacionDAO;
+import edu.eci.cvds.entities.*;
+import edu.eci.cvds.persistence.*;
 import edu.eci.cvds.services.ECILibraryServices;
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.mybatis.guice.transactional.Transactional;
@@ -28,6 +24,12 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
 
     @Inject
     private UbicacionDAO ubicacionDAO;
+
+    @Inject
+    private ReservaDAO reservaDAO;
+
+    @Inject
+    private TipoReservaDAO tipoReservaDAO;
 
     @Override
     public List<Recurso> consultarRecursos() throws BibliotecaException {
@@ -69,5 +71,23 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
     @Override
     public void cambiarEstadoRecurso(Recurso recurso) throws BibliotecaException{
 
+    }
+
+    @Override
+    public void reservarRecurso(Reserva reserva) throws BibliotecaException {
+        try{
+            reservaDAO.reservarRecurso(reserva);
+        }catch (PersistenceException ex){
+            throw  new BibliotecaException("Error al reservar un recursos",ex);
+        }
+    }
+
+    @Override
+    public List<TipoReserva> consultarTipores() throws BibliotecaException {
+        try{
+            return tipoReservaDAO.consultarTipores();
+        }catch (PersistenceException ex){
+            throw new BibliotecaException("Error al consultar tipos de reservas",ex);
+        }
     }
 }
