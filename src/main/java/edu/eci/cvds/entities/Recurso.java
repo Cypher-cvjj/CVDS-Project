@@ -101,8 +101,8 @@ public class Recurso implements Serializable {
         return disponibilidad;
     }
 
-    public void setDisponibilidad(boolean disponibilidad) {
-        this.disponibilidad = disponibilidad;
+    public void setDisponibilidad(boolean nuevoDisponibilidad) {
+        this.disponibilidad = nuevoDisponibilidad;
     }
 
     public TipoRecurso getTiporecurso() {

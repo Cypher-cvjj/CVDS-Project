@@ -91,7 +91,7 @@ public class RecursoBean extends BasePageBean {
         return this.eciLibraryServices;
     }
 
-    public void cambiarEstadoRecurso (Recurso recurso){
+    public void cambiarEstadoRecurso (Recurso recurso) throws ParseException{
         try {
             recurso.setDisponibilidad(!recurso.getDisponibilidad());
             eciLibraryServices.cambiarEstadoRecurso(recurso);
