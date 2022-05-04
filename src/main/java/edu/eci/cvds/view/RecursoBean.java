@@ -93,6 +93,7 @@ public class RecursoBean extends BasePageBean {
 
     public void cambiarEstadoRecurso (Recurso recurso){
         try {
+            recurso.setDisponibilidad(!recurso.getDisponibilidad());
             eciLibraryServices.cambiarEstadoRecurso(recurso);
         } catch (Exception e) {
             e.printStackTrace();

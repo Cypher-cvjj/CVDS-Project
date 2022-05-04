@@ -70,7 +70,11 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
 
     @Override
     public void cambiarEstadoRecurso(Recurso recurso) throws BibliotecaException{
-
+        try{
+            RecursoDAO.cambiarEstadoRecurso(recurso);
+        }catch (PersistenceException ex){
+            throw  new BibliotecaException("Error al cambiar estado del recurso",ex);
+        }
     }
 
     @Override
