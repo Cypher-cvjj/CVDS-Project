@@ -6,11 +6,23 @@ import edu.eci.cvds.persistence.ReservaDAO;
 import org.apache.ibatis.exceptions.PersistenceException;
 
 import javax.inject.Inject;
+import java.util.List;
 
 public class MyBatisReservaDAO implements ReservaDAO{
 
     @Inject
     private ReservaMapper reservaMapper;
+
+    @Override
+    public List<Reserva> consultarReservas() throws PersistenceException {
+        List<Reserva> lisreserva = null;
+        try{
+            lisreserva = reservaMapper.consultarReservas();
+        }catch (org.apache.ibatis.exceptions.PersistenceException e){
+            throw new PersistenceException("Error al consultar recursos mb",e);
+        }
+        return lisreserva;
+    }
 
     @Override
     public void reservarRecurso(Reserva reserva) {

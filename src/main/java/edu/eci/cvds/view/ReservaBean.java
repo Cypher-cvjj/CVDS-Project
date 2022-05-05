@@ -3,9 +3,11 @@ package edu.eci.cvds.view;
 
 import com.google.inject.Inject;
 import edu.eci.cvds.services.ECILibraryServices;
+import org.primefaces.model.DefaultScheduleModel;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import java.io.IOException;
 import java.util.Date;
 
 @ManagedBean(name = "ReservaBean")
@@ -20,6 +22,7 @@ public class ReservaBean extends BasePageBean {
     private String nombre_recurso;
     private Date fechainicialreserva;
     private Date fechafinalreserva;
+    private DefaultScheduleModel eventModel;
 
 
     public Date getFechainicialreserva() {
@@ -60,10 +63,9 @@ public class ReservaBean extends BasePageBean {
         this.nombre_recurso = nombre_recurso;
     }
 
-
-
     public String getNombre_recurso() {
         return nombre_recurso;
     }
+
 
 }

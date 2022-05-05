@@ -12,6 +12,22 @@
         <association property="recursos" javaType="recurso" resultMap="edu.eci.cvds.persistence.mappers.RecursoMapper.RecursoResult" columnPrefix="r_"/>
         <association property="tiporeserva" javaType="tiporeserva" resultMap="edu.eci.cvds.persistence.mappers.TipoReservaMapperr.TipoReservaResult" columnPrefix="tr_"/>
     </resultMap>
+    <select id="consultarReservas" resultMap="ReservaResult">
+        select
+        re.id_reserva,
+        re.nombre,
+        re.fechasoli,
+        re.fechaini,
+        re.fechafin,
+        u.documento,
+        r.id_recursos,
+        t.tipo
+        FROM
+        reserva as re
+        JOIN usuarios as u ON(u.documento = re.usuario)
+        JOIN recursos as r ON(r.id_recursos = re.recurso)
+        JOIN tiporecurso  as t ON(t.id = re.tiporeserva)
+    </select>
     <insert id="reservarRecurso" parameterType="edu.eci.cvds.entities.Reserva">
         INSERT INTO reserva(
         id_reserva,nombre,fechasoli,fechaini,fechafin,usuario,recurso,tiporeserva

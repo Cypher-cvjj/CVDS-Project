@@ -30,6 +30,7 @@
             JOIN ubicacion as ub ON(ub.id = r.ubicacion)
 
     </select>
+
     <insert id="agregarRecursos" parameterType="edu.eci.cvds.entities.Recurso">
         INSERT INTO Recursos(
         id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso

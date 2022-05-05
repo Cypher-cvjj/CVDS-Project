@@ -38,7 +38,6 @@ public class ECILibraryServicesFactory {
         });
     }
 
-
     public static ECILibraryServicesFactory getInstance() {
         return instance;
     }

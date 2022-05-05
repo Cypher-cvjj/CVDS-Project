@@ -32,6 +32,15 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
     private TipoReservaDAO tipoReservaDAO;
 
     @Override
+    public List<Reserva> consultarReservas() throws BibliotecaException {
+        try{
+            return reservaDAO.consultarReservas();
+        }catch (PersistenceException ex){
+            throw new BibliotecaException("Error al consultar recursos",ex);
+        }
+    }
+
+    @Override
     public List<Recurso> consultarRecursos() throws BibliotecaException {
         try{
             return RecursoDAO.consultarRecursos();

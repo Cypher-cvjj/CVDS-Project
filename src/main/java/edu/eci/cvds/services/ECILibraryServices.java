@@ -12,6 +12,8 @@ import java.util.List;
 
 public interface ECILibraryServices {
 
+    public List<Reserva> consultarReservas() throws BibliotecaException;
+
     public List<Recurso> consultarRecursos() throws BibliotecaException;
 
     public List<TipoRecurso> consultarTiporec() throws BibliotecaException;
