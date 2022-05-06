@@ -4,83 +4,84 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/pe" >
 
-<head>
-    <meta charset="UTF-8"/>
-    <title> registrar Recurso </title>
-    <link rel="shortcut icon" href="./Images/icon.png"/>
-    <link rel="stylesheet" href="./css/registrar.css" type="text/css"/>
-</head>
+<h:head>
+    <title> Recursos ECI </title>
+    <style type = "text/css">
+        body{
+            background-image:url('./Images/img3.jpg');
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            font-family: Arial;
+        }
+        .btn{
+            border: solid 1px;
+            padding: 5px 10px;
+        }
+        .btn-black{
+            border-color:black;
+            color:black;
+        }
+        .btn-black:hover{
+            background-image:linear-gradient(to right,rgb(252, 204, 199), rgb(247, 129, 116) );
+            border-color:black;
+            color:black;
+        }
+    </style>
+</h:head>
 
 <h:body>
-    <div class="regform"><h1>Registrar Recurso</h1></div>
-    <div class="main">
-    <h:form id = "recurso_form">
-        <h2 class="id">Id</h2>
+    <center><h:form id = "recurso_form" style="background-color:rgb(0,0,0,0.50)">
+        <br></br>
+        <h2 style="color:white">Registrar Recurso</h2>
+        <label style="color:white">Id  </label>
         <p:inputText class="form-control" id="id" type="number" value="#{RecursoBean.id}" />
         <br></br>
-        <p>Nombre</p>
+        <br></br>
+        <label style="color:white">Nombre  </label>
         <p:inputText class="form-control" id="Nombre" type="String" value="#{RecursoBean.nombre}" />
         <br></br>
+        <br></br>
         <div>
-            <label>Ubicacion</label>
+            <label style="color:white">Ubicación    </label>
             <p:selectOneMenu class="select" id="ubicacion" value = "#{RecursoBean.ubicacion}" >
                 <f:selectItem itemLabel="Bloque G" itemValue="1" />
                 <f:selectItem itemLabel="Bloque B" itemValue="2" />
                 <f:selectItem itemLabel="Biblioteca Jorge Alvarez" itemValue="3" />
             </p:selectOneMenu>
         </div>
-        <p>Capacidad</p>
+        <br></br>
+        <label style="color:white">Capacidad  </label>
         <p:inputText class="form-control" id="capacidad" type="number" value="#{RecursoBean.capacidad}" /> <br/>
+        <br></br>
         <div>
-            <label>Disponibilidad</label>
+            <label style="color:white">Disponibilidad     </label>
             <p:selectOneMenu class="select" id="disponibilidad" value = "#{RecursoBean.disponibilidad}" >
                 <f:selectItem itemLabel="Disponible" itemValue="true" />
                 <f:selectItem itemLabel="No Disponible" itemValue="false" />
             </p:selectOneMenu>
         </div>
-
+        <br></br>
         <div>
-            <label>Tipo de Recurso</label>
+            <label style="color:white">Tipo de Recurso   </label>
             <p:selectOneMenu class="select" id="Typerecurso" value = "#{RecursoBean.typeRecursore}" >
                 <f:selectItem itemLabel="Equipo de computo" itemValue="1" />
                 <f:selectItem itemLabel="Equipo multimedia" itemValue="2" />
                 <f:selectItem itemLabel="Sala de estudio" itemValue="3" />
             </p:selectOneMenu>
         </div>
-
         <br></br>
-        <p:outputLabel for="time1" value="Hora inicial:" />
+        <p:outputLabel style="color:white" for="time1" value="Hora Inicial:  "/>
         <p:datePicker id="time1" value="#{RecursoBean.time1}" timeOnly="true" pattern="HH:mm"/>
         <br></br>
-        <p:outputLabel for="time2" value="Hora final:" />
+        <br></br>
+        <p:outputLabel style="color:white"  for="time2" value="Hora Final:   " />
         <p:datePicker id="time2" value="#{RecursoBean.time2}" timeOnly="true" pattern="HH:mm"/>
-
+        <br></br>
+        <br></br>
         <div>
-            <p:commandButton update="recurso_form" class="Button" actionListener="#{RecursoBean.registrarRecursos()}" value="Registrar Recurso"/>
+            <p:commandButton style="background-image:linear-gradient(to right,rgb(93,32,31), rgb(  255, 15, 10  ))"  update="recurso_form" class="Button" actionListener="#{RecursoBean.registrarRecursos()}" value="Registrar Recurso"/>
         </div>
-
-    </h:form>
-    </div>
-    <script type="text/javascript">
-        PrimeFaces.locales['es'] = {
-        timeOnlyTitle: 'Seleccione la hora',
-        timeText: 'Tiempo',
-        hourText: 'Hora',
-        minuteText: 'Minuto',
-        secondText: 'Segundo',
-        millisecondText: 'Milisegundo',
-        clear: 'Claro'
-    };
-</script>
-
-    <script type="text/javascript">
-    //<![CDATA[
-    function dateTemplateFunc(date) {
-        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;width: 2.5rem;height: 2.5rem;line-height: 2.5rem;display: flex;align-items: center;justify-content: center;">' + date.day + '</span>';
-    }
-
-    //]]>
-</script>
-
+        <br></br>
+    </h:form></center>
 </h:body>
 </html>
