@@ -82,25 +82,9 @@ public class BibliotecaTest {
 
     @Test
     public void deberiaCambiarEstadoRecurso() throws  BibliotecaException, ParseException{
-        Recurso r = new Recurso();
-        int id = (int) Math.floor(Math.random()*(2000-1000+1)+2000);
-        SimpleDateFormat fechaHora = new SimpleDateFormat("yyyMMdd");
-        Date horaInicio = fechaHora.parse("20110210");
-        java.sql.Date sql = new java.sql.Date(horaInicio.getTime());
-        SimpleDateFormat fechafi = new SimpleDateFormat("yyyMMdd");
-        Date horaFinal = fechaHora.parse("20110210");
-        java.sql.Date sql2 = new java.sql.Date(horaFinal.getTime());
-        r.setId(id);
-        r.setNombre("libro");
-        r.setUbicacion(new Ubicacion(2,"BloqueG"));
-        r.setCapacidad(4);
-        r.setHorario_inicial(sql);
-        r.setHorario_final(sql2);
-        r.setDisponibilidad(false);
-        r.setTiporecurso(new TipoRecurso(2,"Equipodecomputo"));
-        eciLibraryServices.registrarRecursos(r);
         List<Recurso> listarecursos = eciLibraryServices.consultarRecursos();
-        eciLibraryServices.cambiarEstadoRecurso(r);
-        assertTrue(!r.getDisponibilidad());
+        boolean flag = listarecursos.get(listarecursos.size() - 1).getDisponibilidad();
+        eciLibraryServices.cambiarEstadoRecurso(listarecursos.get(listarecursos.size() - 1));
+        assertTrue(listarecursos.get(listarecursos.size() - 1).getDisponibilidad() != flag);
     }
 }

@@ -37,6 +37,8 @@ public class MyBatisRecursoDAO implements RecursoDAO {
 
     @Override
     public void cambiarEstadoRecurso(Recurso recurso) throws PersistenceException {
+        boolean flag = recurso.getDisponibilidad();
+        recurso.setDisponibilidad(!flag);
         try{
             recursoMapper.cambiarEstadoRecurso(recurso);
         }catch (org.apache.ibatis.exceptions.PersistenceException e){

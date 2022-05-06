@@ -40,5 +40,6 @@
     <update id = "cambiarEstadoRecurso" parameterType="edu.eci.cvds.entities.Recurso">
         UPDATE Recursos
         SET disponibilidad = NOT disponibilidad
+        WHERE id_recursos = #{Recurso.id}
     </update>
 </mapper>
