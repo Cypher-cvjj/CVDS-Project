@@ -83,5 +83,27 @@
         </div>
         <br></br>
     </h:form></center>
+    <script 
+    type="text/javascript">
+        PrimeFaces.locales['es'] = {
+        timeOnlyTitle: 'Seleccione la hora',
+        timeText: 'Tiempo',
+        hourText: 'Hora',
+        minuteText: 'Minuto',
+        secondText: 'Segundo',
+        millisecondText: 'Milisegundo',
+        clear: 'Claro'
+    };
+</script>
+
+    <script type="text/javascript">
+    //<![CDATA[
+    function dateTemplateFunc(date) {
+        return '<span style="background-color:' + ((date.day < 21 && date.day > 10) ? '#81C784' : 'inherit') + ';border-radius:50%;width: 2.5rem;height: 2.5rem;line-height: 2.5rem;display: flex;align-items: center;justify-content: center;">' + date.day + '</span>';
+    }
+
+    //]]>
+</script>
+
 </h:body>
 </html>
