@@ -2,7 +2,7 @@
 
 [_Click here_](https://proyecto-cvds2022-cypher-cvjj.herokuapp.com/)
 
-## Proyecto CVDS 
+## Proyecto Ciclos de Vida del Desarrollo de Software 2022-1
 ## Integrantes
 - Valentina Alvarado
 - Camilo Archila
@@ -10,14 +10,25 @@
 - Jose Olarte
 
 ## Profesor
-Julian Velasco
+- Julian Velasco
 
+##
+## Roles Participantes
+- Julian Velasco (Dueño de Producto)
+- Valentina Alvarado (Team Develop)
+- Camilo Archila (Team Develop)
+- Andrés Parra (Team Develop)
+- Jose Olarte (Team Develop)
+##
 # Descripción del producto
 
 ## Arquitectura y diseño detallado
 
 **Modelo Entidad-Relación**
 
+![image](https://user-images.githubusercontent.com/60302534/167255921-2cfccd02-6f66-4561-bd07-5d32119fd556.png)
+
+##
 **Despliegue en heroku**
 
 **Descripción de la arquitectura y tecnologías utilizadas**
@@ -49,4 +60,11 @@ Al ingresar a la página -linkheroku-, se presenta lo siguiente
 ## 
 
 ![image](https://user-images.githubusercontent.com/60302534/166110136-cb37da52-dbc7-47a8-801c-20bf06ace788.png)
+
+##
+# Descripción del proceso
+##
+
+![image](https://user-images.githubusercontent.com/60302534/167256387-084b66c9-a933-4034-9df7-de31cbbd3793.png)
+
 
