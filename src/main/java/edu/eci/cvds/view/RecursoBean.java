@@ -6,23 +6,15 @@ import edu.eci.cvds.entities.Recurso;
 import edu.eci.cvds.entities.TipoRecurso;
 import edu.eci.cvds.entities.Ubicacion;
 import edu.eci.cvds.services.ECILibraryServices;
-import edu.eci.cvds.services.ECILibraryServicesFactory;
 
 import javax.annotation.PostConstruct;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.Month;
 import java.util.ArrayList;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 
 @ManagedBean(name = "RecursoBean")
@@ -33,10 +25,10 @@ public class RecursoBean extends BasePageBean {
     @Inject
     private ECILibraryServices eciLibraryServices;
 
-    private String typeRecursore;
-    private String ubicacion;
-    private String time1;
-    private String time2;
+    private int typeRecursore;
+    private int ubicacion;
+    private Date time1;
+    private Date time2;
     private int id;
     private String nombre;
     private int capacidad;
@@ -44,6 +36,7 @@ public class RecursoBean extends BasePageBean {
 
     private List<SelectItem> listaUbicaciones;
     private List<SelectItem> listaTipoRecursos;
+
 
 
 
@@ -63,16 +56,32 @@ public class RecursoBean extends BasePageBean {
         return recursos;
     }
 
-
+    /**
+     * reistrar un recurso si es administrador
+     * @throws ParseException
+     */
     public void registrarRecursos() throws ParseException {
         System.out.println("entro");
         System.out.println(ubicacion);
         System.out.println(time1);
         System.out.println(time2);
         System.out.println(typeRecursore);
+        java.sql.Date time2sql = new java.sql.Date(time2.getTime());
+        java.sql.Date time1sql = new java.sql.Date(time1.getTime());
 
         try {
-
+            Recurso r = new Recurso();
+            r.setId(id);
+            r.setNombre(nombre);
+            //Ubicacion u = eciLibraryServices.getubicacion(ubicacion);
+            //r.setUbicacion(u);
+            r.setUbicacion(new Ubicacion(ubicacion,""));
+            r.setCapacidad(capacidad);
+            r.setHorario_inicial(time1sql);
+            r.setHorario_final(time2sql);
+            r.setDisponibilidad(disponibilidad);
+            r.setTiporecurso(new TipoRecurso(typeRecursore,""));
+            eciLibraryServices.registrarRecursos(r);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -96,36 +105,36 @@ public class RecursoBean extends BasePageBean {
     }
 
 
-        public String getTypeRecursore () {
+        public int getTypeRecursore () {
             return typeRecursore;
         }
 
-        public void setTypeRecursore (String typeRecursore){
+        public void setTypeRecursore (int typeRecursore){
             this.typeRecursore = typeRecursore;
         }
 
-        public String getUbicacion () {
+        public int getUbicacion () {
             return ubicacion;
         }
 
-        public void setUbicacion (String ubicacion){
+        public void setUbicacion (int ubicacion){
             this.ubicacion = ubicacion;
         }
 
 
-        public String getTime1 () {
+        public Date getTime1 () {
             return time1;
         }
 
-        public void setTime1 (String time1){
+        public void setTime1 (Date time1){
             this.time1 = time1;
         }
 
-        public String getTime2 () {
+        public Date getTime2 () {
             return time2;
         }
 
-        public void setTime2 (String time2){
+        public void setTime2 (Date time2){
             this.time2 = time2;
         }
 
