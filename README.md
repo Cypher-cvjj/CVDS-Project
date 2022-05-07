@@ -20,13 +20,12 @@
 - Andrés Parra (Team Develop)
 - Jose Olarte (Team Develop)
 ##
+
+
+
+
+
 # Descripción del producto
-
-## Arquitectura y diseño detallado
-
-**Modelo Entidad-Relación**
-
-![image](https://user-images.githubusercontent.com/60302534/167255921-2cfccd02-6f66-4561-bd07-5d32119fd556.png)
 
 ##
 **Despliegue en heroku**
@@ -61,8 +60,27 @@ Al ingresar a la página -linkheroku-, se presenta lo siguiente
 
 ![image](https://user-images.githubusercontent.com/60302534/166110136-cb37da52-dbc7-47a8-801c-20bf06ace788.png)
 
+
+
+
+
+# Arquitectura y Diseño detallado
+
+**Modelo Entidad-Relación**
+
+![image](https://user-images.githubusercontent.com/60302534/167255921-2cfccd02-6f66-4561-bd07-5d32119fd556.png)
+
+
+
+
+
 ##
 # Descripción del proceso
+## Integrantes
+- Valentina Alvarado
+- Camilo Archila
+- Andrés Parra
+- Jose Olarte
 ##
 
 ![image](https://user-images.githubusercontent.com/60302534/167256387-084b66c9-a933-4034-9df7-de31cbbd3793.png)
