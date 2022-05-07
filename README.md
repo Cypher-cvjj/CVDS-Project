@@ -28,9 +28,6 @@
 # Descripción del producto
 
 ##
-**Despliegue en heroku**
-
-**Descripción de la arquitectura y tecnologías utilizadas**
 
 **Manual de usuario**
 
@@ -64,13 +61,15 @@ Al ingresar a la página -linkheroku-, se presenta lo siguiente
 
 
 
+##
 # Arquitectura y Diseño detallado
 
 **Modelo Entidad-Relación**
 
 ![image](https://user-images.githubusercontent.com/60302534/167255921-2cfccd02-6f66-4561-bd07-5d32119fd556.png)
 
-
+**Heroku**
+[_Click here_](https://proyecto-cvds2022-cypher-cvjj.herokuapp.com/)
 
 
 
