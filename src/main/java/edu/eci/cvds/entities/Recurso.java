@@ -29,7 +29,7 @@ public class Recurso implements Serializable {
     public Recurso(int id, String nombre, Ubicacion ubicacion, int capacidad, Date horario_inicial, Date horario_final,boolean disponibilidad,TipoRecurso tiporecurso){
         this.id = id;
         this.nombre = nombre;
-        this.ubicacion = ubicacion;
+        this.ubicacion=ubicacion;
         this.capacidad = capacidad;
         this.horario_inicial=horario_inicial;
         this.horario_final=horario_final;

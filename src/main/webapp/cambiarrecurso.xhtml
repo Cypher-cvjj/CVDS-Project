@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui" >
+<h:head>
+    <script type="text/javascript">
+        PrimeFaces.locales['tr'] = {
+            closeText: 'kapat',
+            prevText: 'geri',
+            nextText: 'ileri',
+            currentText: 'bugün',
+            monthNames: ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran',
+                'Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'],
+            monthNamesShort: ['Oca','Şub','Mar','Nis','May','Haz',
+                'Tem','Ağu','Eyl','Eki','Kas','Ara'],
+            dayNames: ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'],
+            dayNamesShort: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
+            dayNamesMin: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],
+            weekHeader: 'Hf',
+            firstDay: 1,
+            isRTL: false,
+            showMonthAfterYear: false,
+            yearSuffix: '',
+            month: 'Ay',
+            week: 'Hafta',
+            day: 'Gün',
+            allDayText : 'Tüm Gün'
+        };
+    </script>
+    <title> Recursos ECI </title>
+    <style type = "text/css">
+        body{
+            background-image:url('./Images/img1.jpg');
+            background-size: 100% 100%;
+            background-attachment: fixed;
+            font-family: Arial;
+        }
+        .btn{
+            border: solid 1px;
+            padding: 5px 10px;
+        }
+        .btn-black{
+            border-color:black;
+            color:black;
+        }
+        .btn-black:hover{
+            background-image:linear-gradient(to right,rgb(252, 204, 199), rgb(247, 129, 116) );
+            border-color:black;
+            color:black;
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="./css/index_style.css"/>
+</h:head>
+<h:body>
+    <header>
+        <div class="arrib">
+            <img src="./Images/icon.png"/>
+            <h2 class="titulo">Recursos Biblioteca</h2>
+        </div>
+        <nav>
+            <a href="./CVDS.Project/login.xhtml" class="nav-link">Iniciar Sesion</a>
+        </nav>
+    </header>
+    <h:form>
+        <p:dataTable id = "resourses" var="recursos" value="#{RecursoBean.consultarRecursos()}"
+                     paginator="true" paginatorTemplate=" {FirstPageLink}
+             {PreviousPageLink} {CurrentPageReport} {NextPageLink}
+             {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom" rows="5" lazy="true" dynamic="true" >
+
+            <p:column headerText="Id">
+                <h:outputText value="#{recursos.id}" />
+            </p:column>
+
+            <p:column headerText="Nombre">
+                <h:outputText value="#{recursos.nombre}" />
+
+            </p:column>
+
+            <p:column headerText="Ubicacion" filterBy="#{recursos.ubicacion.ubicacion}" filterMatchMode = "contains">
+                <h:outputText value="#{recursos.ubicacion.ubicacion}" />
+            </p:column>
+
+            <p:column headerText="Tiporecurso" filterBy="#{recursos.tiporecurso.tipo}" filterMatchMode = "contains">
+                <h:outputText value="#{recursos.tiporecurso.tipo}" />
+            </p:column>
+
+            <p:column headerText="Disponibilidad">
+                <h:outputText value="#{recursos.disponibilidad}" />
+            </p:column>
+            <p:column headerText="Capacidad" filterBy="#{recursos.capacidad}" filterMatchMode = "contains">
+                <h:outputText value="#{recursos.capacidad}" />
+            </p:column>
+
+            <p:column headerText="Horario">
+                <h:outputText value="#{recursos.horario_inicial}"/><br></br>
+                <h:outputText value="#{recursos.horario_final}"/>
+            </p:column>
+
+            <p:column headerText="Cambiar">
+                <p:button outcome="cambio?recursos=#{recursos.id}" value="Cambiar Estado" />
+            </p:column>
+        </p:dataTable>
+    </h:form>
+</h:body>
+</html>
