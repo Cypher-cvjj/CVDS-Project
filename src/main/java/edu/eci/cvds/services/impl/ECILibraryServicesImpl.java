@@ -4,9 +4,11 @@ import com.google.inject.Inject;
 import com.google.inject.Singleton;
 import edu.eci.cvds.Exceptions.BibliotecaException;
 import edu.eci.cvds.entities.Recurso;
+import edu.eci.cvds.entities.Reserva;
 import edu.eci.cvds.entities.TipoRecurso;
 import edu.eci.cvds.entities.Ubicacion;
 import edu.eci.cvds.persistence.RecursoDAO;
+import edu.eci.cvds.persistence.ReservaDAO;
 import edu.eci.cvds.persistence.TipoRecursoDAO;
 import edu.eci.cvds.persistence.UbicacionDAO;
 import edu.eci.cvds.services.ECILibraryServices;
@@ -69,5 +71,15 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
     @Override
     public void cambiarEstadoRecurso(Recurso recurso) throws BibliotecaException{
 
+    }
+
+    @Override
+    public List<Reserva> consultarReserva() throws BibliotecaException {
+        try{
+            return null;
+            //return ReservaDAO.consultarReserva();
+        }catch (PersistenceException ex){
+            throw new BibliotecaException("Error al consultar Reserva",ex);
+        }
     }
 }

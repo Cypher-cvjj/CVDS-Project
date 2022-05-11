@@ -2,6 +2,7 @@ package edu.eci.cvds.services;
 
 import edu.eci.cvds.Exceptions.BibliotecaException;
 import edu.eci.cvds.entities.Recurso;
+import edu.eci.cvds.entities.Reserva;
 import edu.eci.cvds.entities.TipoRecurso;
 import edu.eci.cvds.entities.Ubicacion;
 import edu.eci.cvds.persistence.TipoRecursoDAO;
@@ -24,4 +25,5 @@ public interface ECILibraryServices {
 
     public void cambiarEstadoRecurso(Recurso recurso) throws  BibliotecaException;
 
+    public List<Reserva> consultarReserva() throws BibliotecaException;
 }
