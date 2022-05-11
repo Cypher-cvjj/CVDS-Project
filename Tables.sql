@@ -100,10 +100,10 @@ insert into usuarios(documento,nombre,contrasena,correo,telefono,tipousuario)
 values(00000,'pepito','9876','pepito@escuelaing.edu.co',876543,1);
 
 INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso)
-VALUES (6,'libro',1,1,'2021-12-13','2021-12-14',true,1);
+VALUES (6,'libro',1,1,'2021-05-13','2021-06-14',true,1);
 
 insert into reserva(id_reserva,nombre,fechasoli,fechaini,fechafin,usuario,recurso,tiporeserva)
-VALUES (1,'reserva 1','2021-12-12','2022-12-13','2022-12-13',00000,6,1);
+VALUES (1,'reserva 1','2021-05-12','2022-05-13','2022-06-13',00000,6,1);
 
 
 

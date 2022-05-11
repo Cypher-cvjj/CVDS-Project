@@ -2,12 +2,14 @@ package edu.eci.cvds.view;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import com.google.inject.Inject;
+import edu.eci.cvds.entities.Recurso;
 import edu.eci.cvds.entities.Reserva;
 import edu.eci.cvds.services.ECILibraryServices;
 import edu.eci.cvds.services.impl.ECILibraryServicesImpl;
@@ -25,6 +27,67 @@ public class ScheduleView extends BasePageBean {
     private ECILibraryServices eciLibraryServices;
 
     private int idRecurso;
+    private ScheduleModel eventModel;
+    private ScheduleEvent<?> event = new DefaultScheduleEvent<>();
+    private LocalDateTime fechaini;
+    private LocalDateTime fechafin;
+
+    public void inicializar(int id) throws IOException{
+        this.idRecurso = id;
+        eventModel = new DefaultScheduleModel();
+        loadEventos();
+        FacesContext.getCurrentInstance().getExternalContext().redirect("./CVDS.Project/horarios.xhtml");
+    }
+
+    private void loadEventos() {
+        try {
+            List<Recurso> recursos = eciLibraryServices.consultarRecursos();
+            LocalDateTime hoy = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
+            for (int i = 0; i < 30; i++) {
+                for (Recurso recurso : recursos) {
+                    System.out.println("entro for: "+recurso.getHorario_inicial() );
+
+                    LocalDateTime dia = hoy.plusDays(i);
+                    if (recurso.getHorario_inicial().getDay() == dia.getDayOfWeek().getValue()) {
+                        System.out.println("entro if");
+                        LocalDateTime fechaini = dia.plusHours(recurso.getHorario_inicial().getHours());
+                        LocalDateTime fechafin = dia.plusHours(recurso.getHorario_final().getHours());
+                        DefaultScheduleEvent<?> event1 = DefaultScheduleEvent.builder()
+                                .title(dia.getDayOfWeek().name())
+                                .startDate(fechaini)
+                                .endDate(fechafin)
+                                .borderColor("orange")
+                                .overlapAllowed(true)
+                                .id(dia.getDayOfWeek().name())
+                                .build();
+                        eventModel.addEvent(event1);
+                    }
+                }
+            }
+//            for (Reserva r : reservas) {
+//                LocalDateTime fechaini = r.getFechaini().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+//                LocalDateTime fechafin = r.getFechafin().toInstant().atZone(ZoneId.systemDefault()).toLocalDateTime();
+//                if (fechaini.isAfter(hoy)) {
+//                    DefaultScheduleEvent<?> event1 = DefaultScheduleEvent.builder()
+//                            .title("Reserva")
+//                            .startDate(fechaini)
+//                            .endDate(fechafin)
+//                            .borderColor("blue")
+//                            .overlapAllowed(true)
+//                            .build();
+//                    eventModel.addEvent(event1);
+//                }
+//            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void onEventSelect(SelectEvent selectEvent) {
+        this.event = (ScheduleEvent<?>) selectEvent.getObject();
+        this.fechaini = event.getStartDate();
+        this.fechafin = event.getStartDate();
+    }
 
     public ECILibraryServices getEciLibraryServices() {
         return eciLibraryServices;
@@ -33,9 +96,6 @@ public class ScheduleView extends BasePageBean {
     public void setEciLibraryServices(ECILibraryServices eciLibraryServices) {
         this.eciLibraryServices = eciLibraryServices;
     }
-
-    private ScheduleModel eventModel = new DefaultScheduleModel();
-
 
     public LocalDateTime getFechaini() {
         return fechaini;
@@ -51,60 +111,6 @@ public class ScheduleView extends BasePageBean {
 
     public void setFechafin(LocalDateTime fechafin) {
         this.fechafin = fechafin;
-    }
-
-    private ScheduleEvent<?> event = new DefaultScheduleEvent<>();
-    private LocalDateTime fechaini;
-    private LocalDateTime fechafin;
-
-    public void inicializar(int id) throws IOException{
-        System.out.println("incializo");
-        this.idRecurso = id;
-        eventModel = new DefaultScheduleModel();
-        loadEventos();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("./CVDS.Project/horarios.xhtml");
-    }
-
-    private void loadEventos() {
-        try {
-            List<Reserva> reservas = eciLibraryServices.consultarReservas();
-            LocalDateTime hoy = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
-            for (int i = 0; i < 30; i++) {
-                for (Reserva reserva : reservas) {
-                    LocalDateTime dia = hoy.plusDays(i);
-                    if (reserva.getFechasoli().getDay() == dia.getDayOfWeek().getValue()) {
-                        LocalDateTime fechaini = dia.plusHours(reserva.getFechaini().getHours());
-                        LocalDateTime hasta = dia.plusHours(reserva.getFechafin().getHours());
-                        DefaultScheduleEvent<?> event1 = DefaultScheduleEvent.builder()
-                                .title(dia.getDayOfWeek().name())
-                                .startDate(fechaini)
-                                .endDate(fechafin)
-                                .borderColor("orange")
-                                .overlapAllowed(true)
-                                .id(dia.getDayOfWeek().name())
-                                .build();
-                        eventModel.addEvent(event1);
-                    }
-                }
-            }
-//            List<Reserva> r = eciLibraryServices.consultarReservas();
-//            for (Reserva reserva : r) {
-//                LocalDateTime fechaini = reserva.getFechaini().toLocalDateTime();
-//                LocalDateTime fechafin = reserva.getFechafin().toLocalDateTime();
-//                if (fechaini.isAfter(hoy)) {
-//                    DefaultScheduleEvent<?> event1 = DefaultScheduleEvent.builder()
-//                            .title("Reserva")
-//                            .startDate(fechaini)
-//                            .endDate(fechafin)
-//                            .borderColor("blue")
-//                            .overlapAllowed(true)
-//                            .build();
-//                    eventModel.addEvent(event1);
-//                }
-//            }
-        } catch (Exception e) {
-            System.out.println(e);
-        }
     }
 
     public ScheduleModel getEventModel() {
@@ -123,11 +129,7 @@ public class ScheduleView extends BasePageBean {
         this.event = event;
     }
 
-    public void onEventSelect(SelectEvent selectEvent) {
-        this.event = (ScheduleEvent<?>) selectEvent.getObject();
-        this.fechaini = event.getStartDate();
-        this.fechafin = event.getStartDate();
-    }
+
 
     public int getIdRecurso() {
         return idRecurso;
