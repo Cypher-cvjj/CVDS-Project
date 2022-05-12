@@ -11,8 +11,9 @@
         <typeAlias type='edu.eci.cvds.entities.Reserva' alias='Reserva' />
         <typeAlias type='edu.eci.cvds.entities.TipoRecurso' alias='TipoRecurso' />
         <typeAlias type='edu.eci.cvds.entities.TipoReserva' alias='TipoReserva' />
+        <typeAlias type='edu.eci.cvds.entities.TipoUser' alias='TipoUser' />
         <typeAlias type='edu.eci.cvds.entities.Ubicacion' alias='Ubicacion' />
-        <typeAlias type='edu.eci.cvds.entities.User' alias='usuario' />
+        <typeAlias type='edu.eci.cvds.entities.User' alias='User' />
     </typeAliases>
 
     <environments default="development">
@@ -33,6 +34,7 @@
         <mapper resource="mappers/UbicacionMapper.xml"></mapper>
         <mapper resource="mappers/ReservaMapper.xml"></mapper>
         <mapper resource="mappers/TipoReservaMapper.xml"></mapper>
+        <mapper resource="mappers/UserMapper.xml"></mapper>
     </mappers>
 
 </configuration>

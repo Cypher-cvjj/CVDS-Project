@@ -14,6 +14,8 @@ public interface ECILibraryServices {
 
     public List<Reserva> consultarReservas() throws BibliotecaException;
 
+    public List<Reserva> consultarReservasRecurso(int idrecurso) throws BibliotecaException;
+
     public List<Recurso> consultarRecursos() throws BibliotecaException;
 
     public List<TipoRecurso> consultarTiporec() throws BibliotecaException;
@@ -28,5 +30,5 @@ public interface ECILibraryServices {
 
     public List<TipoReserva> consultarTipores() throws BibliotecaException;
 
-
+    public List<User> consultarUsuarios() throws BibliotecaException;
 }

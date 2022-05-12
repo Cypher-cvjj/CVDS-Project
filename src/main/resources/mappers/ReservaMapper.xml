@@ -8,9 +8,9 @@
         <result property='fechasoli' column='fechasoli'/>
         <result property='fechaini' column='fechaini'/>
         <result property='fechafin' column='fechafin'/>
-        <association property="usuarios" javaType="usuario" resultMap="edu.eci.cvds.persistence.mappers.UserMapper.UserResult" columnPrefix="us_"/>
-        <association property="recursos" javaType="recurso" resultMap="edu.eci.cvds.persistence.mappers.RecursoMapper.RecursoResult" columnPrefix="r_"/>
-        <association property="tiporeserva" javaType="tiporeserva" resultMap="edu.eci.cvds.persistence.mappers.TipoReservaMapperr.TipoReservaResult" columnPrefix="tr_"/>
+        <association property="usuario" javaType="user" resultMap="edu.eci.cvds.persistence.mappers.UserMapper.UserResult" columnPrefix="us_"/>
+        <association property="recurso" javaType="recurso" resultMap="edu.eci.cvds.persistence.mappers.RecursoMapper.RecursoResult" columnPrefix="r_"/>
+        <association property="tiporeserva" javaType="tiporeserva" resultMap="edu.eci.cvds.persistence.mappers.TipoReservaMapper.TipoReservaResult" columnPrefix="tr_"/>
     </resultMap>
     <select id="consultarReservas" resultMap="ReservaResult">
         select
@@ -27,6 +27,23 @@
         JOIN usuarios as u ON(u.documento = re.usuario)
         JOIN recursos as r ON(r.id_recursos = re.recurso)
         JOIN tiporecurso  as t ON(t.id = re.tiporeserva)
+    </select>
+    <select id="consultarReservasRecurso" resultMap="ReservaResult" parameterType="map">
+        select
+        re.id_reserva,
+        re.nombre,
+        re.fechasoli,
+        re.fechaini,
+        re.fechafin,
+        u.documento,
+        r.id_recursos,
+        t.tipo
+        FROM
+        reserva as re
+        JOIN usuarios as u ON(u.documento = re.usuario)
+        JOIN recursos as r ON(r.id_recursos = re.recurso)
+        JOIN tiporecurso  as t ON(t.id = re.tiporeserva)
+        WHERE id_recursos = #{rRecurso}
     </select>
     <insert id="reservarRecurso" parameterType="edu.eci.cvds.entities.Reserva">
         INSERT INTO reserva(

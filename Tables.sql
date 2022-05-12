@@ -15,8 +15,8 @@ id_recursos INT NOT NULL,
 nombre VARCHAR(50) NOT NULL,
 ubicacion INT NOT NULL,
 capacidad INT NOT NULL,
-horario_inicial DATE not null,
-horario_final DATE not null,
+horario_inicial timestamp not null,
+horario_final timestamp not null,
 disponibilidad BOOLEAN NOT null,
 tiporecurso INT NOT NULL
 );
@@ -40,9 +40,9 @@ nombre VARCHAR(50) not null
 create table reserva(
 id_reserva INT not null,
 nombre VARCHAR(50) not null,
-fechasoli Date not null,
-fechaini Date not null,
-fechafin Date not null,
+fechasoli timestamp not null,
+fechaini timestamp not null,
+fechafin timestamp not null,
 usuario int not null,
 recurso INT not null,
 tiporeserva INT not null
@@ -100,10 +100,10 @@ insert into usuarios(documento,nombre,contrasena,correo,telefono,tipousuario)
 values(00000,'pepito','9876','pepito@escuelaing.edu.co',876543,1);
 
 INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso)
-VALUES (6,'libro',1,1,'2021-05-13','2021-06-14',true,1);
+VALUES (6,'libro',1,1,'2022-05-05 07:00','2022-05-05 19:00',true,1);
 
 insert into reserva(id_reserva,nombre,fechasoli,fechaini,fechafin,usuario,recurso,tiporeserva)
-VALUES (1,'reserva 1','2021-05-12','2022-05-13','2022-06-13',00000,6,1);
+VALUES (1,'reserva 1','2022-05-12','2022-05-13','2022-06-13',00000,6,1);
 
 
 

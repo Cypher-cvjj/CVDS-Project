@@ -33,10 +33,12 @@ public class GuiceContextListener implements ServletContextListener {
         setClassPathResource("mybatis-config.xml");
         bind(ECILibraryServices.class).to(ECILibraryServicesImpl.class);
         bind(RecursoDAO.class).to(MyBatisRecursoDAO.class);
+        bind(UserDAO.class).to(MyBatisUserDAO.class);
         bind(TipoRecursoDAO.class).to(MyBatisTipoRecursoDAO.class);
         bind(UbicacionDAO.class).to(MyBatisUbicacionDAO.class);
         bind(ReservaDAO.class).to(MyBatisReservaDAO.class);
         bind(TipoReservaDAO.class).to(MyBatisTipoReservaDAO.class);
+
        }
     }
     );

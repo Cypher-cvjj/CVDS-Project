@@ -30,6 +30,7 @@ public class ECILibraryServicesFactory {
                 setClassPathResource(pathResource);
                 bind(ECILibraryServices.class).to(ECILibraryServicesImpl.class);
                 bind(RecursoDAO.class).to(MyBatisRecursoDAO.class);
+                bind(UserDAO.class).to(MyBatisUserDAO.class);
                 bind(TipoRecursoDAO.class).to(MyBatisTipoRecursoDAO.class);
                 bind(UbicacionDAO.class).to(MyBatisUbicacionDAO.class);
                 bind(ReservaDAO.class).to(MyBatisReservaDAO.class);

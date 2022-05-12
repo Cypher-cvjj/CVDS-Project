@@ -13,6 +13,8 @@ import javax.faces.bean.RequestScoped;
 import javax.faces.model.SelectItem;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -27,8 +29,8 @@ public class RecursoBean extends BasePageBean {
 
     private int typeRecursore;
     private int ubicacion;
-    private Date time1;
-    private Date time2;
+    private LocalDateTime time1;
+    private LocalDateTime time2;
     private int id;
     private String nombre;
     private int capacidad;
@@ -61,13 +63,8 @@ public class RecursoBean extends BasePageBean {
      * @throws ParseException
      */
     public void registrarRecursos() throws ParseException {
-        System.out.println("entro");
-        System.out.println(ubicacion);
-        System.out.println(time1);
-        System.out.println(time2);
-        System.out.println(typeRecursore);
-        java.sql.Date time2sql = new java.sql.Date(time2.getTime());
-        java.sql.Date time1sql = new java.sql.Date(time1.getTime());
+        Timestamp time2sql = Timestamp.valueOf(time2);
+        Timestamp time1sql = Timestamp.valueOf(time1);
 
         try {
             Recurso r = new Recurso();
@@ -121,19 +118,19 @@ public class RecursoBean extends BasePageBean {
         }
 
 
-        public Date getTime1 () {
+        public LocalDateTime getTime1 () {
             return time1;
         }
 
-        public void setTime1 (Date time1){
+        public void setTime1 (LocalDateTime time1){
             this.time1 = time1;
         }
 
-        public Date getTime2 () {
+        public LocalDateTime getTime2 () {
             return time2;
         }
 
-        public void setTime2 (Date time2){
+        public void setTime2 (LocalDateTime time2){
             this.time2 = time2;
         }
 

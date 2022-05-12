@@ -4,7 +4,9 @@ package edu.eci.cvds.entities;
 import java.io.Serializable;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.sql.Timestamp;
 import java.sql.Date;
+import java.time.LocalDateTime;
 
 /**
  * clase que representa un recurso
@@ -16,8 +18,8 @@ public class Recurso implements Serializable {
     private Ubicacion ubicacion;
     private int capacidad;
 
-    private Date horario_inicial;
-    private Date horario_final;
+    private Timestamp horario_inicial;
+    private Timestamp horario_final;
     private boolean disponibilidad;
     private TipoRecurso tiporecurso;
 
@@ -26,7 +28,7 @@ public class Recurso implements Serializable {
     public Recurso(){super();}
 
 
-    public Recurso(int id, String nombre, Ubicacion ubicacion, int capacidad, Date horario_inicial, Date horario_final,boolean disponibilidad,TipoRecurso tiporecurso){
+    public Recurso(int id, String nombre, Ubicacion ubicacion, int capacidad, Timestamp horario_inicial, Timestamp horario_final,boolean disponibilidad,TipoRecurso tiporecurso){
         this.id = id;
         this.nombre = nombre;
         this.ubicacion = ubicacion;
@@ -77,19 +79,15 @@ public class Recurso implements Serializable {
         this.capacidad = capacidad;
     }
 
-    public Date getHorario_inicial() {
-        return horario_inicial;
-    }
+    public LocalDateTime getHorario_inicial() {return  horario_inicial.toLocalDateTime();}
 
-    public void setHorario_inicial(Date horario_inicial) {
+    public void setHorario_inicial(Timestamp horario_inicial) {
         this.horario_inicial = horario_inicial;
     }
 
-    public Date getHorario_final() {
-        return horario_final;
-    }
+    public LocalDateTime getHorario_final() {return  horario_final.toLocalDateTime();}
 
-    public void setHorario_final(Date horario_final) {
+    public void setHorario_final(Timestamp horario_final) {
         this.horario_final = horario_final;
     }
 
@@ -112,4 +110,5 @@ public class Recurso implements Serializable {
     public void setTiporecurso(TipoRecurso tiporecurso) {
         this.tiporecurso = tiporecurso;
     }
+
 }

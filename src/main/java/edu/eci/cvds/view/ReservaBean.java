@@ -8,6 +8,7 @@ import org.primefaces.model.DefaultScheduleModel;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import java.io.IOException;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @ManagedBean(name = "ReservaBean")
@@ -20,25 +21,25 @@ public class ReservaBean extends BasePageBean {
 
     private int id_recurso;
     private String nombre_recurso;
-    private Date fechainicialreserva;
-    private Date fechafinalreserva;
+    private LocalDateTime fechainicialreserva;
+    private LocalDateTime fechafinalreserva;
     private DefaultScheduleModel eventModel;
 
 
-    public Date getFechainicialreserva() {
+    public LocalDateTime getFechainicialreserva() {
         return fechainicialreserva;
     }
 
-    public Date getFechafinalreserva() {
+    public LocalDateTime getFechafinalreserva() {
         return fechafinalreserva;
     }
 
-    public void setFechainicialreserva(Date fechainicialreserva) {
+    public void setFechainicialreserva(LocalDateTime fechainicialreserva) {
         this.fechainicialreserva = fechainicialreserva;
         System.out.println(fechainicialreserva);
     }
 
-    public void setFechafinalreserva(Date fechafinalreserva) {
+    public void setFechafinalreserva(LocalDateTime fechafinalreserva) {
         this.fechafinalreserva = fechafinalreserva;
         System.out.println(fechafinalreserva);
     }

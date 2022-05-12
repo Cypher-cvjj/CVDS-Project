@@ -1,24 +1,26 @@
 package edu.eci.cvds.entities;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 public class Reserva implements Serializable{
 
     private int id_reserva;
     private String nombre;
-    private Date fechasoli;
-    private Date fechaini;
-    private Date fechafin;
+    private Timestamp fechasoli;
+    private Timestamp fechaini;
+    private Timestamp fechafin;
     private User usuario;
     private Recurso recurso;
     private TipoReserva tiporeserva;
 
     public Reserva() {super(); }
 
-    public Reserva(int id_reserva, String nombre, Date fechasoli, Date fechaini, Date fechafin, User usuario, Recurso recurso, TipoReserva tiporeserva) {
+    public Reserva(int id_reserva, String nombre, Timestamp fechasoli, Timestamp fechaini, Timestamp fechafin, User usuario, Recurso recurso, TipoReserva tiporeserva) {
         this.id_reserva = id_reserva;
         this.nombre = nombre;
         this.fechasoli = fechasoli;
@@ -45,27 +47,27 @@ public class Reserva implements Serializable{
         this.nombre = nombre;
     }
 
-    public Date getFechasoli() {
-        return fechasoli;
+    public LocalDateTime getFechasoli() {
+        return fechasoli.toLocalDateTime();
     }
 
-    public void setFechasoli(Date fechasoli) {
+    public void setFechasoli(Timestamp fechasoli) {
         this.fechasoli = fechasoli;
     }
 
-    public Date getFechaini() {
-        return fechaini;
+    public LocalDateTime getFechaini() {
+        return fechaini.toLocalDateTime();
     }
 
-    public void setFechaini(Date fechaini) {
+    public void setFechaini(Timestamp fechaini) {
         this.fechaini = fechaini;
     }
 
-    public Date getFechafin() {
-        return fechafin;
+    public LocalDateTime getFechafin() {
+        return fechafin.toLocalDateTime();
     }
 
-    public void setFechafin(Date fechafin) {
+    public void setFechafin(Timestamp fechafin) {
         this.fechafin = fechafin;
     }
 

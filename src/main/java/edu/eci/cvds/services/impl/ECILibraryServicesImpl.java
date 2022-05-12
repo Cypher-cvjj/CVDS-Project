@@ -31,12 +31,25 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
     @Inject
     private TipoReservaDAO tipoReservaDAO;
 
+    @Inject
+    private UserDAO userDAO;
+
     @Override
     public List<Reserva> consultarReservas() throws BibliotecaException {
         try{
             return reservaDAO.consultarReservas();
         }catch (PersistenceException ex){
             throw new BibliotecaException("Error al consultar recursos",ex);
+        }
+    }
+
+    @Override
+    public List<Reserva> consultarReservasRecurso(int idrecurso) throws BibliotecaException {
+        try{
+            return reservaDAO.consultarReservasRecurso(idrecurso);
+        }catch (PersistenceException ex){
+            ex.printStackTrace();
+            throw new BibliotecaException("Error al consultar reserva", ex);
         }
     }
 
@@ -101,6 +114,15 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
             return tipoReservaDAO.consultarTipores();
         }catch (PersistenceException ex){
             throw new BibliotecaException("Error al consultar tipos de reservas",ex);
+        }
+    }
+
+    @Override
+    public List<User> consultarUsuarios() throws BibliotecaException {
+        try{
+            return userDAO.consultarUsuarios();
+        }catch (PersistenceException ex){
+            throw new BibliotecaException("Error al consultar usuarios", ex);
         }
     }
 }

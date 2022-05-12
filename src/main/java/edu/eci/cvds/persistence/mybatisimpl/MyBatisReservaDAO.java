@@ -32,4 +32,15 @@ public class MyBatisReservaDAO implements ReservaDAO{
             throw new PersistenceException("Error al registrar recurso",e);
         }
     }
+
+    @Override
+    public List<Reserva> consultarReservasRecurso(int idrecurso) {
+        List<Reserva> lisreservasrecurso = null;
+        try{
+            lisreservasrecurso = reservaMapper.consultarReservasRecurso(idrecurso);
+        }catch (org.apache.ibatis.exceptions.PersistenceException e){
+            throw new PersistenceException("Error al consultar reservas recurso",e);
+        }
+        return lisreservasrecurso;
+    }
 }

@@ -26,7 +26,6 @@ public class User implements Serializable {
         this.userType = userType;
     }
 
-
     public long getDocumento(){
         return documento;
     }

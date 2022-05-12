@@ -10,7 +10,16 @@ import java.util.List;
 public class MyBatisUserDAO implements UserDAO {
 
     @Inject
-    private UserMapper UserMapper;
+    private UserMapper userMapper;
 
-
+    @Override
+    public List<User> consultarUsuarios() throws PersistenceException {
+        List<User> usuarios =null;
+        try{
+            usuarios = userMapper.consultarUsuarios();
+        }catch (org.apache.ibatis.exceptions.PersistenceException e){
+            throw new PersistenceException("Error al consultar recursos mb",e);
+        }
+        return usuarios;
+    }
 }
