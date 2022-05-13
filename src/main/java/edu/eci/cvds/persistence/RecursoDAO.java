@@ -12,6 +12,6 @@ public interface RecursoDAO {
 
     public void agregarRecursos(Recurso recurso) throws PersistenceException;
 
-    public void cambiarEstadoRecurso(Recurso recurso) throws  PersistenceException;
+    public void cambiarEstadoRecurso(int idRecurso) throws  PersistenceException;
 
 }

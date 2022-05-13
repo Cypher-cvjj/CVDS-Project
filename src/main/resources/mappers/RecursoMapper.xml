@@ -37,31 +37,9 @@
         ) VALUES(
         #{Recurso.id}, #{Recurso.nombre},#{Recurso.ubicacion.id},#{Recurso.capacidad},#{Recurso.horario_inicial},#{Recurso.horario_final},#{Recurso.disponibilidad},#{Recurso.tiporecurso.id});
     </insert>
-    <update id = "cambiarEstadoRecurso" parameterType="edu.eci.cvds.entities.Recurso">
+    <update id = "cambiarEstadoRecurso" parameterType="int">
         UPDATE Recursos
         SET disponibilidad = NOT disponibilidad
-        WHERE id_recursos = #{Recurso.id}
+        WHERE id_recursos = #{idRecurso}
     </update>
-
-    <select id="getByRecursp" resultMap="RecursobResult"
-            parameterType="int">
-        select
-        r.id_recursos,
-        r.nombre,
-        ub.id as ub_id,
-        ub.ubicacion as ub_ubicacion,
-        r.capacidad,
-        r.horario_inicial,
-        r.horario_final,
-        r.disponibilidad,
-        tr.id tr_id,
-        tr.tipo tr_tipo
-        FROM
-        recursos as r
-        JOIN tiporecurso as tr ON(tr.id = r.tiporecurso)
-        JOIN ubicacion as ub ON(ub.id = r.ubicacion)
-        <if test="recursos != null">
-            WHERE r.id_recursos = #{recursos}
-        </if>
-    </select>
 </mapper>

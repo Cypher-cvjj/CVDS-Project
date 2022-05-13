@@ -62,7 +62,7 @@
             <a href="./CVDS.Project/login.xhtml" class="nav-link">Iniciar Sesion</a>
         </nav>
     </header>
-    <h:form>
+    <h:form id="recurso_form">
         <p:dataTable id = "resourses" var="recursos" value="#{RecursoBean.consultarRecursos()}"
                      paginator="true" paginatorTemplate=" {FirstPageLink}
              {PreviousPageLink} {CurrentPageReport} {NextPageLink}
@@ -98,7 +98,7 @@
             </p:column>
 
             <p:column headerText="Cambiar">
-                <p:button outcome="cambio?recursos=#{recursos.id}" value="Cambiar Estado" />
+                <p:commandButton style="background-image:linear-gradient(to right,rgb(93,32,31), rgb(  255, 15, 10  ))"  update="recurso_form" class="Button" actionListener="#{RecursoBean.cambiarEstadoRecurso(recursos.id)}" value="Cambiar Disponibilidad"/>
             </p:column>
         </p:dataTable>
     </h:form>

@@ -5,17 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="9aaec5bd-b9de-4298-b4e8-968a2ab9324a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/webapp/cambiarrecurso.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/jpa-buddy.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/markdown.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/entities/Recurso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/entities/Recurso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_10_00_p__m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_10_00_p__m___Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_9_58_p__m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_9_58_p__m___Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_9_58_p__m___Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_9_58_p__m___Changes_1.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/RecursoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/RecursoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mappers/RecursoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mappers/RecursoMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisRecursoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisRecursoDAO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/ECILibraryServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/ECILibraryServices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/RecursoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/RecursoBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/RecursoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/RecursoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/cambiarrecurso.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/cambiarrecurso.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/edu/eci/cvds/test/BibliotecaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/eci/cvds/test/BibliotecaTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
