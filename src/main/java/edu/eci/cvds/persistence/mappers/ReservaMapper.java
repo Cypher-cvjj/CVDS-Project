@@ -9,4 +9,6 @@ public interface ReservaMapper {
     public void reservarRecurso(@Param("Reserva") Reserva reserva);
 
     public List<Reserva> consultarReservas();
+
+    public void CancelarReserva(@Param("reserva") Reserva reserva);
 }

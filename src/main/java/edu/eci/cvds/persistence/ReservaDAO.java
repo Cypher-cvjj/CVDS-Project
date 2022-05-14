@@ -9,4 +9,6 @@ public interface ReservaDAO {
     public List<Reserva> consultarReservas() throws PersistenceException;
 
     public void reservarRecurso(Reserva reserva) throws PersistenceException;
+
+    public void CancelarReserva(Reserva reserva) throws PersistenceException;
 }

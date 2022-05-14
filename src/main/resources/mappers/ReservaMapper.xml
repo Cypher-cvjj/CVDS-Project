@@ -8,6 +8,7 @@
         <result property='fechasoli' column='fechasoli'/>
         <result property='fechaini' column='fechaini'/>
         <result property='fechafin' column='fechafin'/>
+        <result property='estado' column='estado'/>
         <association property="usuarios" javaType="usuario" resultMap="edu.eci.cvds.persistence.mappers.UserMapper.UserResult" columnPrefix="us_"/>
         <association property="recursos" javaType="recurso" resultMap="edu.eci.cvds.persistence.mappers.RecursoMapper.RecursoResult" columnPrefix="r_"/>
         <association property="tiporeserva" javaType="tiporeserva" resultMap="edu.eci.cvds.persistence.mappers.TipoReservaMapperr.TipoReservaResult" columnPrefix="tr_"/>
@@ -30,8 +31,9 @@
     </select>
     <insert id="reservarRecurso" parameterType="edu.eci.cvds.entities.Reserva">
         INSERT INTO reserva(
-        id_reserva,nombre,fechasoli,fechaini,fechafin,usuario,recurso,tiporeserva
+        id_reserva,nombre,fechasoli,fechaini,fechafin,estado,usuario,recurso,tiporeserva
         ) VALUES(
-        #{Reserva.id_reserva},#{Reserva.nombre},#{Reserva.fechasoli},#{Reserva.fechaini},#{Reserva.fechafin},#{Reserva.usuario.documento},#{Reserva.recurso.id},#{Reserva.tiporeserva.id});
+        #{Reserva.id_reserva},#{Reserva.nombre},#{Reserva.fechasoli},#{Reserva.fechaini},#{Reserva.fechafin},#{Reserva.estado},#{Reserva.usuario.documento},#{Reserva.recurso.id},#{Reserva.tiporeserva.id});
     </insert>
+
 </mapper>

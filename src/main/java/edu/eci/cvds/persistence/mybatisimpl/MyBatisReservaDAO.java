@@ -32,4 +32,13 @@ public class MyBatisReservaDAO implements ReservaDAO{
             throw new PersistenceException("Error al registrar recurso",e);
         }
     }
+
+    @Override
+    public void CancelarReserva(Reserva reserva){
+        try{
+            reservaMapper.CancelarReserva(reserva);
+        }catch (org.apache.ibatis.exceptions.PersistenceException e){
+            throw new PersistenceException("Error al registrar recurso",e);
+        }
+    }
 }
