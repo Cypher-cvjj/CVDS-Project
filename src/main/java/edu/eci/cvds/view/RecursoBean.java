@@ -29,8 +29,8 @@ public class RecursoBean extends BasePageBean {
 
     private int typeRecursore;
     private int ubicacion;
-    private LocalDateTime time1;
-    private LocalDateTime time2;
+    private Date time1;
+    private Date time2;
     private int id;
     private String nombre;
     private int capacidad;
@@ -52,6 +52,9 @@ public class RecursoBean extends BasePageBean {
         List<Recurso> recursos = new ArrayList<>();
         try {
             recursos = eciLibraryServices.consultarRecursos();
+            for(Recurso r: recursos){
+                System.out.println(r);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -63,8 +66,10 @@ public class RecursoBean extends BasePageBean {
      * @throws ParseException
      */
     public void registrarRecursos() throws ParseException {
-        Timestamp time2sql = Timestamp.valueOf(time2);
-        Timestamp time1sql = Timestamp.valueOf(time1);
+        System.out.println(time1);
+        Timestamp time2sql = new Timestamp(time2.getTime());
+        Timestamp time1sql = new Timestamp(time1.getTime());
+        System.out.println(time1);
 
         try {
             Recurso r = new Recurso();
@@ -118,20 +123,24 @@ public class RecursoBean extends BasePageBean {
         }
 
 
-        public LocalDateTime getTime1 () {
+        public Date getTime1 () {
             return time1;
         }
 
-        public void setTime1 (LocalDateTime time1){
-            this.time1 = time1;
+        public void setTime1 (Date time1){
+            Date hoy = new Date();
+            hoy.setHours(time1.getHours());
+            this.time1 = hoy;
         }
 
-        public LocalDateTime getTime2 () {
+        public Date getTime2 () {
             return time2;
         }
 
-        public void setTime2 (LocalDateTime time2){
-            this.time2 = time2;
+        public void setTime2 (Date time2){
+            Date hoy = new Date();
+            hoy.setHours(time2.getHours());
+            this.time2 = hoy;
         }
 
         public List<SelectItem> getListaUbicaciones () {

@@ -46,7 +46,7 @@ public class ScheduleView extends BasePageBean {
             for (Reserva reserva : reservas) {
                 LocalDateTime fechaini = reserva.getFechaini();
                 LocalDateTime fechafin = reserva.getFechafin();
-                if (fechaini.isAfter(hoy)) {
+                if (fechafin.isAfter(hoy)) {
                     DefaultScheduleEvent<?> event1 = DefaultScheduleEvent.builder()
                             .title("Reserva")
                             .startDate(fechaini)

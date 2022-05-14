@@ -3,10 +3,15 @@ package edu.eci.cvds.entities;
 
 import java.io.Serializable;
 import java.sql.Time;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.sql.Timestamp;
-import java.sql.Date;
+import java.util.Date;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+
+import static java.time.LocalTime.NOON;
 
 /**
  * clase que representa un recurso
@@ -19,6 +24,8 @@ public class Recurso implements Serializable {
     private int capacidad;
 
     private Timestamp horario_inicial;
+    private Timestamp horaini;
+    private Timestamp horafin;
     private Timestamp horario_final;
     private boolean disponibilidad;
     private TipoRecurso tiporecurso;
@@ -47,6 +54,18 @@ public class Recurso implements Serializable {
         return "Recurso{" + " id= " + id + " nombre= " + nombre + " ubicacion= " + ubicacion.getUbicacion() + " capacidad= "+ capacidad + " Hora_inicial= " + horario_inicial + " Hora_final= " + horario_final + " disponibilidad= " + disponibilidad + " tipo= " + tiporecurso.getTipo() + "}";
     }
 
+    public String getHoraini(){
+        Date temp = new Date();
+        temp.setTime(horario_inicial.getTime());
+        System.out.println(horario_inicial);
+        String formattedDate = new SimpleDateFormat("HH:mm").format(temp);
+        return formattedDate;
+
+    }
+
+    public int getHorafin(){
+        return horario_final.getHours();
+    }
     public int getId() {
         return id;
     }
