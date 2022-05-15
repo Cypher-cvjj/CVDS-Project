@@ -10,5 +10,5 @@ public interface ReservaDAO {
 
     public void reservarRecurso(Reserva reserva) throws PersistenceException;
 
-    public void CancelarReserva(Reserva reserva) throws PersistenceException;
+    public void CancelarReserva(int idReserva) throws PersistenceException;
 }

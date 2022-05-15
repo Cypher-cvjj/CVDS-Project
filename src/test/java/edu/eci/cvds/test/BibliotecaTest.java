@@ -90,7 +90,7 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void deberiacancelarRecurso() throws BibliotecaException, ParseException {
+    public void deberiacancelarReserva() throws BibliotecaException, ParseException {
         SimpleDateFormat fechaHora = new SimpleDateFormat("yyyMMdd");
         Date horaInicio = fechaHora.parse("20110210");
         java.sql.Date sql = new java.sql.Date(horaInicio.getTime());
@@ -114,6 +114,7 @@ public class BibliotecaTest {
         re.setUsuario(new User(0000,"pepito","98765","pepito@gmail.com","6383743","user"));
         re.setTiporeserva(new TipoReserva(1,"Diario"));
         eciLibraryServices.reservarRecurso(re);
+        eciLibraryServices.CancelarReserva(re.getId_reserva());
         assertTrue(re.isEstado() == false);
     }
 
