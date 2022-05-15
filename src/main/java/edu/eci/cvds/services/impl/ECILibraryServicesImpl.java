@@ -125,4 +125,13 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
             throw new BibliotecaException("Error al consultar usuarios", ex);
         }
     }
+
+    @Override
+    public void CancelarReserva(Reserva reserva) throws BibliotecaException {
+        try{
+            reservaDAO.CancelarReserva(reserva);
+        }catch (PersistenceException ex){
+            throw new BibliotecaException("Error al consultar tipos de reservas",ex);
+        }
+    }
 }

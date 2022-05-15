@@ -14,18 +14,20 @@ public class Reserva implements Serializable{
     private Timestamp fechasoli;
     private Timestamp fechaini;
     private Timestamp fechafin;
+    private boolean estado;
     private User usuario;
     private Recurso recurso;
     private TipoReserva tiporeserva;
 
     public Reserva() {super(); }
 
-    public Reserva(int id_reserva, String nombre, Timestamp fechasoli, Timestamp fechaini, Timestamp fechafin, User usuario, Recurso recurso, TipoReserva tiporeserva) {
+    public Reserva(int id_reserva, String nombre, Timestamp fechasoli, Timestamp fechaini, Timestamp fechafin, boolean estado,  User usuario, Recurso recurso, TipoReserva tiporeserva) {
         this.id_reserva = id_reserva;
         this.nombre = nombre;
         this.fechasoli = fechasoli;
         this.fechaini = fechaini;
         this.fechafin = fechafin;
+        this.estado = estado;
         this.usuario = usuario;
         this.recurso = recurso;
         this.tiporeserva = tiporeserva;
@@ -65,6 +67,14 @@ public class Reserva implements Serializable{
 
     public LocalDateTime getFechafin() {
         return fechafin.toLocalDateTime();
+    }
+
+    public boolean isEstado() {
+        return estado;
+    }
+
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     public void setFechafin(Timestamp fechafin) {
