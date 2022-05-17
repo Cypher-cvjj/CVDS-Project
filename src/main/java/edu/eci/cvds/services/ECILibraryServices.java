@@ -34,4 +34,7 @@ public interface ECILibraryServices {
 
     public Reserva consultarReserva(int idReserva) throws BibliotecaException;
     void CancelarReserva(int idReserva) throws BibliotecaException;
+
+    public Session consultarSession(String email, String password) throws BibliotecaException;
+
 }

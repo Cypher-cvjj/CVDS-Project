@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.eci.cvds.persistence.mappers.SessionMapper">
+    <resultMap type="Session" id="SessionResult">
+        <id property='document' column='documento'/>
+        <result property='username' column='nombre'/>
+        <result property='password' column='contrasena'/>
+        <result property='email' column='correo'/>
+        <result property='rol' column='tipousuaruio'/>
+    </resultMap>
+    <select id="consultarSession" resultMap="SessionResult">
+        select  
+        us.documento,
+        us.nombre,
+        us.contrasena,
+        us.correo,
+        us.tipousuario
+        from
+        usuarios as us
+        WHERE
+        correo = #{email} AND contrasena = #{password}
+    </select>
+</mapper>

@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui" >
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <script type="text/javascript">
         PrimeFaces.locales['tr'] = {
@@ -58,9 +60,11 @@
             <img src="./Images/icon.png"/>
             <h2 class="titulo">Recursos Biblioteca</h2>
     </div>
+    <c:if test="#{LoginBean.isCommunity()}">
     <nav>
         <a href="./CVDS.Project/login.xhtml" class="nav-link">Iniciar Sesion</a>
     </nav>
+    </c:if>
 </header>
 <h:form>
     <p:dataTable id = "resourses" var="recursos" value="#{RecursoBean.consultarRecursos()}"
@@ -98,9 +102,18 @@
         </p:column>
 
         <p:column headerText="Horarios">
+
+            <c:if test="#{LoginBean.isCommunity()}" >
+            <p:commandButton  value="Reservar"
+                              action="#{LoginBean.notAllowed()}" />
+            </c:if>
+            <c:if test="#{LoginBean.isAdmin()}" >
             <p:commandButton  value="Reservar"
                               action="#{scheduleView.inicializar(recursos.id)}"/>
+            </c:if>
+
         </p:column>
+        
     </p:dataTable>
 </h:form>
 </h:body>
