@@ -1,0 +1,229 @@
+Index: Tables.sql
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>--TABLES\r\nCREATE TABLE usuarios(\r\ndocumento INT NOT NULL,\r\nnombre VARCHAR(50) NOT NULL,\r\ncontrasena VARCHAR(16) NOT NULL,\r\ncorreo VARCHAR(50) NOT NULL,\r\ntelefono VARCHAR(50),\r\ntipousuario INT NOT null\r\n);\r\n\r\n\r\nCREATE TABLE recursos(\r\n\r\nid_recursos INT NOT NULL,\r\nnombre VARCHAR(50) NOT NULL,\r\nubicacion INT NOT NULL,\r\ncapacidad INT NOT NULL,\r\nhorario_inicial DATE not null,\r\nhorario_final DATE not null,\r\ndisponibilidad BOOLEAN NOT null,\r\ntiporecurso INT NOT NULL\r\n);\r\n\r\ncreate table tiporecurso(\r\nid INT not null,\r\ntipo VARCHAR(50) not null\r\n);\r\n\r\ncreate table ubicacion(\r\nid INT not null,\r\nubicacion VARCHAR(50) not null\r\n);\r\n\r\n\r\nCREATE TABLE TipoUsuario(\r\nid INT not null,\r\nnombre VARCHAR(50) not null\r\n);\r\n\r\ncreate table reserva(\r\nid_reserva INT not null,\r\nnombre VARCHAR(50) not null,\r\nfechasoli Date not null,\r\nfechaini Date not null,\r\nfechafin Date not null,\r\nusuario int not null,\r\nrecurso INT not null,\r\ntiporeserva INT not null\r\n);\r\n\r\n\r\ncreate table tiporeserva(\r\nid INT not null,\r\ntipore VARCHAR (50)\r\n);\r\n\r\n--PK\r\nALTER TABLE usuarios ADD CONSTRAINT pk_usuario PRIMARY KEY (documento);\r\nALTER TABLE recursos ADD CONSTRAINT pk_recursos PRIMARY KEY (id_recursos);\r\nALTER TABLE TipoUsuario  ADD CONSTRAINT pk_tipousuario PRIMARY KEY (id);\r\nALTER TABLE Tiporecurso ADD CONSTRAINT pk_tiporecurso PRIMARY KEY (id);\r\nALTER TABLE ubicacion  ADD CONSTRAINT pk_ubicacion PRIMARY KEY (id);\r\nALTER TABLE reserva  ADD CONSTRAINT pk_reserva PRIMARY KEY (id_reserva);\r\nalter TABLE tiporeserva add CONSTRAINT pk_tiporeserva PRIMARY key (id);\r\n\r\n--UK\r\nALTER TABLE usuarios ADD CONSTRAINT uk_correo UNIQUE (correo);\r\n\r\n--FK\r\nALTER TABLE usuarios\r\nADD constraint usuarios_tipo FOREIGN KEY (tipousuario) REFERENCES tipousuario (id);\r\nALTER TABLE reserva\r\nADD constraint usuarios_reserva FOREIGN KEY (usuario) references usuarios (documento);\r\nALTER TABLE recursos\r\nADD constraint recursos_ubicacion FOREIGN KEY (ubicacion) REFERENCES ubicacion (id);\r\nALTER TABLE recursos\r\nADD constraint recursos_tiporecurso FOREIGN KEY (tiporecurso) REFERENCES tiporecurso (id);\r\nALTER TABLE reserva\r\nADD constraint reserva_recurso FOREIGN KEY (recurso) REFERENCES recursos (id_recursos);\r\nalter table reserva\r\nadd constraint reserva_tiporeserva FOREIGN key (tiporeserva) REFERENCES tiporeserva(id);\r\n\r\n\r\n--POBLAR\r\ninsert into ubicacion (id,ubicacion) values (1,'BloqueG');\r\ninsert into ubicacion (id,ubicacion) values (2,'BloqueB');\r\ninsert into ubicacion (id,ubicacion) values (3,'BibliotecaJorgeAlvarez');\r\ninsert into tiporecurso (id,tipo) values (1,'equipodecomputo');\r\ninsert into tiporecurso (id,tipo) values (2,'Saladeestudio');\r\ninsert into tiporecurso (id,tipo) values (3,'equipoultimedia');\r\ninsert into tiporeserva  (id,tipore) values (1,'Diario');\r\ninsert into tiporeserva (id,tipore) values (2,'Semanal');\r\ninsert into tiporeserva (id,tipore) values (3,'mensual');\r\ninsert into tiporeserva (id,tipore) values (4,'ninguna');\r\ninsert into tipousuario (id,nombre) values (1,'admin');\r\ninsert into tipousuario (id,nombre) values (2,'user');\r\n\r\n\r\ninsert into usuarios(documento,nombre,contrasena,correo,telefono,tipousuario)\r\nvalues(00000,'pepito','9876','pepito@escuelaing.edu.co',876543,1);\r\n\r\nINSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso)\r\nVALUES (6,'libro',1,1,'2021-05-13','2021-06-14',true,1);\r\n\r\ninsert into reserva(id_reserva,nombre,fechasoli,fechaini,fechafin,usuario,recurso,tiporeserva)\r\nVALUES (1,'reserva 1','2021-05-12','2022-05-13','2022-06-13',00000,6,1);\r\n\r\n\r\n\r\n\r\n\r\n--DROP\r\ndrop TABLE usuarios cascade;\r\ndrop TABLE recursos cascade;\r\nDROP TABLE tipousuario cascade;\r\nDROP TABLE ubicacion cascade;\r\nDROP TABLE tiporecurso cascade;\r\ndrop table reserva cascade;\r\ndrop table tiporeserva cascade;\r\n--DELETE\r\nDelete from recursos;\r\ndelete from usuarios;\r\ndelete from tipousuario;\r\ndelete from ubicacion;\r\ndelete from tiporecurso;\r\ndelete from reserva;\r\ndelete from tiporeserva;\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/Tables.sql b/Tables.sql
+--- a/Tables.sql	
++++ b/Tables.sql	
+@@ -15,8 +15,8 @@
+ nombre VARCHAR(50) NOT NULL,
+ ubicacion INT NOT NULL,
+ capacidad INT NOT NULL,
+-horario_inicial DATE not null,
+-horario_final DATE not null,
++horario_inicial timestamp not null,
++horario_final timestamp not null,
+ disponibilidad BOOLEAN NOT null,
+ tiporecurso INT NOT NULL
+ );
+@@ -40,9 +40,9 @@
+ create table reserva(
+ id_reserva INT not null,
+ nombre VARCHAR(50) not null,
+-fechasoli Date not null,
+-fechaini Date not null,
+-fechafin Date not null,
++fechasoli timestamp not null,
++fechaini timestamp not null,
++fechafin timestamp not null,
+ usuario int not null,
+ recurso INT not null,
+ tiporeserva INT not null
+@@ -100,10 +100,10 @@
+ values(00000,'pepito','9876','pepito@escuelaing.edu.co',876543,1);
+ 
+ INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso)
+-VALUES (6,'libro',1,1,'2021-05-13','2021-06-14',true,1);
++VALUES (6,'libro',1,1,'2022-05-05 07:00','2022-05-05 19:00',true,1);
+ 
+ insert into reserva(id_reserva,nombre,fechasoli,fechaini,fechafin,usuario,recurso,tiporeserva)
+-VALUES (1,'reserva 1','2021-05-12','2022-05-13','2022-06-13',00000,6,1);
++VALUES (1,'reserva 1','2022-05-12','2022-05-13','2022-06-13',00000,6,1);
+ 
+ 
+ 
+Index: src/test/java/edu/eci/cvds/test/BibliotecaTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.test;\r\n\r\nimport edu.eci.cvds.Exceptions.BibliotecaException;\r\nimport edu.eci.cvds.entities.*;\r\nimport edu.eci.cvds.services.ECILibraryServices;\r\nimport edu.eci.cvds.services.ECILibraryServicesFactory;\r\nimport org.junit.Test;\r\n\r\nimport java.sql.Time;\r\nimport java.text.DateFormat;\r\nimport java.text.ParseException;\r\nimport java.text.SimpleDateFormat;\r\nimport java.time.LocalDate;\r\nimport java.time.Month;\r\nimport java.util.Date;\r\nimport java.util.List;\r\n\r\nimport static org.junit.Assert.*;\r\n\r\n\r\npublic class BibliotecaTest {\r\n    private ECILibraryServices eciLibraryServices;\r\n\r\n\r\n    public BibliotecaTest(){\r\n        eciLibraryServices = ECILibraryServicesFactory.getInstance().getECILibraryServices();\r\n    }\r\n\r\n    @Test\r\n    public void deberiaregistrarRecurso() throws BibliotecaException, ParseException {\r\n        SimpleDateFormat fechaHora = new SimpleDateFormat(\"yyyMMdd\");\r\n        Date horaInicio = fechaHora.parse(\"20110210\");\r\n        java.sql.Date sql = new java.sql.Date(horaInicio.getTime());\r\n        SimpleDateFormat fechafi = new SimpleDateFormat(\"yyyMMdd\");\r\n        Date horaFinal = fechaHora.parse(\"20110210\");\r\n        java.sql.Date sql2 = new java.sql.Date(horaFinal.getTime());\r\n        List<Recurso> listarecursos = eciLibraryServices.consultarRecursos();\r\n        int long1 = listarecursos.size();\r\n        int id = (int) Math.floor(Math.random()*(2000-1000+1)+2000);\r\n        Recurso r = new Recurso();\r\n        r.setId(id);\r\n        r.setNombre(\"libroo\");\r\n        r.setUbicacion(new Ubicacion(1,\"BloqueG\"));\r\n        r.setCapacidad(2);\r\n        r.setHorario_inicial(sql);\r\n        r.setHorario_final(sql2);\r\n        r.setDisponibilidad(true);\r\n        r.setTiporecurso(new TipoRecurso(1,\"Equipodecomputo\"));\r\n        eciLibraryServices.registrarRecursos(r);\r\n        List<Recurso> listarecursos2 = eciLibraryServices.consultarRecursos();\r\n        int long2 = listarecursos2.size();\r\n        assertTrue(long2>long1);\r\n\r\n    }\r\n\r\n    @Test\r\n    public void deberiareservarRecurso() throws BibliotecaException, ParseException {\r\n        SimpleDateFormat fechaHora = new SimpleDateFormat(\"yyyMMdd\");\r\n        Date horaInicio = fechaHora.parse(\"20110210\");\r\n        java.sql.Date sql = new java.sql.Date(horaInicio.getTime());\r\n        SimpleDateFormat fechafi = new SimpleDateFormat(\"yyyMMdd\");\r\n        Date horaFinal = fechaHora.parse(\"20110210\");\r\n        java.sql.Date sql2 = new java.sql.Date(horaFinal.getTime());\r\n        SimpleDateFormat fechasol = new SimpleDateFormat(\"yyyMMdd\");\r\n        Date horasol = fechaHora.parse(\"20110210\");\r\n        java.sql.Date sql3 = new java.sql.Date(horaFinal.getTime());\r\n        int id = (int) Math.floor(Math.random()*(2000-1000+1)+2000);\r\n        Recurso rec = new Recurso(id,\"libro R\",new Ubicacion(1,\"BloqueG\"),3,sql2,sql3,true,new TipoRecurso(1,\"Equipodecomputo\"));\r\n        eciLibraryServices.registrarRecursos(rec);\r\n        Reserva re = new Reserva();\r\n        re.setNombre(\"reserva4\");\r\n        re.setId_reserva(id);\r\n        re.setFechasoli(sql3);\r\n        re.setFechaini(sql);\r\n        re.setFechafin(sql2);\r\n        re.setRecurso(new Recurso(id,\"libro R\",new Ubicacion(1,\"BloqueG\"),3,sql2,sql3,true,new TipoRecurso(1,\"Equipodecomputo\")));\r\n        re.setUsuario(new User(0000,\"pepito\",\"98765\",\"pepito@gmail.com\",\"6383743\",\"user\"));\r\n        re.setTiporeserva(new TipoReserva(1,\"Diario\"));\r\n        eciLibraryServices.reservarRecurso(re);\r\n        assertTrue(re.getNombre() == \"reserva4\");\r\n    }\r\n\r\n    @Test\r\n    public void deberiaCambiarEstadoRecurso() throws  BibliotecaException, ParseException{\r\n        List<Recurso> listarecursos = eciLibraryServices.consultarRecursos();\r\n        boolean flag = listarecursos.get(listarecursos.size() - 1).getDisponibilidad();\r\n        eciLibraryServices.cambiarEstadoRecurso(listarecursos.get(listarecursos.size() - 1));\r\n        assertTrue(listarecursos.get(listarecursos.size() - 1).getDisponibilidad() != flag);\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/edu/eci/cvds/test/BibliotecaTest.java b/src/test/java/edu/eci/cvds/test/BibliotecaTest.java
+--- a/src/test/java/edu/eci/cvds/test/BibliotecaTest.java	
++++ b/src/test/java/edu/eci/cvds/test/BibliotecaTest.java	
+@@ -87,4 +87,10 @@
+         eciLibraryServices.cambiarEstadoRecurso(listarecursos.get(listarecursos.size() - 1));
+         assertTrue(listarecursos.get(listarecursos.size() - 1).getDisponibilidad() != flag);
+     }
++
++    @Test
++    public void deberiarecursoid() throws BibliotecaException{
++        List<Recurso> lis = eciLibraryServices.getByRecurso(6);
++        assertTrue(lis.get(0).getId()==6);
++    }
+ }
+Index: src/main/java/edu/eci/cvds/persistence/mappers/RecursoMapper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.persistence.mappers;\r\n\r\nimport edu.eci.cvds.entities.Recurso;\r\nimport org.apache.ibatis.annotations.Param;\r\n\r\nimport java.sql.Time;\r\nimport java.time.LocalDate;\r\nimport java.util.List;\r\n\r\npublic interface RecursoMapper {\r\n    public List<Recurso> consultarRecursos();\r\n\r\n    public void agregarRecursos(@Param(\"Recurso\") Recurso recurso);\r\n\r\n    public void cambiarEstadoRecurso(@Param(\"Recurso\") Recurso recurso);\r\n   }\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/persistence/mappers/RecursoMapper.java b/src/main/java/edu/eci/cvds/persistence/mappers/RecursoMapper.java
+--- a/src/main/java/edu/eci/cvds/persistence/mappers/RecursoMapper.java	
++++ b/src/main/java/edu/eci/cvds/persistence/mappers/RecursoMapper.java	
+@@ -3,8 +3,6 @@
+ import edu.eci.cvds.entities.Recurso;
+ import org.apache.ibatis.annotations.Param;
+ 
+-import java.sql.Time;
+-import java.time.LocalDate;
+ import java.util.List;
+ 
+ public interface RecursoMapper {
+@@ -13,4 +11,6 @@
+     public void agregarRecursos(@Param("Recurso") Recurso recurso);
+ 
+     public void cambiarEstadoRecurso(@Param("Recurso") Recurso recurso);
+-   }
++
++    public List<Recurso> getByRecurso(@Param("Recursos") int id_recurso);
++}
+Index: src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisRecursoDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.persistence.mybatisimpl;\r\n\r\nimport com.google.inject.Inject;\r\nimport edu.eci.cvds.entities.Recurso;\r\nimport edu.eci.cvds.persistence.RecursoDAO;\r\nimport edu.eci.cvds.persistence.mappers.RecursoMapper;\r\nimport org.apache.ibatis.exceptions.PersistenceException;\r\n\r\nimport java.sql.Time;\r\nimport java.time.LocalDate;\r\nimport java.util.List;\r\n\r\npublic class MyBatisRecursoDAO implements RecursoDAO {\r\n\r\n    @Inject\r\n    private RecursoMapper recursoMapper;\r\n\r\n    @Override\r\n    public List<Recurso> consultarRecursos() throws PersistenceException {\r\n        List<Recurso> lisrecursos = null;\r\n        try{\r\n            lisrecursos = recursoMapper.consultarRecursos();\r\n        }catch (org.apache.ibatis.exceptions.PersistenceException e){\r\n            throw new PersistenceException(\"Error al consultar recursos mb\",e);\r\n        }\r\n        return lisrecursos;\r\n    }\r\n\r\n    @Override\r\n    public void agregarRecursos(Recurso recurso) throws PersistenceException {\r\n        try{\r\n            recursoMapper.agregarRecursos(recurso);\r\n        }catch (org.apache.ibatis.exceptions.PersistenceException e){\r\n            throw new PersistenceException(\"Error al registrar recurso\",e);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void cambiarEstadoRecurso(Recurso recurso) throws PersistenceException {\r\n        boolean flag = recurso.getDisponibilidad();\r\n        recurso.setDisponibilidad(!flag);\r\n        try{\r\n            recursoMapper.cambiarEstadoRecurso(recurso);\r\n        }catch (org.apache.ibatis.exceptions.PersistenceException e){\r\n            throw new PersistenceException(\"Error al cambiar recurso\",e);\r\n        }\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisRecursoDAO.java b/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisRecursoDAO.java
+--- a/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisRecursoDAO.java	
++++ b/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisRecursoDAO.java	
+@@ -46,5 +46,14 @@
+         }
+     }
+ 
++    @Override
++    public List<Recurso> getByRecurso(int id_recurso) throws PersistenceException {
++        try{
++           return recursoMapper.getByRecurso(id_recurso);
++        }catch (org.apache.ibatis.exceptions.PersistenceException e){
++            throw new PersistenceException("Error al consultar recurso por id",e);
++        }
++    }
++
+ 
+ }
+Index: src/main/java/edu/eci/cvds/persistence/RecursoDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.persistence;\r\n\r\nimport edu.eci.cvds.entities.Recurso;\r\nimport org.apache.ibatis.exceptions.PersistenceException;\r\n\r\nimport java.sql.Time;\r\nimport java.time.LocalDate;\r\nimport java.util.List;\r\n\r\npublic interface RecursoDAO {\r\n    public List<Recurso> consultarRecursos() throws PersistenceException;\r\n\r\n    public void agregarRecursos(Recurso recurso) throws PersistenceException;\r\n\r\n    public void cambiarEstadoRecurso(Recurso recurso) throws  PersistenceException;\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/persistence/RecursoDAO.java b/src/main/java/edu/eci/cvds/persistence/RecursoDAO.java
+--- a/src/main/java/edu/eci/cvds/persistence/RecursoDAO.java	
++++ b/src/main/java/edu/eci/cvds/persistence/RecursoDAO.java	
+@@ -14,4 +14,6 @@
+ 
+     public void cambiarEstadoRecurso(Recurso recurso) throws  PersistenceException;
+ 
++    public List<Recurso> getByRecurso(int id_recurso) throws PersistenceException;
++
+ }
+Index: src/main/java/edu/eci/cvds/services/ECILibraryServices.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.services;\r\n\r\nimport edu.eci.cvds.Exceptions.BibliotecaException;\r\nimport edu.eci.cvds.entities.*;\r\nimport edu.eci.cvds.persistence.TipoRecursoDAO;\r\nimport edu.eci.cvds.persistence.mybatisimpl.MyBatisTipoRecursoDAO;\r\n\r\nimport java.sql.Time;\r\nimport java.time.LocalDate;\r\nimport java.util.Date;\r\nimport java.util.List;\r\n\r\npublic interface ECILibraryServices {\r\n\r\n    public List<Reserva> consultarReservas() throws BibliotecaException;\r\n\r\n    public List<Recurso> consultarRecursos() throws BibliotecaException;\r\n\r\n    public List<TipoRecurso> consultarTiporec() throws BibliotecaException;\r\n\r\n    public List<Ubicacion> consultarUbicacion() throws BibliotecaException;\r\n\r\n    public void registrarRecursos(Recurso recurso) throws BibliotecaException;\r\n\r\n    public void cambiarEstadoRecurso(Recurso recurso) throws  BibliotecaException;\r\n\r\n    public void reservarRecurso(Reserva reserva) throws BibliotecaException;\r\n\r\n    public List<TipoReserva> consultarTipores() throws BibliotecaException;\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/services/ECILibraryServices.java b/src/main/java/edu/eci/cvds/services/ECILibraryServices.java
+--- a/src/main/java/edu/eci/cvds/services/ECILibraryServices.java	
++++ b/src/main/java/edu/eci/cvds/services/ECILibraryServices.java	
+@@ -4,6 +4,7 @@
+ import edu.eci.cvds.entities.*;
+ import edu.eci.cvds.persistence.TipoRecursoDAO;
+ import edu.eci.cvds.persistence.mybatisimpl.MyBatisTipoRecursoDAO;
++import org.apache.ibatis.exceptions.PersistenceException;
+ 
+ import java.sql.Time;
+ import java.time.LocalDate;
+@@ -28,5 +29,7 @@
+ 
+     public List<TipoReserva> consultarTipores() throws BibliotecaException;
+ 
++    public List<Recurso> getByRecurso(int id_recurso) throws PersistenceException, BibliotecaException;
++
+ 
+ }
+Index: src/main/resources/mappers/RecursoMapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\"\r\n        \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\r\n<mapper namespace=\"edu.eci.cvds.persistence.mappers.RecursoMapper\">\r\n    <resultMap type='Recurso' id='RecursoResult'>\r\n        <id property='id' column='id_recursos'/>\r\n        <result property='nombre' column='nombre'/>\r\n        <result property='capacidad' column='capacidad'/>\r\n        <result property='horario_inicial' column='horario_inicial'/>\r\n        <result property='horario_final' column='horario_final'/>\r\n        <result property='disponibilidad' column='disponibilidad'/>\r\n        <association property=\"tiporecurso\" javaType=\"TipoRecurso\" resultMap=\"edu.eci.cvds.persistence.mappers.TipoRecursoMapper.TipoRecursoResult\" columnPrefix=\"tr_\"/>\r\n        <association property=\"ubicacion\" javaType=\"ubicacion\" resultMap=\"edu.eci.cvds.persistence.mappers.UbicacionMapper.UbicacionResult\" columnPrefix=\"ub_\"/>\r\n    </resultMap>\r\n    <select id=\"consultarRecursos\" resultMap=\"RecursoResult\">\r\n            select\r\n            r.id_recursos,\r\n            r.nombre,\r\n            ub.id as ub_id,\r\n            ub.ubicacion as ub_ubicacion,\r\n            r.capacidad,\r\n            r.horario_inicial,\r\n            r.horario_final,\r\n            r.disponibilidad,\r\n            tr.id tr_id,\r\n            tr.tipo tr_tipo\r\n            FROM\r\n            recursos as r\r\n            JOIN tiporecurso as tr ON(tr.id = r.tiporecurso)\r\n            JOIN ubicacion as ub ON(ub.id = r.ubicacion)\r\n\r\n    </select>\r\n\r\n    <insert id=\"agregarRecursos\" parameterType=\"edu.eci.cvds.entities.Recurso\">\r\n        INSERT INTO Recursos(\r\n        id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso\r\n        ) VALUES(\r\n        #{Recurso.id}, #{Recurso.nombre},#{Recurso.ubicacion.id},#{Recurso.capacidad},#{Recurso.horario_inicial},#{Recurso.horario_final},#{Recurso.disponibilidad},#{Recurso.tiporecurso.id});\r\n    </insert>\r\n    <update id = \"cambiarEstadoRecurso\" parameterType=\"edu.eci.cvds.entities.Recurso\">\r\n        UPDATE Recursos\r\n        SET disponibilidad = NOT disponibilidad\r\n        WHERE id_recursos = #{Recurso.id}\r\n    </update>\r\n\r\n    <select id=\"getByRecursp\" resultMap=\"RecursobResult\"\r\n            parameterType=\"int\">\r\n        select\r\n        r.id_recursos,\r\n        r.nombre,\r\n        ub.id as ub_id,\r\n        ub.ubicacion as ub_ubicacion,\r\n        r.capacidad,\r\n        r.horario_inicial,\r\n        r.horario_final,\r\n        r.disponibilidad,\r\n        tr.id tr_id,\r\n        tr.tipo tr_tipo\r\n        FROM\r\n        recursos as r\r\n        JOIN tiporecurso as tr ON(tr.id = r.tiporecurso)\r\n        JOIN ubicacion as ub ON(ub.id = r.ubicacion)\r\n        <if test=\"recursos != null\">\r\n            WHERE r.id_recursos = #{recursos}\r\n        </if>\r\n    </select>\r\n</mapper>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/mappers/RecursoMapper.xml b/src/main/resources/mappers/RecursoMapper.xml
+--- a/src/main/resources/mappers/RecursoMapper.xml	
++++ b/src/main/resources/mappers/RecursoMapper.xml	
+@@ -43,19 +43,19 @@
+         WHERE id_recursos = #{Recurso.id}
+     </update>
+ 
+-    <select id="getByRecursp" resultMap="RecursobResult"
++    <select id="getByRecurso" resultMap="RecursobResult"
+             parameterType="int">
+-        select
+-        r.id_recursos,
+-        r.nombre,
+-        ub.id as ub_id,
+-        ub.ubicacion as ub_ubicacion,
+-        r.capacidad,
+-        r.horario_inicial,
+-        r.horario_final,
+-        r.disponibilidad,
+-        tr.id tr_id,
+-        tr.tipo tr_tipo
++        SELECT
++            r.id_recursos,
++            r.nombre,
++            ub.id as ub_id,
++            ub.ubicacion as ub_ubicacion,
++            r.capacidad,
++            r.horario_inicial,
++            r.horario_final,
++            r.disponibilidad,
++            tr.id tr_id,
++            tr.tipo tr_tipo
+         FROM
+         recursos as r
+         JOIN tiporecurso as tr ON(tr.id = r.tiporecurso)
+Index: src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.services.impl;\r\n\r\nimport com.google.inject.Inject;\r\nimport com.google.inject.Singleton;\r\nimport edu.eci.cvds.Exceptions.BibliotecaException;\r\nimport edu.eci.cvds.entities.*;\r\nimport edu.eci.cvds.persistence.*;\r\nimport edu.eci.cvds.services.ECILibraryServices;\r\nimport org.apache.ibatis.exceptions.PersistenceException;\r\nimport org.mybatis.guice.transactional.Transactional;\r\n\r\nimport java.sql.Time;\r\nimport java.time.LocalDate;\r\nimport java.util.List;\r\n\r\n@Singleton\r\npublic class ECILibraryServicesImpl implements ECILibraryServices {\r\n\r\n    @Inject\r\n    private RecursoDAO RecursoDAO;\r\n\r\n    @Inject\r\n    private TipoRecursoDAO tipoRecursoDAO;\r\n\r\n    @Inject\r\n    private UbicacionDAO ubicacionDAO;\r\n\r\n    @Inject\r\n    private ReservaDAO reservaDAO;\r\n\r\n    @Inject\r\n    private TipoReservaDAO tipoReservaDAO;\r\n\r\n    @Override\r\n    public List<Reserva> consultarReservas() throws BibliotecaException {\r\n        try{\r\n            return reservaDAO.consultarReservas();\r\n        }catch (PersistenceException ex){\r\n            throw new BibliotecaException(\"Error al consultar recursos\",ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public List<Recurso> consultarRecursos() throws BibliotecaException {\r\n        try{\r\n            return RecursoDAO.consultarRecursos();\r\n        }catch (PersistenceException ex){\r\n            throw new BibliotecaException(\"Error al consultar recursos\",ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public List<TipoRecurso> consultarTiporec() throws BibliotecaException {\r\n        try {\r\n            return tipoRecursoDAO.consultarTiporec();\r\n        }catch (PersistenceException ex){\r\n            throw new BibliotecaException(\"Error al consultar tipo de recursos\",ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public List<Ubicacion> consultarUbicacion() throws BibliotecaException {\r\n        try {\r\n            return ubicacionDAO.consultarUbicacion();\r\n        }catch (PersistenceException ex){\r\n            throw new BibliotecaException(\"Error al consultar ubicaciones\",ex);\r\n        }\r\n    }\r\n\r\n\r\n    @Override\r\n    public void registrarRecursos(Recurso recurso) throws BibliotecaException {\r\n        try{\r\n            RecursoDAO.agregarRecursos(recurso);\r\n        }catch (PersistenceException ex){\r\n            throw  new BibliotecaException(\"Error al registrar recursos\",ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void cambiarEstadoRecurso(Recurso recurso) throws BibliotecaException{\r\n        try{\r\n            RecursoDAO.cambiarEstadoRecurso(recurso);\r\n        }catch (PersistenceException ex){\r\n            throw  new BibliotecaException(\"Error al cambiar estado del recurso\",ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void reservarRecurso(Reserva reserva) throws BibliotecaException {\r\n        try{\r\n            reservaDAO.reservarRecurso(reserva);\r\n        }catch (PersistenceException ex){\r\n            throw  new BibliotecaException(\"Error al reservar un recursos\",ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public List<TipoReserva> consultarTipores() throws BibliotecaException {\r\n        try{\r\n            return tipoReservaDAO.consultarTipores();\r\n        }catch (PersistenceException ex){\r\n            throw new BibliotecaException(\"Error al consultar tipos de reservas\",ex);\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java b/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java
+--- a/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java	
++++ b/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java	
+@@ -103,4 +103,13 @@
+             throw new BibliotecaException("Error al consultar tipos de reservas",ex);
+         }
+     }
++
++    @Override
++    public List<Recurso> getByRecurso(int id_recurso) throws BibliotecaException {
++        try{
++            return RecursoDAO.getByRecurso(id_recurso);
++        }catch (PersistenceException ex){
++            throw new BibliotecaException("Error al consultar recursos",ex);
++        }
++    }
+ }

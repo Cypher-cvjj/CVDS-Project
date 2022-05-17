@@ -112,4 +112,15 @@ public class BibliotecaTest {
 
 
 
+        assertTrue(re.getNombre() == "reserva4");
+    /**
+    @Test
+    public void deberiaCambiarEstadoRecurso() throws  BibliotecaException, ParseException{
+        List<Recurso> listarecursos = eciLibraryServices.consultarRecursos();
+        boolean flag = listarecursos.get(listarecursos.size() - 1).getDisponibilidad();
+        eciLibraryServices.cambiarEstadoRecurso(listarecursos.get(listarecursos.size() - 1));
+        assertTrue(listarecursos.get(listarecursos.size() - 1).getDisponibilidad() != flag);
+    }
+    **/
+}
 }

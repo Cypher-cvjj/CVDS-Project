@@ -98,9 +98,9 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
     }
 
     @Override
-    public void cambiarEstadoRecurso(Recurso recurso) throws BibliotecaException{
+    public void cambiarEstadoRecurso(int idRecurso) throws BibliotecaException{
         try{
-            RecursoDAO.cambiarEstadoRecurso(recurso);
+            RecursoDAO.cambiarEstadoRecurso(idRecurso);
         }catch (PersistenceException ex){
             throw  new BibliotecaException("Error al cambiar estado del recurso",ex);
         }

@@ -37,9 +37,9 @@
         ) VALUES(
         #{Recurso.id}, #{Recurso.nombre},#{Recurso.ubicacion.id},#{Recurso.capacidad},#{Recurso.horario_inicial},#{Recurso.horario_final},#{Recurso.disponibilidad},#{Recurso.tiporecurso.id});
     </insert>
-    <update id = "cambiarEstadoRecurso" parameterType="edu.eci.cvds.entities.Recurso">
+    <update id = "cambiarEstadoRecurso" parameterType="int">
         UPDATE Recursos
         SET disponibilidad = NOT disponibilidad
-        WHERE id_recursos = #{Recurso.id}
+        WHERE id_recursos = #{idRecurso}
     </update>
 </mapper>
