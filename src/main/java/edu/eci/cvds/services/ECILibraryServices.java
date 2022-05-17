@@ -32,8 +32,6 @@ public interface ECILibraryServices {
 
     public List<User> consultarUsuarios() throws BibliotecaException;
 
-    public void CancelarReserva(Reserva reserva) throws BibliotecaException;
-
     public Reserva consultarReserva(int idReserva) throws BibliotecaException;
     void CancelarReserva(int idReserva) throws BibliotecaException;
 }
