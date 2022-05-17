@@ -89,7 +89,7 @@ Al ingresar a la página, se presenta lo siguiente:
 - Andrés Parra
 - Jose Olarte
 ##
-
+**[Backlog](https://tree.taiga.io/project/lauraval19-gestion-de-recursos-biblioteca/backlog)**
 ![image](https://user-images.githubusercontent.com/60302534/167256387-084b66c9-a933-4034-9df7-de31cbbd3793.png)
 
 ![image](https://user-images.githubusercontent.com/60302534/168905636-db5af32e-0c36-475e-b267-1bb0b97ea27d.png)
