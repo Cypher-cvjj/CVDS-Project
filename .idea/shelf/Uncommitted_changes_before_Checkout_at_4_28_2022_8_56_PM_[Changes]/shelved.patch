@@ -1,0 +1,26 @@
+Index: target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>edu\\eci\\cvds\\entities\\Recurso.class\r\nedu\\eci\\cvds\\Seguridad\\loginBean.class\r\nedu\\eci\\cvds\\persistence\\mappers\\UserMapper.class\r\nedu\\eci\\cvds\\persistence\\mybatisimpl\\MyBatisUserDAO.class\r\nedu\\eci\\cvds\\services\\impl\\ECILibraryServicesImpl.class\r\nedu\\eci\\cvds\\guice\\GuiceContextListener$1.class\r\nedu\\eci\\cvds\\entities\\User.class\r\nedu\\eci\\cvds\\services\\ECILibraryServicesFactory$1.class\r\nedu\\eci\\cvds\\persistence\\UserDAO.class\r\nedu\\eci\\cvds\\Seguridad\\noautenticado.class\r\nedu\\eci\\cvds\\view\\RecursoBean.class\r\nedu\\eci\\cvds\\guice\\GuiceContextListener.class\r\nedu\\eci\\cvds\\view\\BasePageBean.class\r\nedu\\eci\\cvds\\Exceptions\\PersistenceException.class\r\nedu\\eci\\cvds\\Exceptions\\BibliotecaException.class\r\nedu\\eci\\cvds\\Seguridad\\loginBeanImpl.class\r\nedu\\eci\\cvds\\services\\ECILibraryServices.class\r\nedu\\eci\\cvds\\persistence\\mappers\\RecursoMapper.class\r\nedu\\eci\\cvds\\persistence\\RecursoDAO.class\r\nedu\\eci\\cvds\\services\\ECILibraryServicesFactory.class\r\nedu\\eci\\cvds\\persistence\\mybatisimpl\\MyBatisRecursoDAO.class\r\nedu\\eci\\cvds\\services\\main.class\r\n
+===================================================================
+diff --git a/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst b/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+--- a/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst	
++++ b/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst	
+@@ -2,6 +2,7 @@
+ edu\eci\cvds\Seguridad\loginBean.class
+ edu\eci\cvds\persistence\mappers\UserMapper.class
+ edu\eci\cvds\persistence\mybatisimpl\MyBatisUserDAO.class
++edu\eci\cvds\persistence\mybatisimpl\MyBatisHorarioDAO.class
+ edu\eci\cvds\services\impl\ECILibraryServicesImpl.class
+ edu\eci\cvds\guice\GuiceContextListener$1.class
+ edu\eci\cvds\entities\User.class
+@@ -17,6 +18,9 @@
+ edu\eci\cvds\services\ECILibraryServices.class
+ edu\eci\cvds\persistence\mappers\RecursoMapper.class
+ edu\eci\cvds\persistence\RecursoDAO.class
++edu\eci\cvds\persistence\mappers\HorarioMapper.class
++edu\eci\cvds\persistence\HorarioDAO.class
+ edu\eci\cvds\services\ECILibraryServicesFactory.class
+ edu\eci\cvds\persistence\mybatisimpl\MyBatisRecursoDAO.class
+ edu\eci\cvds\services\main.class
++edu\eci\cvds\entities\Horario.class
