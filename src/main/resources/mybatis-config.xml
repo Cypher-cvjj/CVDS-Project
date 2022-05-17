@@ -7,6 +7,7 @@
     </properties>
 
     <typeAliases>
+        <typeAlias type='edu.eci.cvds.entities.Session' alias='Session'/>
         <typeAlias type='edu.eci.cvds.entities.Recurso' alias='Recurso' />
         <typeAlias type='edu.eci.cvds.entities.Reserva' alias='Reserva' />
         <typeAlias type='edu.eci.cvds.entities.TipoRecurso' alias='TipoRecurso' />
@@ -29,6 +30,7 @@
     </environments>
 
     <mappers>
+        <mapper resource="mappers/SessionMapper.xml"></mapper>
         <mapper resource="mappers/RecursoMapper.xml"></mapper>
         <mapper resource="mappers/TipoRecursoMapper.xml"></mapper>
         <mapper resource="mappers/UbicacionMapper.xml"></mapper>

@@ -19,14 +19,15 @@
             <div class ="contenedor">
                 <div class = "input-contenedor">
                     <i class="fas fa-envelope icon"></i>
-                    <p:inputText id ="Username" type="text" placeholder="example@mail.com" required="true" />
+                    <p:inputText class="form-control" id ="Email" type="text" placeholder="example@mail.com" required="true" value="#{LoginBean.email}" />
                 </div>
                 <div class = "input-contenedor">
                     <i class="fas fa-envelope icon"></i>
-                    <p:inputText type="password" placeholder="password" required="true" />
+                    <p:inputText class="form-control" type="password" placeholder="password" required="true"  value="#{LoginBean.password}" />
                 </div>
             </div>
             <div class="login">
+                <p:commandButton id="mybutton" class="button1"  value="Ingresar" alig="center" actionListener="#{LoginBean.Login}"/>
             </div>
         </h:form>
 </h:body>

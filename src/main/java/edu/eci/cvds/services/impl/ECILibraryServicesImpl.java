@@ -31,6 +31,9 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
     @Inject
     private UserDAO userDAO;
 
+    @Inject
+    private SessionDAO sessionDAO;
+
     @Override
     public List<Reserva> consultarReservas() throws BibliotecaException {
         try{
@@ -144,5 +147,13 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
         }
     }
 
+    @Override
+    public Session consultarSession(String email, String password) throws BibliotecaException {
+        try{
+            return sessionDAO.consultarSession(email, password);
+        }catch (PersistenceException ex){
+            throw new BibliotecaException("Error al buscar sesión", ex);
+        }
+    }
 
 }
