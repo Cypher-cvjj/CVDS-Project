@@ -175,12 +175,17 @@
     <p:dialog widgetVar="dateDialog" header="Añadir Reserva" showEffect="clip" hideEffect="clip">
         <h:panelGrid id="dateDetails" columns="2">
             <p:outputLabel for="from" value="Hora Inicial:" />
-            <p:calendar id="from" mindate="#{scheduleView.event.startDate}" maxdate="#{scheduleView.event.endDate.minusHours(1)}" value="#{scheduleView.fechaini}" pattern="yyyy/mm/dd HH"/>
+            <p:datePicker id ="from"  mindate="#{scheduleView.event.startDate}" value="#{scheduleView.fechaini}" showTime="true"/>
             <p:outputLabel for="from1" value="Hora Final:" />
-            <p:calendar id="from1" mindate="#{scheduleView.event.startDate}" maxdate="#{scheduleView.event.endDate.minusHours(1)}" value="#{scheduleView.fechafin}" pattern="yyyy/mm/dd HH"/>
+            <p:datePicker id="from1" mindate="#{scheduleView.event.endDate}" value="#{scheduleView.fechafin}" showTime="true" appendTo="@(body)"/>
             <center>
+
                 <p:commandButton update="formCalendario" value="Reservar" action="#{userBean.setRedirectUrl(userBean.reservar)}"
-                                 actionListener="#{reservaBean.inicializar(scheduleView.idRecurso,scheduleView.fechaini)}"/>
+                                 actionListener="#{scheduleView.inicializar(scheduleView.idRecurso)}"/>
+            </center>
+            <center>
+                <p:commandButton update="formCalendario" value="Reservar"
+                                 actionListener="#{scheduleView.addReserva()}"/>
             </center>
         </h:panelGrid>
     </p:dialog>

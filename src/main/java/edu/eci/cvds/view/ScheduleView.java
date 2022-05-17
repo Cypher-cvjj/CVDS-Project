@@ -169,4 +169,12 @@ public class ScheduleView extends BasePageBean {
     public boolean getEstado(){
         return r.isEstado();
     }
+
+    public void addReserva() throws BibliotecaException {
+        try{
+            eciLibraryServices.reservarRecurso(r);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

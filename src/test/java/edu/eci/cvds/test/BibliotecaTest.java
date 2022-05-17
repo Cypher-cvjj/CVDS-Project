@@ -68,11 +68,12 @@ public class BibliotecaTest {
         re.setFechasoli(horasol);
         re.setFechaini(horaInicio);
         re.setFechafin(horaFinal);
+        re.setEstado(true);
         re.setRecurso(new Recurso(id,"libro R",new Ubicacion(1,"BloqueG"),3,horaFinal,horasol,true,new TipoRecurso(1,"Equipodecomputo")));
         re.setUsuario(new User(0000,"pepito","98765","pepito@gmail.com","6383743","user"));
         re.setTiporeserva(new TipoReserva(1,"Diario"));
         eciLibraryServices.reservarRecurso(re);
-        assertTrue(re.getNombre() == "reserva4");
+        assertTrue(re.isEstado() == true);
     }
 
     /**
