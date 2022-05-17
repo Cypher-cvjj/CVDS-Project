@@ -69,5 +69,10 @@
         ) VALUES(
         #{Reserva.id_reserva},#{Reserva.nombre},#{Reserva.fechasoli},#{Reserva.fechaini},#{Reserva.fechafin},#{Reserva.estado},#{Reserva.usuario.documento},#{Reserva.recurso.id},#{Reserva.tiporeserva.id});
     </insert>
+    <update id="CancelarReserva" parameterType="int">
+        UPDATE reserva
+        SET estado = NOT estado
+        WHERE id_reserva = #{idReserva}
+    </update>
 
 </mapper>

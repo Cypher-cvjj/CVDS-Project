@@ -7,10 +7,7 @@ import edu.eci.cvds.entities.*;
 import edu.eci.cvds.persistence.*;
 import edu.eci.cvds.services.ECILibraryServices;
 import org.apache.ibatis.exceptions.PersistenceException;
-import org.mybatis.guice.transactional.Transactional;
 
-import java.sql.Time;
-import java.time.LocalDate;
 import java.util.List;
 
 @Singleton
@@ -137,10 +134,11 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
         }
     }
 
+
     @Override
-    public void CancelarReserva(Reserva reserva) throws BibliotecaException {
+    public void CancelarReserva(int idReserva) throws BibliotecaException {
         try{
-            reservaDAO.CancelarReserva(reserva);
+            reservaDAO.CancelarReserva(idReserva);
         }catch (PersistenceException ex){
             throw new BibliotecaException("Error al consultar tipos de reservas",ex);
         }
