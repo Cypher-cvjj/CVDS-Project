@@ -1,0 +1,95 @@
+Index: src/main/webapp/horarios.xhtml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version='1.0' ?>\r\n<!DOCTYPE html\r\n        PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\"\r\n      xmlns:h=\"http://java.sun.com/jsf/html\"\r\n      xmlns:f=\"http://java.sun.com/jsf/core\"\r\n      xmlns:p=\"http://primefaces.org/ui\">\r\n\r\n<style>\r\n\r\n    .divBody {\r\n        background-color: rgba(1, 1, 70, 0.623);\r\n        border-radius: 15px;\r\n        height: auto;\r\n        width: auto;\r\n        padding: 3% 2%;\r\n    }\r\n\r\n    .titulo {\r\n        font-size: 40px;\r\n    }\r\n\r\n    .formbox {\r\n        border-radius: 15px;\r\n        background-color: rgba(1, 1, 70, 0.623);\r\n        padding: 2%;\r\n        text-align: center;\r\n        align-items: center;\r\n        align-content: center;\r\n    }\r\n\r\n    .botn{\r\n        width: 22%;\r\n        height: 40px;\r\n        margin: 10px;\r\n        border-radius: 15px;\r\n        background: rgb(248, 248, 248);\r\n        color: black;\r\n        text-align: center;\r\n        font-size: 50%;\r\n        align-self: center;\r\n        align-items: center;\r\n\r\n    }\r\n\r\n    h1 {\r\n        font-size: 24px;\r\n        margin-bottom: 10px;\r\n        text-align: center;\r\n    }\r\n\r\n    .input {\r\n        border-radius: 10px;\r\n        margin-bottom: 10px;\r\n        text-align: left;\r\n        align-items: center;\r\n\r\n\r\n    }\r\n\r\n    .gri {\r\n        background: rgba(4, 0, 8, 0.664);\r\n        display: grid;\r\n        border-radius: 15px;\r\n        text-align: center;\r\n        grid-template-columns: 50% 35%;\r\n        padding: 10% 8%;\r\n        margin: 3%;\r\n\r\n    }\r\n\r\n    .table {\r\n        align-self: center;\r\n        text-align: center;\r\n        align-items: center;\r\n        align-content: center;\r\n    }\r\n\r\n    .select {\r\n        border-radius: 10px;\r\n        margin-bottom: 10px;\r\n    }\r\n\r\n    .logo {\r\n        margin-left: auto;\r\n    }\r\n\r\n    .time {\r\n        border-radius: 10px;\r\n        margin-bottom: 10px;\r\n        text-align: left;\r\n        align-items: center;\r\n\r\n    }\r\n\r\n    .bodylogo {\r\n        background-color: rgb(46, 46, 184);\r\n        color: rgb(46, 46, 184);\r\n    }\r\n\r\n    .check {\r\n        padding: 1%;\r\n        align-self: center;\r\n        align-items: center;\r\n    }\r\n\r\n    .dividendo {\r\n        margin-top: 3%;\r\n    }\r\n</style>\r\n<h:head>\r\n    <script type=\"text/javascript\">\r\n        PrimeFaces.locales['tr'] = {\r\n            closeText: 'kapat',\r\n            prevText: 'geri',\r\n            nextText: 'ileri',\r\n            currentText: 'bugün',\r\n            monthNames: ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran',\r\n                'Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'],\r\n            monthNamesShort: ['Oca','Şub','Mar','Nis','May','Haz',\r\n                'Tem','Ağu','Eyl','Eki','Kas','Ara'],\r\n            dayNames: ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'],\r\n            dayNamesShort: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],\r\n            dayNamesMin: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],\r\n            weekHeader: 'Hf',\r\n            firstDay: 1,\r\n            isRTL: false,\r\n            showMonthAfterYear: false,\r\n            yearSuffix: '',\r\n            month: 'Ay',\r\n            week: 'Hafta',\r\n            day: 'Gün',\r\n            allDayText : 'Tüm Gün'\r\n        };\r\n    </script>\r\n    <style type=\"text/css\">\r\n        .value {\r\n            width: 1000px;\r\n        }\r\n    </style>\r\n</h:head>\r\n<title>Reservas del Recurso</title>\r\n\r\n<body>\r\n<center><h:form id=\"formCalendario\">\r\n    <p:growl id=\"messages\" showDetail=\"true\" />\r\n\r\n    <h:panelGrid columnClasses=\"value\">\r\n        <p:schedule id=\"schedule\" value=\"#{scheduleView.eventModel}\" widgetVar=\"myschedule\">\r\n            <p:ajax event=\"eventSelect\" listener=\"#{scheduleView.onEventSelect}\" update=\"reservaDetails\" oncomplete=\"PF('reservaDialog').show();\" />\r\n            <p:ajax event=\"dateSelect\" listener=\"#{scheduleView.onDateSelect}\" update=\"dateDetails\" oncomplete=\"PF('dateDialog').show();\"/>\r\n            <p:ajax event=\"eventMove\" listener=\"#{scheduleView.onEventMove}\" update=\"messages\" />\r\n            <p:ajax event=\"eventResize\" listener=\"#{scheduleView.onEventResize}\" update=\"messages\" />\r\n        </p:schedule>\r\n    </h:panelGrid>\r\n\r\n    <p:dialog widgetVar=\"reservaDialog\" header=\"Detalles Reserva\" showEffect=\"clip\" hideEffect=\"clip\" >\r\n        <h:panelGrid id=\"reservaDetails\" columns=\"2\">\r\n            <h:outputText value=\"Nombre De Reserva: \" />\r\n            <h:outputLabel value=\"#{scheduleView.getreservaName()}\" />\r\n            <h:outputText value=\"Fecha de solicitud: \" />\r\n            <h:outputLabel value=\"#{scheduleView.getfechasol()}\" />\r\n            <h:outputText value=\"Fecha inicial: \" />\r\n            <h:outputLabel value=\"#{scheduleView.getSfechaini()}\" />\r\n            <h:outputText value=\"Fecha final: \" />\r\n            <h:outputLabel value=\"#{scheduleView.getSfechafin()}\" />\r\n        </h:panelGrid>\r\n    </p:dialog>\r\n    <p:dialog widgetVar=\"dateDialog\" header=\"Añadir Reserva\" showEffect=\"clip\" hideEffect=\"clip\">\r\n        <h:panelGrid id=\"dateDetails\" columns=\"2\">\r\n            <p:outputLabel for=\"from\" value=\"Hora Inicial:\" />\r\n            <p:calendar id=\"from\" mindate=\"#{scheduleView.event.startDate}\" maxdate=\"#{scheduleView.event.endDate.minusHours(1)}\" value=\"#{scheduleView.fechaini}\" pattern=\"yyyy/mm/dd HH\"/>\r\n            <p:outputLabel for=\"from1\" value=\"Hora Final:\" />\r\n            <p:calendar id=\"from1\" mindate=\"#{scheduleView.event.startDate}\" maxdate=\"#{scheduleView.event.endDate.minusHours(1)}\" value=\"#{scheduleView.fechafin}\" pattern=\"yyyy/mm/dd HH\"/>\r\n            <center>\r\n                <p:commandButton update=\"formCalendario\" value=\"Reservar\" action=\"#{userBean.setRedirectUrl(userBean.reservar)}\"\r\n                                 actionListener=\"#{reservaBean.inicializar(scheduleView.idRecurso,scheduleView.fechaini)}\"/>\r\n            </center>\r\n        </h:panelGrid>\r\n    </p:dialog>\r\n</h:form></center>\r\n</body>\r\n\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/horarios.xhtml b/src/main/webapp/horarios.xhtml
+--- a/src/main/webapp/horarios.xhtml	(revision 63186151eab6300f2da9b4693bda5d63dc202bd7)
++++ b/src/main/webapp/horarios.xhtml	(date 1652755587883)
+@@ -164,6 +164,10 @@
+             <h:outputLabel value="#{scheduleView.getSfechaini()}" />
+             <h:outputText value="Fecha final: " />
+             <h:outputLabel value="#{scheduleView.getSfechafin()}" />
++            <center>
++                <p:commandButton update="formCalendario" value="Cancelar" action="#{userBean.setRedirectUrl(userBean.reservar)}"
++                                 actionListener="#{reservaBean.inicializar(scheduleView.idRecurso,scheduleView.fechaini)}"/>
++            </center>
+         </h:panelGrid>
+     </p:dialog>
+     <p:dialog widgetVar="dateDialog" header="Añadir Reserva" showEffect="clip" hideEffect="clip">
+Index: src/main/java/edu/eci/cvds/view/ReservaBean.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.view;\r\n\r\n\r\nimport com.google.inject.Inject;\r\nimport edu.eci.cvds.Exceptions.BibliotecaException;\r\nimport edu.eci.cvds.entities.Recurso;\r\nimport edu.eci.cvds.entities.Reserva;\r\nimport edu.eci.cvds.services.ECILibraryServices;\r\nimport org.primefaces.model.DefaultScheduleModel;\r\n\r\nimport javax.faces.bean.ManagedBean;\r\nimport javax.faces.bean.RequestScoped;\r\nimport java.io.IOException;\r\nimport java.time.LocalDateTime;\r\nimport java.util.Date;\r\nimport java.util.List;\r\n\r\n@ManagedBean(name = \"ReservaBean\")\r\n@RequestScoped\r\npublic class ReservaBean extends BasePageBean {\r\n\r\n\r\n    @Inject\r\n    private ECILibraryServices eciLibraryServices;\r\n\r\n    private int id_recurso;\r\n    private String nombre_recurso;\r\n    private LocalDateTime fechainicialreserva;\r\n    private LocalDateTime fechafinalreserva;\r\n    private DefaultScheduleModel eventModel;\r\n\r\n\r\n    public List<Reserva> consultarReserva(int id) throws BibliotecaException {\r\n        List<Reserva> r = null;\r\n        try {\r\n            r = eciLibraryServices.consultarReservasRecurso(id);\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n        return r;\r\n    }\r\n\r\n    public Reserva consultarReservaid(int idReserva) {\r\n        System.out.println(\"entro bean\");\r\n        Reserva reserva = null;\r\n        try{\r\n            reserva = eciLibraryServices.consultarReserva(idReserva);\r\n        }catch (Exception e){\r\n            e.printStackTrace();\r\n        }\r\n        return reserva;\r\n    }\r\n\r\n\r\n    public LocalDateTime getFechainicialreserva() {\r\n        return fechainicialreserva;\r\n    }\r\n\r\n    public LocalDateTime getFechafinalreserva() {\r\n        return fechafinalreserva;\r\n    }\r\n\r\n    public void setFechainicialreserva(LocalDateTime fechainicialreserva) {\r\n        this.fechainicialreserva = fechainicialreserva;\r\n        System.out.println(fechainicialreserva);\r\n    }\r\n\r\n    public void setFechafinalreserva(LocalDateTime fechafinalreserva) {\r\n        this.fechafinalreserva = fechafinalreserva;\r\n        System.out.println(fechafinalreserva);\r\n    }\r\n\r\n    public ECILibraryServices getEciLibraryServices() {\r\n        return eciLibraryServices;\r\n    }\r\n\r\n    public int getId_recurso() {\r\n        return id_recurso;\r\n    }\r\n\r\n    public void setEciLibraryServices(ECILibraryServices eciLibraryServices) {\r\n        this.eciLibraryServices = eciLibraryServices;\r\n    }\r\n\r\n    public void setId_recurso(int id_recurso) {\r\n        this.id_recurso = id_recurso;\r\n    }\r\n\r\n    public void setNombre_recurso(String nombre_recurso) {\r\n        this.nombre_recurso = nombre_recurso;\r\n    }\r\n\r\n    public String getNombre_recurso() {\r\n        return nombre_recurso;\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/view/ReservaBean.java b/src/main/java/edu/eci/cvds/view/ReservaBean.java
+--- a/src/main/java/edu/eci/cvds/view/ReservaBean.java	(revision 63186151eab6300f2da9b4693bda5d63dc202bd7)
++++ b/src/main/java/edu/eci/cvds/view/ReservaBean.java	(date 1652755875764)
+@@ -11,6 +11,7 @@
+ import javax.faces.bean.ManagedBean;
+ import javax.faces.bean.RequestScoped;
+ import java.io.IOException;
++import java.text.ParseException;
+ import java.time.LocalDateTime;
+ import java.util.Date;
+ import java.util.List;
+@@ -30,6 +31,12 @@
+     private DefaultScheduleModel eventModel;
+ 
+ 
++    /**
++     * consultar la reserva de un recurso
++     * @param id
++     * @return
++     * @throws BibliotecaException
++     */
+     public List<Reserva> consultarReserva(int id) throws BibliotecaException {
+         List<Reserva> r = null;
+         try {
+@@ -40,6 +47,11 @@
+         return r;
+     }
+ 
++    /**
++     * consultar reservas por id
++     * @param idReserva
++     * @return
++     */
+     public Reserva consultarReservaid(int idReserva) {
+         System.out.println("entro bean");
+         Reserva reserva = null;
+@@ -51,6 +63,11 @@
+         return reserva;
+     }
+ 
++    public void CancelarReserva(int idReserva) throws ParseException {
++        try{
++            eciLibraryServices.CancelarReserva();
++        }
++    }
+ 
+     public LocalDateTime getFechainicialreserva() {
+         return fechainicialreserva;
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"MavenProjectsManager\">\r\n    <option name=\"originalFiles\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_11\" default=\"true\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\" />\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"jpab\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision 63186151eab6300f2da9b4693bda5d63dc202bd7)
++++ b/.idea/misc.xml	(date 1652754963325)
+@@ -8,7 +8,7 @@
+       </list>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+   <component name="ProjectType">
+     <option name="id" value="jpab" />
+   </component>
