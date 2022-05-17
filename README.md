@@ -71,7 +71,15 @@ Al ingresar a la página, se presenta lo siguiente:
 **Modelo Entidad-Relación**
 
 ![image](https://user-images.githubusercontent.com/60302534/167255921-2cfccd02-6f66-4561-bd07-5d32119fd556.png)
+##
 
+**Diagrama de Clases**
+
+##
+**Descripción de la arquitectura y Tecnologías utilizadas**
+
+
+##
 **Despliegue Heroku**
 
 [_Click here_](https://proyecto-cvds2022-cypher-cvjj.herokuapp.com/)
