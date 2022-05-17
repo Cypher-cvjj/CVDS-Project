@@ -3,7 +3,7 @@
 [_Click here_](https://proyecto-cvds2022-cypher-cvjj.herokuapp.com/)
 
 ## Proyecto Ciclos de Vida del Desarrollo de Software 2022-1
-## Integrantes
+## Integrantes de Cypher-cvjj
 - Valentina Alvarado
 - Camilo Archila
 - Andrés Parra
@@ -27,6 +27,12 @@
 
 # Descripción del producto
 
+**Descripción General**
+##
+
+Es una página web, el cual nos permite elegir diferentes recursos que otorga las bibliotecas de la Escuela de Ingeniría Julio Garavito, dónde hay diferentes roles dentro de la misma plataforma con difrentes funcionalidades.
+
+##
 **Manual de usuario**
 
 Al ingresar a la página, se presenta lo siguiente:
