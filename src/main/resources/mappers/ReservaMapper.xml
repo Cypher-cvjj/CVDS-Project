@@ -29,6 +29,23 @@
         JOIN recursos as r ON(r.id_recursos = re.recurso)
         JOIN tiporecurso  as t ON(t.id = re.tiporeserva)
     </select>
+    <select id="consultarReserva" resultMap="ReservaResult">
+        select
+        re.id_reserva,
+        re.nombre,
+        re.fechasoli,
+        re.fechaini,
+        re.fechafin,
+        u.documento,
+        r.id_recursos,
+        t.tipo
+        FROM
+        reserva re
+        JOIN usuarios  u ON(u.documento = re.usuario)
+        JOIN recursos  r ON(r.id_recursos = re.recurso)
+        JOIN tiporecurso  t ON(t.id = re.tiporeserva)
+        where re.id_reserva = #{idReserva}
+    </select>
     <select id="consultarReservasRecurso" resultMap="ReservaResult" parameterType="map">
         select
         re.id_reserva,

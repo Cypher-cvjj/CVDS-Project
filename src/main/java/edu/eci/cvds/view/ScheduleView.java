@@ -1,14 +1,17 @@
 package edu.eci.cvds.view;
 
 import java.io.IOException;
+import java.util.Date;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 
 import com.google.inject.Inject;
+import edu.eci.cvds.Exceptions.BibliotecaException;
 import edu.eci.cvds.entities.Recurso;
 import edu.eci.cvds.entities.Reserva;
 import edu.eci.cvds.services.ECILibraryServices;
@@ -29,8 +32,10 @@ public class ScheduleView extends BasePageBean {
     private int idRecurso;
     private ScheduleModel eventModel;
     private ScheduleEvent<?> event = new DefaultScheduleEvent<>();
-    private LocalDateTime fechaini;
+    private LocalDateTime fechaini ;
     private LocalDateTime fechafin;
+    private int idReserva;
+    private Reserva r;
 
     public void inicializar(int id) throws IOException{
         this.idRecurso = id;
@@ -39,16 +44,26 @@ public class ScheduleView extends BasePageBean {
         FacesContext.getCurrentInstance().getExternalContext().redirect("./CVDS.Project/horarios.xhtml");
     }
 
+    public int getIdReserva() {
+        return idReserva;
+    }
+
+    public void setIdReserva(int idReserva) {
+        this.idReserva = idReserva;
+    }
+
     private void loadEventos() {
         try {
             List<Reserva> reservas = eciLibraryServices.consultarReservasRecurso(idRecurso);
             LocalDateTime hoy = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
             for (Reserva reserva : reservas) {
-                LocalDateTime fechaini = reserva.getFechaini();
-                LocalDateTime fechafin = reserva.getFechafin();
+                this.fechaini = reserva.getFechaini();
+                this.fechafin = reserva.getFechafin();
+                this.idReserva = reserva.getId_reserva();
+//                this.idRecurso = reserva.getRecurso().getId();
                 if (fechafin.isAfter(hoy)) {
                     DefaultScheduleEvent<?> event1 = DefaultScheduleEvent.builder()
-                            .title("Reserva")
+                            .title("prueba")
                             .startDate(fechaini)
                             .endDate(fechafin)
                             .borderColor("blue")
@@ -64,8 +79,15 @@ public class ScheduleView extends BasePageBean {
 
     public void onEventSelect(SelectEvent selectEvent) {
         this.event = (ScheduleEvent<?>) selectEvent.getObject();
-        this.fechaini = event.getStartDate();
-        this.fechafin = event.getStartDate();
+        this.idReserva = Integer.parseInt(event.getId());
+
+    }
+
+    public void onDateSelect(SelectEvent<LocalDateTime> selectEvent) {
+        event = DefaultScheduleEvent.builder()
+                .startDate(selectEvent.getObject())
+                .endDate(selectEvent.getObject().plusHours(1))
+                .build();
     }
 
     public ECILibraryServices getEciLibraryServices() {
@@ -76,8 +98,35 @@ public class ScheduleView extends BasePageBean {
         this.eciLibraryServices = eciLibraryServices;
     }
 
+    public String getreservaName() throws BibliotecaException {
+        r = eciLibraryServices.consultarReserva(idReserva);
+        return r.getNombre();
+    }
+
+    public String getNameuser(){
+        return r.getUsuario().getNombre();
+    }
+
+    public String getfechasol() {
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedDateTime = r.getFechasoli().format(dateTimeFormatter);
+        return formattedDateTime;
+    }
+
     public LocalDateTime getFechaini() {
         return fechaini;
+    }
+
+    public String getSfechaini(){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedDateTime = fechaini.format(dateTimeFormatter);
+        return formattedDateTime;
+    }
+
+    public String getSfechafin(){
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        String formattedDateTime = fechafin.format(dateTimeFormatter);
+        return formattedDateTime;
     }
 
     public void setFechaini(LocalDateTime fechaini) {

@@ -2,6 +2,9 @@ package edu.eci.cvds.view;
 
 
 import com.google.inject.Inject;
+import edu.eci.cvds.Exceptions.BibliotecaException;
+import edu.eci.cvds.entities.Recurso;
+import edu.eci.cvds.entities.Reserva;
 import edu.eci.cvds.services.ECILibraryServices;
 import org.primefaces.model.DefaultScheduleModel;
 
@@ -10,6 +13,7 @@ import javax.faces.bean.RequestScoped;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 @ManagedBean(name = "ReservaBean")
 @RequestScoped
@@ -24,6 +28,28 @@ public class ReservaBean extends BasePageBean {
     private LocalDateTime fechainicialreserva;
     private LocalDateTime fechafinalreserva;
     private DefaultScheduleModel eventModel;
+
+
+    public List<Reserva> consultarReserva(int id) throws BibliotecaException {
+        List<Reserva> r = null;
+        try {
+            r = eciLibraryServices.consultarReservasRecurso(id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+
+    public Reserva consultarReservaid(int idReserva) {
+        System.out.println("entro bean");
+        Reserva reserva = null;
+        try{
+            reserva = eciLibraryServices.consultarReserva(idReserva);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return reserva;
+    }
 
 
     public LocalDateTime getFechainicialreserva() {

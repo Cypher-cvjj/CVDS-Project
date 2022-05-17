@@ -54,6 +54,16 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
     }
 
     @Override
+    public Reserva consultarReserva(int idReserva) throws BibliotecaException{
+        System.out.println("entro impl");
+        try{
+            return reservaDAO.consultarReserva(idReserva);
+        }catch (PersistenceException ex){
+            throw new BibliotecaException("Error al consultar Reserva", ex);
+        }
+    }
+
+    @Override
     public List<Recurso> consultarRecursos() throws BibliotecaException {
         try{
             return RecursoDAO.consultarRecursos();
@@ -101,6 +111,7 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
 
     @Override
     public void reservarRecurso(Reserva reserva) throws BibliotecaException {
+        System.out.println("intra reservar");
         try{
             reservaDAO.reservarRecurso(reserva);
         }catch (PersistenceException ex){
@@ -134,4 +145,6 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
             throw new BibliotecaException("Error al consultar tipos de reservas",ex);
         }
     }
+
+
 }

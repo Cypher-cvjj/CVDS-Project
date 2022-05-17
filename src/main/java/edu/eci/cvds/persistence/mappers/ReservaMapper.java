@@ -13,4 +13,6 @@ public interface ReservaMapper {
     public List<Reserva> consultarReservasRecurso(@Param("rRecurso") int idrecurso);
 
     public void CancelarReserva(@Param("reserva") Reserva reserva);
+
+    public Reserva consultarReserva(@Param("idReserva") int idReserva);
 }

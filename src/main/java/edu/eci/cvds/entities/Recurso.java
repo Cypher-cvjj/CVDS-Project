@@ -57,14 +57,17 @@ public class Recurso implements Serializable {
     public String getHoraini(){
         Date temp = new Date();
         temp.setTime(horario_inicial.getTime());
-        System.out.println(horario_inicial);
         String formattedDate = new SimpleDateFormat("HH:mm").format(temp);
         return formattedDate;
 
     }
 
-    public int getHorafin(){
-        return horario_final.getHours();
+    public String getHorafin(){
+        Date temp = new Date();
+        temp.setTime(horario_final.getTime());
+        String formattedDate = new SimpleDateFormat("HH:mm").format(temp);
+        return formattedDate;
+
     }
     public int getId() {
         return id;

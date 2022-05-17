@@ -52,9 +52,6 @@ public class RecursoBean extends BasePageBean {
         List<Recurso> recursos = new ArrayList<>();
         try {
             recursos = eciLibraryServices.consultarRecursos();
-            for(Recurso r: recursos){
-                System.out.println(r);
-            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -66,17 +63,12 @@ public class RecursoBean extends BasePageBean {
      * @throws ParseException
      */
     public void registrarRecursos() throws ParseException {
-        System.out.println(time1);
         Timestamp time2sql = new Timestamp(time2.getTime());
         Timestamp time1sql = new Timestamp(time1.getTime());
-        System.out.println(time1);
-
         try {
             Recurso r = new Recurso();
             r.setId(id);
             r.setNombre(nombre);
-            //Ubicacion u = eciLibraryServices.getubicacion(ubicacion);
-            //r.setUbicacion(u);
             r.setUbicacion(new Ubicacion(ubicacion,""));
             r.setCapacidad(capacidad);
             r.setHorario_inicial(time1sql);

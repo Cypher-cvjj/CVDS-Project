@@ -139,7 +139,7 @@
         }
     </style>
 </h:head>
-<title>Consultar Recurso</title>
+<title>Reservas del Recurso</title>
 
 <body>
 <center><h:form id="formCalendario">
@@ -147,21 +147,31 @@
 
     <h:panelGrid columnClasses="value">
         <p:schedule id="schedule" value="#{scheduleView.eventModel}" widgetVar="myschedule">
-            <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="PF('eventDialog').show();" />
+            <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="reservaDetails" oncomplete="PF('reservaDialog').show();" />
+            <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="dateDetails" oncomplete="PF('dateDialog').show();"/>
             <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" update="messages" />
             <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="messages" />
         </p:schedule>
     </h:panelGrid>
 
-    <p:dialog widgetVar="eventDialog" header="Event Details" showEffect="clip" hideEffect="clip">
-        <h:panelGrid id="eventDetails" columns="2">
-            <p:outputLabel for="from" value="Hora:" />
-            <p:calendar id="from" mindate="#{scheduleView.event.startDate}" maxdate="#{scheduleView.event.endDate.minusHours(1)}" value="#{scheduleView.fechaini}" pattern="MM/dd/yyyy HH"/>
-            <p:outputLabel for="tiempo" value="Tiempo:" />
-            <h:selectOneMenu id="tiempo" value="#{reservaBean.horas}">
-                <f:selectItem class="select" itemLabel="1 Hora" itemValue="1"></f:selectItem>
-                <f:selectItem class="select" itemLabel="2 Horas" itemValue="2"></f:selectItem>
-            </h:selectOneMenu>
+    <p:dialog widgetVar="reservaDialog" header="Detalles Reserva" showEffect="clip" hideEffect="clip" >
+        <h:panelGrid id="reservaDetails" columns="2">
+            <h:outputText value="Nombre De Reserva: " />
+            <h:outputLabel value="#{scheduleView.getreservaName()}" />
+            <h:outputText value="Fecha de solicitud: " />
+            <h:outputLabel value="#{scheduleView.getfechasol()}" />
+            <h:outputText value="Fecha inicial: " />
+            <h:outputLabel value="#{scheduleView.getSfechaini()}" />
+            <h:outputText value="Fecha final: " />
+            <h:outputLabel value="#{scheduleView.getSfechafin()}" />
+        </h:panelGrid>
+    </p:dialog>
+    <p:dialog widgetVar="dateDialog" header="Añadir Reserva" showEffect="clip" hideEffect="clip">
+        <h:panelGrid id="dateDetails" columns="2">
+            <p:outputLabel for="from" value="Hora Inicial:" />
+            <p:calendar id="from" mindate="#{scheduleView.event.startDate}" maxdate="#{scheduleView.event.endDate.minusHours(1)}" value="#{scheduleView.fechaini}" pattern="yyyy/mm/dd HH"/>
+            <p:outputLabel for="from1" value="Hora Final:" />
+            <p:calendar id="from1" mindate="#{scheduleView.event.startDate}" maxdate="#{scheduleView.event.endDate.minusHours(1)}" value="#{scheduleView.fechafin}" pattern="yyyy/mm/dd HH"/>
             <center>
                 <p:commandButton update="formCalendario" value="Reservar" action="#{userBean.setRedirectUrl(userBean.reservar)}"
                                  actionListener="#{reservaBean.inicializar(scheduleView.idRecurso,scheduleView.fechaini)}"/>
