@@ -34,6 +34,7 @@ public class Recurso implements Serializable {
 
     public Recurso(){super();}
 
+    public Recurso(int id){this.id=id;}
 
     public Recurso(int id, String nombre, Ubicacion ubicacion, int capacidad, Timestamp horario_inicial, Timestamp horario_final,boolean disponibilidad,TipoRecurso tiporecurso){
         this.id = id;

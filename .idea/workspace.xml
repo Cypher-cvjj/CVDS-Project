@@ -6,9 +6,11 @@
   <component name="ChangeListManager">
     <list default="true" id="9aaec5bd-b9de-4298-b4e8-968a2ab9324a" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/entities/Recurso.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/entities/Recurso.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/RecursoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/RecursoBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ReservaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ReservaBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ScheduleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ScheduleView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/horarios.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/horarios.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/eci/cvds/test/BibliotecaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/eci/cvds/test/BibliotecaTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,7 +20,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="cambiarEstadoRecurso" />
+        <entry key="$PROJECT_DIR$" value="Develop" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />

@@ -32,6 +32,7 @@ public class RecursoBean extends BasePageBean {
     private Date time1;
     private Date time2;
     private int id;
+
     private String nombre;
     private int capacidad;
     private Boolean disponibilidad;

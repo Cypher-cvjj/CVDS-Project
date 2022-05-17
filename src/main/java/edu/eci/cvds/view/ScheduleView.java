@@ -37,11 +37,14 @@ public class ScheduleView extends BasePageBean {
     private int idReserva;
     private Reserva r;
 
-    public void inicializar(int id) throws IOException{
+    public void inicializar(int id) throws IOException {
+        System.out.println("----------------------------------------");
+        System.out.println(id);
+        System.out.println("----------------------------------------");
         this.idRecurso = id;
         eventModel = new DefaultScheduleModel();
         loadEventos();
-        FacesContext.getCurrentInstance().getExternalContext().redirect("./CVDS.Project/horarios.xhtml");
+        FacesContext.getCurrentInstance().getExternalContext().redirect("./horarios.xhtml");
     }
 
     public int getIdReserva() {
@@ -170,11 +173,4 @@ public class ScheduleView extends BasePageBean {
         return r.isEstado();
     }
 
-    public void addReserva() throws BibliotecaException {
-        try{
-            eciLibraryServices.reservarRecurso(r);
-        }catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

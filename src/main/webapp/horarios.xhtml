@@ -174,18 +174,28 @@
     </p:dialog>
     <p:dialog widgetVar="dateDialog" header="Añadir Reserva" showEffect="clip" hideEffect="clip">
         <h:panelGrid id="dateDetails" columns="2">
+            <label>Id Reserva: </label>
+            <p:inputText class="form-control" id="id" type="number" value="#{ReservaBean.idreserva}" />
+            <label>Nombre: </label>
+            <p:inputText class="form-control" id="Nombre" type="String" value="#{ReservaBean.nombre}" />
+            <label></label>
             <p:outputLabel for="from" value="Hora Inicial:" />
-            <p:datePicker id ="from"  mindate="#{scheduleView.event.startDate}" value="#{scheduleView.fechaini}" showTime="true"/>
+            <br></br>
+            <p:datePicker id ="from"  value="#{ReservaBean.fechainicialreserva}" showTime="true"/>
+            <br></br>
             <p:outputLabel for="from1" value="Hora Final:" />
-            <p:datePicker id="from1" mindate="#{scheduleView.event.endDate}" value="#{scheduleView.fechafin}" showTime="true" appendTo="@(body)"/>
-            <center>
-
-                <p:commandButton update="formCalendario" value="Reservar" action="#{userBean.setRedirectUrl(userBean.reservar)}"
-                                 actionListener="#{scheduleView.inicializar(scheduleView.idRecurso)}"/>
-            </center>
+            <br></br>
+            <p:datePicker id="from1"  value="#{ReservaBean.fechafinalreserva}" showTime="true" appendTo="@(body)"/>
+            <label>Tipo reserva</label>
+            <p:selectOneMenu class="select" id="ubicacion" value = "#{ReservaBean.tiporeserva}" >
+                <f:selectItem itemLabel="Diaria" itemValue="1" />
+                <f:selectItem itemLabel="Semanal" itemValue="2" />
+                <f:selectItem itemLabel="Mensual" itemValue="3" />
+                <f:selectItem itemLabel="ninguna" itemValue="4" />
+            </p:selectOneMenu>
             <center>
                 <p:commandButton update="formCalendario" value="Reservar"
-                                 actionListener="#{scheduleView.addReserva()}"/>
+                                 actionListener="#{ReservaBean.addReserva(scheduleView.getIdRecurso())}"/>
             </center>
         </h:panelGrid>
     </p:dialog>
