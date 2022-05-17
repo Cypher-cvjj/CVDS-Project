@@ -16,10 +16,10 @@ public class Session implements Serializable{
     private int student = 2;
 
     public void logIn(int rol, String email, String password, String username, String career, String document) {
-        this.rol = rol;
         this.email = email;
         this.password = password;
         this.username = username;
+        this.rol = rol;
         this.career = career;
         this.document = document;
     }

@@ -3,6 +3,7 @@ package edu.eci.cvds.view;
 import java.io.IOException;
 import java.io.Serializable;
 
+
 import edu.eci.cvds.services.ECILibraryServices;
 import org.primefaces.model.DefaultScheduleModel;
 import com.google.inject.Inject;
@@ -21,12 +22,13 @@ public class LoginBean extends BasePageBean implements Serializable{
     @Inject
     private ECILibraryServices eciLibraryServices;
 
-    private static final String URL_0 = "http://localhost:8080/CVDS.Project/horarios.xhtml";
+    private static final String URL_0 = "http://localhost:8080/CVDS.Project/recursos.xhtml";
     private static final String URL_1 = "http://localhost:8080/CVDS.Project/anadirrecurso.xhtml";
     private static final String URL_2 = "http://localhost:8080/CVDS.Project/anadirrecurso.xhtml";
-    private String email;
-    private String password;
-    
+    private static final String URL_3 = "http://localhost:8080/CVDS.Project/login.xhtml";
+    private static String email;
+    private static String password;
+
     public void Login() throws BibliotecaException, IOException {
         Session currentSession =  eciLibraryServices.consultarSession(email, password);
          if (currentSession != null){
@@ -42,8 +44,38 @@ public class LoginBean extends BasePageBean implements Serializable{
          }
         
     }
-    
 
+    public void notAllowed() throws IOException{
+        FacesContext.getCurrentInstance().getExternalContext().redirect(URL_3);
+    }
+    
+    public Boolean isCommunity() throws BibliotecaException{
+        Session currentSession =  eciLibraryServices.consultarSession(email, password);
+        if (currentSession == null){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public Boolean isAdmin() throws BibliotecaException{
+        Session currentSession =  eciLibraryServices.consultarSession(email, password);
+        if (currentSession != null && currentSession.getRol() == 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public Boolean isStudent() throws BibliotecaException{
+        Session currentSession =  eciLibraryServices.consultarSession(email, password);
+        if (currentSession != null && currentSession.getRol() == 1){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
     public String getEmail() {
         return email;
     }
