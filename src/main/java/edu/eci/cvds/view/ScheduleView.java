@@ -60,6 +60,7 @@ public class ScheduleView extends BasePageBean {
                 this.fechaini = reserva.getFechaini();
                 this.fechafin = reserva.getFechafin();
                 this.idReserva = reserva.getId_reserva();
+                this.r = reserva;
 //                this.idRecurso = reserva.getRecurso().getId();
                 if (fechafin.isAfter(hoy)) {
                     DefaultScheduleEvent<?> event1 = DefaultScheduleEvent.builder()
@@ -79,8 +80,6 @@ public class ScheduleView extends BasePageBean {
 
     public void onEventSelect(SelectEvent selectEvent) {
         this.event = (ScheduleEvent<?>) selectEvent.getObject();
-        this.idReserva = Integer.parseInt(event.getId());
-
     }
 
     public void onDateSelect(SelectEvent<LocalDateTime> selectEvent) {
@@ -103,9 +102,7 @@ public class ScheduleView extends BasePageBean {
         return r.getNombre();
     }
 
-    public String getNameuser(){
-        return r.getUsuario().getNombre();
-    }
+
 
     public String getfechasol() {
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -165,4 +162,11 @@ public class ScheduleView extends BasePageBean {
         this.idRecurso = idRecurso;
     }
 
+    public Reserva getR() {
+        return r;
+    }
+
+    public boolean getEstado(){
+        return r.isEstado();
+    }
 }

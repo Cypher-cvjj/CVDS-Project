@@ -164,6 +164,12 @@
             <h:outputLabel value="#{scheduleView.getSfechaini()}" />
             <h:outputText value="Fecha final: " />
             <h:outputLabel value="#{scheduleView.getSfechafin()}" />
+            <h:outputText value="Estado: " />
+            <h:outputLabel value="#{scheduleView.getEstado()}" />
+            <center>
+                <p:commandButton update="formCalendario" value="Cancelar Reserva"
+                                 actionListener="#{reservaBean.CancelarReserva(scheduleView.getIdReserva())}"/>
+            </center>
         </h:panelGrid>
     </p:dialog>
     <p:dialog widgetVar="dateDialog" header="Añadir Reserva" showEffect="clip" hideEffect="clip">

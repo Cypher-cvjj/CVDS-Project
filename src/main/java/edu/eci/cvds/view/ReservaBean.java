@@ -11,6 +11,7 @@ import org.primefaces.model.DefaultScheduleModel;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import java.io.IOException;
+import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
@@ -30,6 +31,12 @@ public class ReservaBean extends BasePageBean {
     private DefaultScheduleModel eventModel;
 
 
+    /**
+     * Consulta la reserva de un recurso
+     * @param id
+     * @return
+     * @throws BibliotecaException
+     */
     public List<Reserva> consultarReserva(int id) throws BibliotecaException {
         List<Reserva> r = null;
         try {
@@ -40,6 +47,11 @@ public class ReservaBean extends BasePageBean {
         return r;
     }
 
+    /**
+     * consultar reserva por id
+     * @param idReserva
+     * @return
+     */
     public Reserva consultarReservaid(int idReserva) {
         System.out.println("entro bean");
         Reserva reserva = null;
@@ -49,6 +61,19 @@ public class ReservaBean extends BasePageBean {
             e.printStackTrace();
         }
         return reserva;
+    }
+
+    /**
+     * Cancelar reserva
+     * @param idReserva
+     * @throws ParseException
+     */
+    public void CancelarReserva(int idReserva) throws ParseException{
+        try{
+            eciLibraryServices.CancelarReserva(idReserva);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 
