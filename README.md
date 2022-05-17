@@ -3,9 +3,7 @@
 [_Click here_](https://proyecto-cvds2022-cypher-cvjj.herokuapp.com/)
 
 ## Proyecto Ciclos de Vida del Desarrollo de Software 2022-1
-##
 ## CYPHER - cvjj
-##
 ## Integrantes
 - Valentina Alvarado
 - Camilo Archila
