@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/pe" >
+      xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/pe"  xmlns:c="http://java.sun.com/jsp/jstl/core">
 
 <h:head>
     <title> Recursos ECI </title>
@@ -27,6 +27,7 @@
             color:black;
         }
     </style>
+    <link rel="stylesheet" type="text/css" href="./css/registrar.css"/>
 </h:head>
 
 <h:body>
@@ -80,8 +81,10 @@
         <br></br>
         <div>
             <p:commandButton style="background-image:linear-gradient(to right,rgb(93,32,31), rgb(  255, 15, 10  ))"  update="recurso_form" class="Button" actionListener="#{RecursoBean.registrarRecursos()}" value="Registrar Recurso"/>
+            <a href="./CVDS.Project/recursosAdmin.xhtml" class="consultar"><center>Ver Recursos</center></a>
         </div>
         <br></br>
+
     </h:form></center>
     <script 
     type="text/javascript">

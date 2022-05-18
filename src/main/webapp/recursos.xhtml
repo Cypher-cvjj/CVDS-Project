@@ -78,12 +78,10 @@
             </div>
         </c:if>
 </header>
-
     <p:dataTable id = "resourses" var="recursos" value="#{RecursoBean.consultarRecursos()}"
                  paginator="true" paginatorTemplate=" {FirstPageLink}
              {PreviousPageLink} {CurrentPageReport} {NextPageLink}
              {LastPageLink} {RowsPerPageDropdown}" paginatorPosition="bottom" rows="5" lazy="true" dynamic="true" >
-
         <p:column headerText="Id">
             <h:outputText value="#{recursos.id}" />
         </p:column>
