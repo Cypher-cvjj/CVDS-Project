@@ -164,6 +164,7 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
         }
     }
 
+
     @Override
     public Recurso consultarRecurso(int idRecurso) throws BibliotecaException {
         try{

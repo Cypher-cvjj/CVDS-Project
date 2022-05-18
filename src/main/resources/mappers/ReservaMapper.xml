@@ -30,6 +30,7 @@
         INNER JOIN usuarios as u ON (u.documento = r.usuario)
         INNER JOIN recursos as re ON (re.id_recursos = r.recurso)
         INNER JOIN tiporeserva as tr ON (tr.id = r.tiporeserva)
+        ORDER BY r.id_reserva ASC
     </select>
     <select id="consultarReserva" resultMap="ReservaResult" parameterType="map">
         select
@@ -49,6 +50,7 @@
         INNER JOIN recursos as re ON (re.id_recursos = r.recurso)
         INNER JOIN tiporeserva as tr ON (tr.id = r.tiporeserva)
         where r.id_reserva = #{idReserva}
+        ORDER BY r.id_reserva ASC
     </select>
     <select id="consultarReservasRecurso" resultMap="ReservaResult" parameterType="map">
         select
@@ -68,6 +70,7 @@
         INNER JOIN recursos as re ON (re.id_recursos = r.recurso)
         INNER JOIN tiporeserva as tr ON (tr.id = r.tiporeserva)
         WHERE id_recursos = #{rRecurso}
+        ORDER BY r.id_reserva ASC
     </select>
     <select id="consultarReservasUser" resultMap="ReservaResult" parameterType="map">
         select
@@ -88,6 +91,7 @@
         INNER JOIN recursos as re ON (re.id_recursos = r.recurso)
         INNER JOIN tiporeserva as tr ON (tr.id = r.tiporeserva)
         WHERE r.usuario = #{rUsuario}
+        ORDER BY r.id_reserva ASC
     </select>
     <insert id="reservarRecurso" parameterType="map">
         INSERT INTO reserva(

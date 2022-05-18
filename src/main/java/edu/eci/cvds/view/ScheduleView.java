@@ -46,6 +46,11 @@ public class ScheduleView extends BasePageBean {
         FacesContext.getCurrentInstance().getExternalContext().redirect("./horarios.xhtml");
     }
 
+    public void succes() throws IOException{
+        FacesContext.getCurrentInstance().getExternalContext().redirect("./recursos.xhtml");
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Succes", "Reserva realizada con exito"));
+    }
+
 
     public int getIdReserva() {
         return idReserva;
@@ -101,8 +106,7 @@ public class ScheduleView extends BasePageBean {
     }
 
     public String getreservaName() throws BibliotecaException {
-        this.r = eciLibraryServices.consultarReserva(idReserva);
-        return r.getNombre();
+            return eciLibraryServices.consultarReserva(idReserva).getNombre();
     }
 
     public String getNameuser(){

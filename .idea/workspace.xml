@@ -5,13 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="028dda56-561b-4352-a6e8-007cf58a70f6" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_17_2022_11_47_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_17_2022_11_47_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/LoginBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/LoginBean.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ReservaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ReservaBean.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ScheduleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ScheduleView.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/recursos.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/recursos.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/recursosAdmin.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/recursosAdmin.xhtml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/RecursoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/RecursoMapper.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/ReservaMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/ReservaMapper.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

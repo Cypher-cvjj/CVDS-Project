@@ -4,7 +4,6 @@ package edu.eci.cvds.view;
 import com.google.inject.Inject;
 import edu.eci.cvds.Exceptions.BibliotecaException;
 import edu.eci.cvds.entities.*;
-import edu.eci.cvds.entities.Reserva;
 import edu.eci.cvds.services.ECILibraryServices;
 import org.primefaces.model.DefaultScheduleModel;
 
@@ -103,7 +102,7 @@ public class ReservaBean extends BasePageBean {
         Timestamp time1sql = new Timestamp(fechafinalreserva.getTime());
         Date datenow = new Date(System.currentTimeMillis());
         Timestamp time3sql = new Timestamp(datenow.getTime());
-        if(time2sql.after(Timestamp.valueOf(eciLibraryServices.consultarRecurso(idRecurso).getHorario_inicial())) && time1sql.before(Timestamp.valueOf(eciLibraryServices.consultarRecurso(idRecurso).getHorario_inicial()))) {
+        if(time2sql.after(Timestamp.valueOf(eciLibraryServices.consultarRecurso(idRecurso).getHorario_inicial())) && time1sql.before(Timestamp.valueOf(eciLibraryServices.consultarRecurso(idRecurso).getHorario_final()))) {
             try {
                 Reserva r = new Reserva();
                 r.setId_reserva(idreserva);

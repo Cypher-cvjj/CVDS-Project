@@ -26,6 +26,7 @@
         recursos as re
         INNER JOIN tiporecurso as tre ON (tre.id = re.tiporecurso)
         INNER JOIN ubicacion as ub ON (ub.id = re.ubicacion)
+        ORDER BY re.id_recursos ASC
     </select>
 
     <select id="consultarRecurso" resultMap="RecursoResult">
@@ -43,6 +44,7 @@
         INNER JOIN tiporecurso as tre ON (tre.id = re.tiporecurso)
         INNER JOIN ubicacion as ub ON (ub.id = re.ubicacion)
         where re.id_recursos = #{idRecurso}
+        ORDER BY re.id_recursos ASC
     </select>
 
     <insert id="agregarRecursos" parameterType="edu.eci.cvds.entities.Recurso">
