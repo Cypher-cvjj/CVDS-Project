@@ -123,3 +123,4 @@ Al ingresar a la página, se presenta lo siguiente:
 ![image](https://user-images.githubusercontent.com/60302534/168952457-80d06aab-4b25-464d-8085-5e16478372ab.png)
 
 
+[![CircleCI](https://circleci.com/gh/Cypher-cvjj/CVDS-Project/tree/master.svg?style=svg)](https://circleci.com/gh/Cypher-cvjj/CVDS-Project/tree/master)
