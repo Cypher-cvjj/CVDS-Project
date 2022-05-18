@@ -109,7 +109,6 @@ Al ingresar a la página, se presenta lo siguiente:
 
 [_Click here_](https://proyecto-cvds2022-cypher-cvjj.herokuapp.com/)
 
-**Integración Continua**
 
 
 
