@@ -100,6 +100,7 @@ Al ingresar a la página, se presenta lo siguiente:
 - PostgreSQL
 - JAVA
 - XML
+- CSS
 - HTML
 - XHTML
 
