@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui" >
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:c="http://java.sun.com/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
 <h:head>
     <script type="text/javascript">
         PrimeFaces.locales['tr'] = {
@@ -53,20 +55,20 @@
     <link rel="stylesheet" type="text/css" href="./css/index_style.css"/>
 </h:head>
 <h:body>
-    <header>
-        <div class="arrib">
-            <img src="./Images/icon.png"/>
-            <h2 class="titulo">Recursos Biblioteca</h2>
-        </div>
-        <div>
-            <p:commandButton  value="Ver Calendario"
-                              action="#{scheduleView.inicializar(scheduleView.idRecurso)}"/>
-        </div>
-        <nav>
-            <a href="./CVDS.Project/login.xhtml" class="nav-link">Iniciar Sesion</a>
-        </nav>
-    </header>
-    <h:form>
+    <h:form id="recurso_form">
+        <header>
+            <div class="arrib">
+                <img src="./Images/icon.png"/>
+                <h2 class="titulo">Recursos Biblioteca</h2>
+            </div>
+            <c:if test="#{LoginBean.isCommunity()}">
+                <nav>
+                    <a href="./CVDS.Project/index.html" class="nav-link">Home</a>
+                    <a href="./CVDS.Project/anadirrecurso.xhtml" class="nav-link">Registrar Recurso</a>
+                </nav>
+            </c:if>
+        </header>
+
         <p:dataTable id = "resourses" var="recursos" value="#{RecursoBean.consultarRecursos()}"
                      paginator="true" paginatorTemplate=" {FirstPageLink}
              {PreviousPageLink} {CurrentPageReport} {NextPageLink}
@@ -76,63 +78,33 @@
                 <h:outputText value="#{recursos.id}" />
             </p:column>
 
-
             <p:column headerText="Nombre">
                 <h:outputText value="#{recursos.nombre}" />
-
             </p:column>
 
-            <p:column headerText="Ubicacion" filterBy="#{recursos.ubicacion}" filterMatchMode = "contains">
+            <p:column headerText="Ubicacion" filterBy="#{recursos.ubicacion.ubicacion}" filterMatchMode = "contains">
                 <h:outputText value="#{recursos.ubicacion.ubicacion}" />
             </p:column>
 
-            <p:column headerText="Tiporecurso" filterBy="#{recursos.tiporecurso}" filterMatchMode = "contains">
-                <h:outputText value="#{recursos.tiporecurso.tipo}" />
+            <p:column headerText="Tiporecurso" filterBy="#{recursos.tiporecurso.tipo}" filterMatchMode = "contains">
+                <h:outputText value="#{recursos.ubicacion.ubicacion}" />
             </p:column>
 
             <p:column headerText="Disponibilidad">
-                <p:inputSwitch value="#{recursos.disponibilidad}"/>
+                <h:outputText value="#{recursos.disponibilidad}" />
             </p:column>
-
             <p:column headerText="Capacidad" filterBy="#{recursos.capacidad}" filterMatchMode = "contains">
                 <h:outputText value="#{recursos.capacidad}" />
             </p:column>
 
             <p:column headerText="Horario">
-                <h:outputText value="#{recursos.horario_inicial}"/><br></br>
-                <h:outputText value="#{recursos.horario_final}"/>
+                <h:outputText value="#{recursos.horaini}"/><br></br>
+                <h:outputText value="#{recursos.horafin}"/>
             </p:column>
-
-            <p:column styleClass="rounded-button">
-                <p:commandButton value="Resevar" type="button" icon="pi pi-search" onclick="PF('dlg3').show();" />
-                <p:dialog header="Reservar" widgetVar="dlg3" showEffect="Clip" hideEffect="Blind" height="100">
-
-                    <div class="card">
-                        <div class="p-field p-grid">
-                            <p:outputLabel styleClass="p-col-fixed" value="Nombre"/>
-                            <br/>
-                            <h:outputText value="#{recursos.nombre}" />
-                        </div>
-                        <br />
-                        <div class="p-field p-grid">
-                            <p:outputLabel styleClass="p-col-fixed" value="Tipo de Recurso"/>
-                            <div class="p-col">
-                                <h:outputText value="#{recursos.tiporecurso.tipo}" />
-                            </div>
-                        </div>
-                        <br />
-                        <div class="p-field p-grid">
-                            <div class="p-col">
-                                <h:outputText value="Disponibilidad" />
-                                <br />
-                                <p:calendar id="button" showOn="button" pattern="dd/MM/yyyy HH" />
-                            </div>
-                        </div>
-                    </div>
-                </p:dialog>
+            <p:column headerText="Cambiar">
+                <p:commandButton style="background-image:linear-gradient(to right,rgb(93,32,31), rgb(  255, 15, 10  ))"  update="recurso_form" class="Button" actionListener="#{RecursoBean.cambiarEstadoRecurso(recursos.id)}" value="Cambiar Disponibilidad"/>
             </p:column>
         </p:dataTable>
-
     </h:form>
 </h:body>
 </html>
