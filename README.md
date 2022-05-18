@@ -105,12 +105,19 @@ Al ingresar a la página, se presenta lo siguiente:
 - Andrés Parra
 - Jose Olarte
 ##
-**[Backlog](https://tree.taiga.io/project/lauraval19-gestion-de-recursos-biblioteca/backlog)**
+
+
+**[_Click Here_](https://tree.taiga.io/project/lauraval19-gestion-de-recursos-biblioteca/backlog)**
+## Backlog
 ![image](https://user-images.githubusercontent.com/60302534/168951964-85d63da6-4dfb-4d1f-bd8f-cc8b2ff3be9b.png)
 
-##
+## Sprint 1
 ![image](https://user-images.githubusercontent.com/60302534/167256387-084b66c9-a933-4034-9df7-de31cbbd3793.png)
 
+## Sprint 2
 ![image](https://user-images.githubusercontent.com/60302534/168905636-db5af32e-0c36-475e-b267-1bb0b97ea27d.png)
+
+## Sprint 3
+![image](https://user-images.githubusercontent.com/60302534/168952457-80d06aab-4b25-464d-8085-5e16478372ab.png)
 
 
