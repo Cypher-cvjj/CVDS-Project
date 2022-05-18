@@ -30,7 +30,7 @@
 
 **Descripción General**
 
-Es una página web, el cual nos permite elegir diferentes recursos que otorga las bibliotecas de la Escuela de Ingeniría Julio Garavito, dónde hay diferentes roles dentro de la misma plataforma con difrentes funcionalidades.
+Es una página web, el cual nos permite elegir diferentes recursos que otorga las bibliotecas de la Escuela de Ingeniría Julio Garavito; herramienta diseñada para la comunidad de la Universidad ECI, dónde hay diferentes roles dentro de la misma plataforma con difrentes funcionalidades.
 
 De los cuales puedes escoger:
 - Lugar
