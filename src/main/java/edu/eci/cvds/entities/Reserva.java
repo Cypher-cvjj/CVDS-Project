@@ -2,10 +2,7 @@ package edu.eci.cvds.entities;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.sql.Time;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.Date;
 
 public class Reserva implements Serializable{
 
@@ -113,8 +110,9 @@ public class Reserva implements Serializable{
                 ", fechasoli=" + fechasoli +
                 ", fechaini=" + fechaini +
                 ", fechafin=" + fechafin +
+                ", estado= " + estado +
                 ", usuario=" + usuario +
-                ", recurso=" + recurso +
+                ", recurso=" + recurso.getId() +
                 ", tiporeserva=" + tiporeserva +
                 '}';
     }

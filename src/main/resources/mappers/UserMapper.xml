@@ -8,18 +8,11 @@
         <result property='contrasena' column='contrasena'/>
         <result property='correo' column='correo'/>
         <result property='telefono' column='telefono'/>
-        <association property="tipousuario" javaType="TipoUser" resultMap="edu.eci.cvds.persistence.mappers.TipoUserMapper.tipoUserResult" columnPrefix="us_"/>
+
     </resultMap>
     <select id = "consultarUsuarios" resultMap="UserResult">
-        select
-        u.documento,
-        u.nombre,
-        u.contrasena,
-        u.correo,
-        u.telefono,
-        tu.id
+        select *
         FROM
-        usuarios as u
-        JOIN tipousuario as tu ON(tu.id = u.tipousuario)
+        public.usuarios
     </select>
 </mapper>

@@ -28,10 +28,14 @@ public class LoginBean extends BasePageBean implements Serializable{
     private static final String URL_3 = "http://localhost:8080/CVDS.Project/login.xhtml";
     private static String email;
     private static String password;
+    private static String name;
+    private static long documento;
 
     public void Login() throws BibliotecaException, IOException {
         Session currentSession =  eciLibraryServices.consultarSession(email, password);
          if (currentSession != null){
+             this.name = currentSession.getUsername();
+             this.documento = currentSession.getDocument();
              switch (currentSession.getRol()){
                 case 0:
                     FacesContext.getCurrentInstance().getExternalContext().redirect(URL_0);
@@ -75,7 +79,11 @@ public class LoginBean extends BasePageBean implements Serializable{
             return false;
         }
     }
-    
+
+    public int getDocument() {return (int) documento;}
+
+    public String getName() {return name;}
+
     public String getEmail() {
         return email;
     }

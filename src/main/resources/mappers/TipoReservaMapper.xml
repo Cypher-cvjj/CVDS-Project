@@ -8,9 +8,9 @@
     </resultMap>
     <select id="consultarTipores" resultMap="TipoReservaResult">
         select
-        tre.id,
-        tre.tipo
+        tr.id,
+        tr.tipo
         FROM
-        tiporeserva as tre
+        tiporeserva as tr
     </select>
 </mapper>

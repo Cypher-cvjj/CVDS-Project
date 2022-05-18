@@ -1,6 +1,7 @@
 package edu.eci.cvds.services;
 import com.google.inject.Injector;
 
+import edu.eci.cvds.entities.Session;
 import edu.eci.cvds.persistence.*;
 import edu.eci.cvds.persistence.mybatisimpl.*;
 import edu.eci.cvds.services.impl.ECILibraryServicesImpl;
@@ -32,9 +33,11 @@ public class ECILibraryServicesFactory {
                 bind(RecursoDAO.class).to(MyBatisRecursoDAO.class);
                 bind(UserDAO.class).to(MyBatisUserDAO.class);
                 bind(TipoRecursoDAO.class).to(MyBatisTipoRecursoDAO.class);
+                bind(SessionDAO.class).to(MyBatisSessionDAO.class);
                 bind(UbicacionDAO.class).to(MyBatisUbicacionDAO.class);
                 bind(ReservaDAO.class).to(MyBatisReservaDAO.class);
                 bind(TipoReservaDAO.class).to(MyBatisTipoReservaDAO.class);
+
             }
         });
     }

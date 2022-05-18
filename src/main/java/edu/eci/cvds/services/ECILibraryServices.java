@@ -33,7 +33,10 @@ public interface ECILibraryServices {
     public List<User> consultarUsuarios() throws BibliotecaException;
 
     public Reserva consultarReserva(int idReserva) throws BibliotecaException;
-    void CancelarReserva(int idReserva) throws BibliotecaException;
+
+    public void CancelarReserva(int idReserva) throws BibliotecaException;
+
+    public List<Reserva> consultarReservasUser(int documento) throws BibliotecaException;
 
     public Session consultarSession(String email, String password) throws BibliotecaException;
 

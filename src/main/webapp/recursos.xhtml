@@ -55,6 +55,7 @@
     <link rel="stylesheet" type="text/css" href="./css/index_style.css"/>
 </h:head>
 <h:body>
+    <h:form>
     <header>
         <div class="arrib">
             <img src="./Images/icon.png"/>
@@ -65,8 +66,19 @@
         <a href="./CVDS.Project/login.xhtml" class="nav-link">Iniciar Sesion</a>
     </nav>
     </c:if>
+        <c:if test="#{!LoginBean.isCommunity()}">
+            <div>
+            <p:toolbarGroup align="right">
+                <p:menuButton icon="pi pi-users" value="Perfil">
+                    <p:menuitem value="#{LoginBean.getName()}" icon="pi pi-user"/>
+                    <p:menuitem value="Mis Reservas" action="#{RecursoBean.misreservas()}" icon="pi pi-book"/>
+                    <p:menuitem value="Cerrar Sesion" icon="pi pi-sign-out"/>
+                </p:menuButton>
+            </p:toolbarGroup>
+            </div>
+        </c:if>
 </header>
-<h:form>
+
     <p:dataTable id = "resourses" var="recursos" value="#{RecursoBean.consultarRecursos()}"
                  paginator="true" paginatorTemplate=" {FirstPageLink}
              {PreviousPageLink} {CurrentPageReport} {NextPageLink}
@@ -78,7 +90,6 @@
 
         <p:column headerText="Nombre">
             <h:outputText value="#{recursos.nombre}" />
-
         </p:column>
 
         <p:column headerText="Ubicacion" filterBy="#{recursos.ubicacion.ubicacion}" filterMatchMode = "contains">
@@ -111,9 +122,7 @@
             <p:commandButton  value="Reservar"
                               action="#{scheduleView.inicializar(recursos.id)}"/>
             </c:if>
-
         </p:column>
-        
     </p:dataTable>
 </h:form>
 </h:body>

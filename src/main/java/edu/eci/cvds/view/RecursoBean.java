@@ -10,7 +10,9 @@ import edu.eci.cvds.services.ECILibraryServices;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.faces.model.SelectItem;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
@@ -58,6 +60,12 @@ public class RecursoBean extends BasePageBean {
         }
         return recursos;
     }
+
+    public void misreservas() throws BibliotecaException, IOException {
+        FacesContext.getCurrentInstance().getExternalContext().redirect("./misreservas.xhtml");
+    }
+
+
 
     /**
      * reistrar un recurso si es administrador

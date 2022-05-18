@@ -4,66 +4,92 @@
 <mapper namespace="edu.eci.cvds.persistence.mappers.ReservaMapper">
     <resultMap type='Reserva' id='ReservaResult'>
         <id property='id_reserva' column='id_reserva'/>
-        <result property='nombre' column='nombre'/>
+        <result property='nombre' column='r_nombre'/>
         <result property='fechasoli' column='fechasoli'/>
         <result property='fechaini' column='fechaini'/>
         <result property='fechafin' column='fechafin'/>
         <result property='estado' column='estado'/>
-        <association property="usuario" javaType="user" resultMap="edu.eci.cvds.persistence.mappers.UserMapper.UserResult" columnPrefix="us_"/>
-        <association property="recurso" javaType="recurso" resultMap="edu.eci.cvds.persistence.mappers.RecursoMapper.RecursoResult" columnPrefix="r_"/>
-        <association property="tiporeserva" javaType="tiporeserva" resultMap="edu.eci.cvds.persistence.mappers.TipoReservaMapper.TipoReservaResult" columnPrefix="tr_"/>
+        <association property="usuario" javaType="User" resultMap="edu.eci.cvds.persistence.mappers.UserMapper.UserResult" columnPrefix="u_"/>
+        <association property="recurso" javaType="Recurso" resultMap="edu.eci.cvds.persistence.mappers.RecursoMapper.RecursoResult" columnPrefix="re_" />
+        <association property="tiporeserva" javaType="TipoReserva" resultMap="edu.eci.cvds.persistence.mappers.TipoReservaMapper.TipoReservaResult"  columnPrefix="tr_"/>
     </resultMap>
-    <select id="consultarReservas" resultMap="ReservaResult">
+    <select id="consultarReservas" resultMap="ReservaResult" parameterType="map">
         select
-        re.id_reserva,
-        re.nombre,
-        re.fechasoli,
-        re.fechaini,
-        re.fechafin,
-        u.documento,
-        r.id_recursos,
-        t.tipo
+        r.id_reserva,
+        r.nombre r_nombre,
+        r.fechasoli,
+        r.fechaini,
+        r.fechafin,
+        r.estado,
+        u.nombre u_nombre,
+        re.id_recursos re_id_recursos,
+        tr.tipore tr_tipore,
+        tr.id tr_id
         FROM
-        reserva as re
-        JOIN usuarios as u ON(u.documento = re.usuario)
-        JOIN recursos as r ON(r.id_recursos = re.recurso)
-        JOIN tiporecurso  as t ON(t.id = re.tiporeserva)
+        reserva as r
+        INNER JOIN usuarios as u ON (u.documento = r.usuario)
+        INNER JOIN recursos as re ON (re.id_recursos = r.recurso)
+        INNER JOIN tiporeserva as tr ON (tr.id = r.tiporeserva)
     </select>
-    <select id="consultarReserva" resultMap="ReservaResult">
+    <select id="consultarReserva" resultMap="ReservaResult" parameterType="map">
         select
-        re.id_reserva,
-        re.nombre,
-        re.fechasoli,
-        re.fechaini,
-        re.fechafin,
-        u.documento,
-        r.id_recursos,
-        t.tipo
+        r.id_reserva,
+        r.nombre r_nombre,
+        r.fechasoli,
+        r.fechaini,
+        r.fechafin,
+        r.estado,
+        u.nombre u_nombre,
+        re.id_recursos re_id_recursos,
+        tr.tipore tr_tipore,
+        tr.id tr_id
         FROM
-        reserva re
-        JOIN usuarios  u ON(u.documento = re.usuario)
-        JOIN recursos  r ON(r.id_recursos = re.recurso)
-        JOIN tiporecurso  t ON(t.id = re.tiporeserva)
-        where re.id_reserva = #{idReserva}
+        reserva as r
+        INNER JOIN usuarios as u ON (u.documento = r.usuario)
+        INNER JOIN recursos as re ON (re.id_recursos = r.recurso)
+        INNER JOIN tiporeserva as tr ON (tr.id = r.tiporeserva)
+        where r.id_reserva = #{idReserva}
     </select>
     <select id="consultarReservasRecurso" resultMap="ReservaResult" parameterType="map">
         select
-        re.id_reserva,
-        re.nombre,
-        re.fechasoli,
-        re.fechaini,
-        re.fechafin,
-        u.documento,
-        r.id_recursos,
-        t.tipo
+        r.id_reserva,
+        r.nombre r_nombre,
+        r.fechasoli,
+        r.fechaini,
+        r.fechafin,
+        r.estado,
+        u.nombre u_nombre,
+        re.id_recursos re_id_recursos,
+        tr.tipore tr_tipore,
+        tr.id tr_id
         FROM
-        reserva as re
-        JOIN usuarios as u ON(u.documento = re.usuario)
-        JOIN recursos as r ON(r.id_recursos = re.recurso)
-        JOIN tiporecurso  as t ON(t.id = re.tiporeserva)
+        reserva as r
+        INNER JOIN usuarios as u ON (u.documento = r.usuario)
+        INNER JOIN recursos as re ON (re.id_recursos = r.recurso)
+        INNER JOIN tiporeserva as tr ON (tr.id = r.tiporeserva)
         WHERE id_recursos = #{rRecurso}
     </select>
-    <insert id="reservarRecurso" parameterType="edu.eci.cvds.entities.Reserva">
+    <select id="consultarReservasUser" resultMap="ReservaResult" parameterType="map">
+        select
+        r.id_reserva,
+        r.nombre r_nombre,
+        r.fechasoli,
+        r.fechaini,
+        r.fechafin,
+        r.estado,
+        u.nombre u_nombre,
+        re.id_recursos re_id_recursos,
+        re.nombre re_nombre,
+        tr.tipore tr_tipore,
+        tr.id tr_id
+        FROM
+        reserva as r
+        INNER JOIN usuarios as u ON (u.documento = r.usuario)
+        INNER JOIN recursos as re ON (re.id_recursos = r.recurso)
+        INNER JOIN tiporeserva as tr ON (tr.id = r.tiporeserva)
+        WHERE r.usuario = #{rUsuario}
+    </select>
+    <insert id="reservarRecurso" parameterType="map">
         INSERT INTO reserva(
         id_reserva,nombre,fechasoli,fechaini,fechafin,estado,usuario,recurso,tiporeserva
         ) VALUES(
@@ -74,5 +100,4 @@
         SET estado = NOT estado
         WHERE id_reserva = #{idReserva}
     </update>
-
 </mapper>

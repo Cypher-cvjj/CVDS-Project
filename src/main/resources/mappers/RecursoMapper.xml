@@ -9,26 +9,23 @@
         <result property='horario_inicial' column='horario_inicial'/>
         <result property='horario_final' column='horario_final'/>
         <result property='disponibilidad' column='disponibilidad'/>
-        <association property="tiporecurso" javaType="TipoRecurso" resultMap="edu.eci.cvds.persistence.mappers.TipoRecursoMapper.TipoRecursoResult" columnPrefix="tr_"/>
-        <association property="ubicacion" javaType="ubicacion" resultMap="edu.eci.cvds.persistence.mappers.UbicacionMapper.UbicacionResult" columnPrefix="ub_"/>
+        <association property="tiporecurso" javaType="TipoRecurso" resultMap="edu.eci.cvds.persistence.mappers.TipoRecursoMapper.TipoRecursoResult" />
+        <association property="ubicacion" javaType="ubicacion" resultMap="edu.eci.cvds.persistence.mappers.UbicacionMapper.UbicacionResult" />
     </resultMap>
     <select id="consultarRecursos" resultMap="RecursoResult">
-            select
-            r.id_recursos,
-            r.nombre,
-            ub.id as ub_id,
-            ub.ubicacion as ub_ubicacion,
-            r.capacidad,
-            r.horario_inicial,
-            r.horario_final,
-            r.disponibilidad,
-            tr.id tr_id,
-            tr.tipo tr_tipo
-            FROM
-            recursos as r
-            JOIN tiporecurso as tr ON(tr.id = r.tiporecurso)
-            JOIN ubicacion as ub ON(ub.id = r.ubicacion)
-
+        select
+        re.id_recursos,
+        re.nombre,
+        re.capacidad,
+        re.horario_inicial,
+        re.horario_final,
+        re.disponibilidad,
+        tre.tipo,
+        ub.ubicacion
+        FROM
+        recursos as re
+        INNER JOIN tiporecurso as tre ON (tre.id = re.tiporecurso)
+        INNER JOIN ubicacion as ub ON (ub.id = re.ubicacion)
     </select>
 
     <insert id="agregarRecursos" parameterType="edu.eci.cvds.entities.Recurso">

@@ -1,0 +1,1356 @@
+Index: src/main/resources/mappers/ReservaMapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\"\r\n        \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\r\n<mapper namespace=\"edu.eci.cvds.persistence.mappers.ReservaMapper\">\r\n    <resultMap type='Reserva' id='ReservaResult'>\r\n        <id property='id_reserva' column='id_reserva'/>\r\n        <result property='nombre' column='nombre'/>\r\n        <result property='fechasoli' column='fechasoli'/>\r\n        <result property='fechaini' column='fechaini'/>\r\n        <result property='fechafin' column='fechafin'/>\r\n        <result property='estado' column='estado'/>\r\n        <association property=\"usuario\" javaType=\"user\" resultMap=\"edu.eci.cvds.persistence.mappers.UserMapper.UserResult\" columnPrefix=\"us_\"/>\r\n        <association property=\"recurso\" javaType=\"recurso\" resultMap=\"edu.eci.cvds.persistence.mappers.RecursoMapper.RecursoResult\" columnPrefix=\"r_\"/>\r\n        <association property=\"tiporeserva\" javaType=\"tiporeserva\" resultMap=\"edu.eci.cvds.persistence.mappers.TipoReservaMapper.TipoReservaResult\" columnPrefix=\"tr_\"/>\r\n    </resultMap>\r\n    <select id=\"consultarReservas\" resultMap=\"ReservaResult\">\r\n        select\r\n        re.id_reserva,\r\n        re.nombre,\r\n        re.fechasoli,\r\n        re.fechaini,\r\n        re.fechafin,\r\n        u.documento,\r\n        r.id_recursos,\r\n        t.tipo\r\n        FROM\r\n        reserva as re\r\n        JOIN usuarios as u ON(u.documento = re.usuario)\r\n        JOIN recursos as r ON(r.id_recursos = re.recurso)\r\n        JOIN tiporecurso  as t ON(t.id = re.tiporeserva)\r\n    </select>\r\n    <select id=\"consultarReserva\" resultMap=\"ReservaResult\">\r\n        select\r\n        re.id_reserva,\r\n        re.nombre,\r\n        re.fechasoli,\r\n        re.fechaini,\r\n        re.fechafin,\r\n        u.documento,\r\n        r.id_recursos,\r\n        t.tipo\r\n        FROM\r\n        reserva re\r\n        JOIN usuarios  u ON(u.documento = re.usuario)\r\n        JOIN recursos  r ON(r.id_recursos = re.recurso)\r\n        JOIN tiporecurso  t ON(t.id = re.tiporeserva)\r\n        where re.id_reserva = #{idReserva}\r\n    </select>\r\n    <select id=\"consultarReservasRecurso\" resultMap=\"ReservaResult\" parameterType=\"map\">\r\n        select\r\n        re.id_reserva,\r\n        re.nombre,\r\n        re.fechasoli,\r\n        re.fechaini,\r\n        re.fechafin,\r\n        u.documento,\r\n        r.id_recursos,\r\n        t.tipo\r\n        FROM\r\n        reserva as re\r\n        JOIN usuarios as u ON(u.documento = re.usuario)\r\n        JOIN recursos as r ON(r.id_recursos = re.recurso)\r\n        JOIN tiporecurso  as t ON(t.id = re.tiporeserva)\r\n        WHERE id_recursos = #{rRecurso}\r\n    </select>\r\n    <insert id=\"reservarRecurso\" parameterType=\"edu.eci.cvds.entities.Reserva\">\r\n        INSERT INTO reserva(\r\n        id_reserva,nombre,fechasoli,fechaini,fechafin,estado,usuario,recurso,tiporeserva\r\n        ) VALUES(\r\n        #{Reserva.id_reserva},#{Reserva.nombre},#{Reserva.fechasoli},#{Reserva.fechaini},#{Reserva.fechafin},#{Reserva.estado},#{Reserva.usuario.documento},#{Reserva.recurso.id},#{Reserva.tiporeserva.id});\r\n    </insert>\r\n    <update id=\"CancelarReserva\" parameterType=\"int\">\r\n        UPDATE reserva\r\n        SET estado = NOT estado\r\n        WHERE id_reserva = #{idReserva}\r\n    </update>\r\n\r\n</mapper>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/mappers/ReservaMapper.xml b/src/main/resources/mappers/ReservaMapper.xml
+--- a/src/main/resources/mappers/ReservaMapper.xml	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/resources/mappers/ReservaMapper.xml	(date 1652810937031)
+@@ -9,61 +9,37 @@
+         <result property='fechaini' column='fechaini'/>
+         <result property='fechafin' column='fechafin'/>
+         <result property='estado' column='estado'/>
+-        <association property="usuario" javaType="user" resultMap="edu.eci.cvds.persistence.mappers.UserMapper.UserResult" columnPrefix="us_"/>
+-        <association property="recurso" javaType="recurso" resultMap="edu.eci.cvds.persistence.mappers.RecursoMapper.RecursoResult" columnPrefix="r_"/>
+-        <association property="tiporeserva" javaType="tiporeserva" resultMap="edu.eci.cvds.persistence.mappers.TipoReservaMapper.TipoReservaResult" columnPrefix="tr_"/>
++        <association property="usuario" javaType="User" resultMap="edu.eci.cvds.persistence.mappers.UserMapper.UserResult" />
++        <association property="recurso" javaType="Recurso" resultMap="edu.eci.cvds.persistence.mappers.RecursoMapper.RecursoResult" columnPrefix="r_"/>
++        <association property="tiporeserva" javaType="TipoReserva" resultMap="edu.eci.cvds.persistence.mappers.TipoReservaMapper.TipoReservaResult" />
+     </resultMap>
+-    <select id="consultarReservas" resultMap="ReservaResult">
+-        select
+-        re.id_reserva,
+-        re.nombre,
+-        re.fechasoli,
+-        re.fechaini,
+-        re.fechafin,
+-        u.documento,
+-        r.id_recursos,
+-        t.tipo
++    <select id="consultarReservas" resultMap="ReservaResult" parameterType="map">
++        select *
+         FROM
+-        reserva as re
+-        JOIN usuarios as u ON(u.documento = re.usuario)
+-        JOIN recursos as r ON(r.id_recursos = re.recurso)
+-        JOIN tiporecurso  as t ON(t.id = re.tiporeserva)
++        public.reserva
++        INNER JOIN public.usuarios ON public.usuarios.documento = public.reserva.usuario
++        INNER JOIN public.recursos ON public.recursos.id_recursos = public.reserva.recurso
++        INNER JOIN public.tiporecurso ON public.tiporecurso.id = public.reserva.tiporeserva
+     </select>
+-    <select id="consultarReserva" resultMap="ReservaResult">
+-        select
+-        re.id_reserva,
+-        re.nombre,
+-        re.fechasoli,
+-        re.fechaini,
+-        re.fechafin,
+-        u.documento,
+-        r.id_recursos,
+-        t.tipo
++    <select id="consultarReserva" resultMap="ReservaResult" parameterType="map">
++        select *
+         FROM
+-        reserva re
+-        JOIN usuarios  u ON(u.documento = re.usuario)
+-        JOIN recursos  r ON(r.id_recursos = re.recurso)
+-        JOIN tiporecurso  t ON(t.id = re.tiporeserva)
+-        where re.id_reserva = #{idReserva}
++        public.reserva
++        INNER JOIN public.usuarios ON public.usuarios.documento = public.reserva.usuario
++        INNER JOIN public.recursos ON public.recursos.id_recursos = public.reserva.recurso
++        INNER JOIN PUBLIC.tiporecurso ON public.tiporecurso.id = public.reserva.tiporeserva
++        where public.reserva.id_reserva = #{idReserva}
+     </select>
+     <select id="consultarReservasRecurso" resultMap="ReservaResult" parameterType="map">
+-        select
+-        re.id_reserva,
+-        re.nombre,
+-        re.fechasoli,
+-        re.fechaini,
+-        re.fechafin,
+-        u.documento,
+-        r.id_recursos,
+-        t.tipo
++        select *
+         FROM
+-        reserva as re
+-        JOIN usuarios as u ON(u.documento = re.usuario)
+-        JOIN recursos as r ON(r.id_recursos = re.recurso)
+-        JOIN tiporecurso  as t ON(t.id = re.tiporeserva)
++        public.reserva
++        INNER JOIN usuarios ON public.usuarios.documento = public.reserva.usuario
++        INNER JOIN recursos ON public.recursos.id_recursos = public.reserva.recurso
++        INNER JOIN tiporecurso  ON public.tiporecurso.id = public.reserva.tiporeserva
+         WHERE id_recursos = #{rRecurso}
+     </select>
+-    <insert id="reservarRecurso" parameterType="edu.eci.cvds.entities.Reserva">
++    <insert id="reservarRecurso" parameterType="map">
+         INSERT INTO reserva(
+         id_reserva,nombre,fechasoli,fechaini,fechafin,estado,usuario,recurso,tiporeserva
+         ) VALUES(
+@@ -74,5 +50,4 @@
+         SET estado = NOT estado
+         WHERE id_reserva = #{idReserva}
+     </update>
+-
+ </mapper>
+\ No newline at end of file
+Index: src/main/resources/mappers/RecursoMapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\"\r\n        \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\r\n<mapper namespace=\"edu.eci.cvds.persistence.mappers.RecursoMapper\">\r\n    <resultMap type='Recurso' id='RecursoResult'>\r\n        <id property='id' column='id_recursos'/>\r\n        <result property='nombre' column='nombre'/>\r\n        <result property='capacidad' column='capacidad'/>\r\n        <result property='horario_inicial' column='horario_inicial'/>\r\n        <result property='horario_final' column='horario_final'/>\r\n        <result property='disponibilidad' column='disponibilidad'/>\r\n        <association property=\"tiporecurso\" javaType=\"TipoRecurso\" resultMap=\"edu.eci.cvds.persistence.mappers.TipoRecursoMapper.TipoRecursoResult\" columnPrefix=\"tr_\"/>\r\n        <association property=\"ubicacion\" javaType=\"ubicacion\" resultMap=\"edu.eci.cvds.persistence.mappers.UbicacionMapper.UbicacionResult\" columnPrefix=\"ub_\"/>\r\n    </resultMap>\r\n    <select id=\"consultarRecursos\" resultMap=\"RecursoResult\">\r\n            select\r\n            r.id_recursos,\r\n            r.nombre,\r\n            ub.id as ub_id,\r\n            ub.ubicacion as ub_ubicacion,\r\n            r.capacidad,\r\n            r.horario_inicial,\r\n            r.horario_final,\r\n            r.disponibilidad,\r\n            tr.id tr_id,\r\n            tr.tipo tr_tipo\r\n            FROM\r\n            recursos as r\r\n            JOIN tiporecurso as tr ON(tr.id = r.tiporecurso)\r\n            JOIN ubicacion as ub ON(ub.id = r.ubicacion)\r\n\r\n    </select>\r\n\r\n    <insert id=\"agregarRecursos\" parameterType=\"edu.eci.cvds.entities.Recurso\">\r\n        INSERT INTO Recursos(\r\n        id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso\r\n        ) VALUES(\r\n        #{Recurso.id}, #{Recurso.nombre},#{Recurso.ubicacion.id},#{Recurso.capacidad},#{Recurso.horario_inicial},#{Recurso.horario_final},#{Recurso.disponibilidad},#{Recurso.tiporecurso.id});\r\n    </insert>\r\n    <update id = \"cambiarEstadoRecurso\" parameterType=\"int\">\r\n        UPDATE Recursos\r\n        SET disponibilidad = NOT disponibilidad\r\n        WHERE id_recursos = #{idRecurso}\r\n    </update>\r\n</mapper>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/mappers/RecursoMapper.xml b/src/main/resources/mappers/RecursoMapper.xml
+--- a/src/main/resources/mappers/RecursoMapper.xml	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/resources/mappers/RecursoMapper.xml	(date 1652808220641)
+@@ -9,25 +9,15 @@
+         <result property='horario_inicial' column='horario_inicial'/>
+         <result property='horario_final' column='horario_final'/>
+         <result property='disponibilidad' column='disponibilidad'/>
+-        <association property="tiporecurso" javaType="TipoRecurso" resultMap="edu.eci.cvds.persistence.mappers.TipoRecursoMapper.TipoRecursoResult" columnPrefix="tr_"/>
+-        <association property="ubicacion" javaType="ubicacion" resultMap="edu.eci.cvds.persistence.mappers.UbicacionMapper.UbicacionResult" columnPrefix="ub_"/>
++        <association property="tiporecurso" javaType="TipoRecurso" resultMap="edu.eci.cvds.persistence.mappers.TipoRecursoMapper.TipoRecursoResult"/>
++        <association property="ubicacion" javaType="ubicacion" resultMap="edu.eci.cvds.persistence.mappers.UbicacionMapper.UbicacionResult" />
+     </resultMap>
+     <select id="consultarRecursos" resultMap="RecursoResult">
+-            select
+-            r.id_recursos,
+-            r.nombre,
+-            ub.id as ub_id,
+-            ub.ubicacion as ub_ubicacion,
+-            r.capacidad,
+-            r.horario_inicial,
+-            r.horario_final,
+-            r.disponibilidad,
+-            tr.id tr_id,
+-            tr.tipo tr_tipo
++            select *
+             FROM
+-            recursos as r
+-            JOIN tiporecurso as tr ON(tr.id = r.tiporecurso)
+-            JOIN ubicacion as ub ON(ub.id = r.ubicacion)
++            public.recursos
++            INNER JOIN tiporecurso ON public.tiporecurso.id = public.recursos.tiporecurso
++            INNER JOIN ubicacion ON public.ubicacion.id = public.recursos.ubicacion
+ 
+     </select>
+ 
+Index: src/main/webapp/horarios.xhtml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version='1.0' ?>\r\n<!DOCTYPE html\r\n        PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\r\n<html xmlns=\"http://www.w3.org/1999/xhtml\"\r\n      xmlns:h=\"http://java.sun.com/jsf/html\"\r\n      xmlns:f=\"http://java.sun.com/jsf/core\"\r\n      xmlns:p=\"http://primefaces.org/ui\">\r\n\r\n<style>\r\n\r\n    .divBody {\r\n        background-color: rgba(1, 1, 70, 0.623);\r\n        border-radius: 15px;\r\n        height: auto;\r\n        width: auto;\r\n        padding: 3% 2%;\r\n    }\r\n\r\n    .titulo {\r\n        font-size: 40px;\r\n    }\r\n\r\n    .formbox {\r\n        border-radius: 15px;\r\n        background-color: rgba(1, 1, 70, 0.623);\r\n        padding: 2%;\r\n        text-align: center;\r\n        align-items: center;\r\n        align-content: center;\r\n    }\r\n\r\n    .botn{\r\n        width: 22%;\r\n        height: 40px;\r\n        margin: 10px;\r\n        border-radius: 15px;\r\n        background: rgb(248, 248, 248);\r\n        color: black;\r\n        text-align: center;\r\n        font-size: 50%;\r\n        align-self: center;\r\n        align-items: center;\r\n\r\n    }\r\n\r\n    h1 {\r\n        font-size: 24px;\r\n        margin-bottom: 10px;\r\n        text-align: center;\r\n    }\r\n\r\n    .input {\r\n        border-radius: 10px;\r\n        margin-bottom: 10px;\r\n        text-align: left;\r\n        align-items: center;\r\n\r\n\r\n    }\r\n\r\n    .gri {\r\n        background: rgba(4, 0, 8, 0.664);\r\n        display: grid;\r\n        border-radius: 15px;\r\n        text-align: center;\r\n        grid-template-columns: 50% 35%;\r\n        padding: 10% 8%;\r\n        margin: 3%;\r\n\r\n    }\r\n\r\n    .table {\r\n        align-self: center;\r\n        text-align: center;\r\n        align-items: center;\r\n        align-content: center;\r\n    }\r\n\r\n    .select {\r\n        border-radius: 10px;\r\n        margin-bottom: 10px;\r\n    }\r\n\r\n    .logo {\r\n        margin-left: auto;\r\n    }\r\n\r\n    .time {\r\n        border-radius: 10px;\r\n        margin-bottom: 10px;\r\n        text-align: left;\r\n        align-items: center;\r\n\r\n    }\r\n\r\n    .bodylogo {\r\n        background-color: rgb(46, 46, 184);\r\n        color: rgb(46, 46, 184);\r\n    }\r\n\r\n    .check {\r\n        padding: 1%;\r\n        align-self: center;\r\n        align-items: center;\r\n    }\r\n\r\n    .dividendo {\r\n        margin-top: 3%;\r\n    }\r\n</style>\r\n<h:head>\r\n    <script type=\"text/javascript\">\r\n        PrimeFaces.locales['tr'] = {\r\n            closeText: 'kapat',\r\n            prevText: 'geri',\r\n            nextText: 'ileri',\r\n            currentText: 'bugün',\r\n            monthNames: ['Ocak','Şubat','Mart','Nisan','Mayıs','Haziran',\r\n                'Temmuz','Ağustos','Eylül','Ekim','Kasım','Aralık'],\r\n            monthNamesShort: ['Oca','Şub','Mar','Nis','May','Haz',\r\n                'Tem','Ağu','Eyl','Eki','Kas','Ara'],\r\n            dayNames: ['Pazar','Pazartesi','Salı','Çarşamba','Perşembe','Cuma','Cumartesi'],\r\n            dayNamesShort: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],\r\n            dayNamesMin: ['Pz','Pt','Sa','Ça','Pe','Cu','Ct'],\r\n            weekHeader: 'Hf',\r\n            firstDay: 1,\r\n            isRTL: false,\r\n            showMonthAfterYear: false,\r\n            yearSuffix: '',\r\n            month: 'Ay',\r\n            week: 'Hafta',\r\n            day: 'Gün',\r\n            allDayText : 'Tüm Gün'\r\n        };\r\n    </script>\r\n    <style type=\"text/css\">\r\n        .value {\r\n            width: 1000px;\r\n        }\r\n    </style>\r\n</h:head>\r\n<title>Reservas del Recurso</title>\r\n\r\n<body>\r\n<center><h:form id=\"formCalendario\">\r\n    <p:growl id=\"messages\" showDetail=\"true\" />\r\n\r\n    <h:panelGrid columnClasses=\"value\">\r\n        <p:schedule id=\"schedule\" value=\"#{scheduleView.eventModel}\" widgetVar=\"myschedule\">\r\n            <p:ajax event=\"eventSelect\" listener=\"#{scheduleView.onEventSelect}\" update=\"reservaDetails\" oncomplete=\"PF('reservaDialog').show();\" />\r\n            <p:ajax event=\"dateSelect\" listener=\"#{scheduleView.onDateSelect}\" update=\"dateDetails\" oncomplete=\"PF('dateDialog').show();\"/>\r\n            <p:ajax event=\"eventMove\" listener=\"#{scheduleView.onEventMove}\" update=\"messages\" />\r\n            <p:ajax event=\"eventResize\" listener=\"#{scheduleView.onEventResize}\" update=\"messages\" />\r\n        </p:schedule>\r\n    </h:panelGrid>\r\n\r\n    <p:dialog widgetVar=\"reservaDialog\" header=\"Detalles Reserva\" showEffect=\"clip\" hideEffect=\"clip\" >\r\n        <h:panelGrid id=\"reservaDetails\" columns=\"2\">\r\n            <h:outputText value=\"Nombre De Reserva: \" />\r\n            <h:outputLabel value=\"#{scheduleView.getreservaName()}\" />\r\n            <h:outputText value=\"Fecha de solicitud: \" />\r\n            <h:outputLabel value=\"#{scheduleView.getfechasol()}\" />\r\n            <h:outputText value=\"Fecha inicial: \" />\r\n            <h:outputLabel value=\"#{scheduleView.getSfechaini()}\" />\r\n            <h:outputText value=\"Fecha final: \" />\r\n            <h:outputLabel value=\"#{scheduleView.getSfechafin()}\" />\r\n        </h:panelGrid>\r\n    </p:dialog>\r\n    <p:dialog widgetVar=\"dateDialog\" header=\"Añadir Reserva\" showEffect=\"clip\" hideEffect=\"clip\">\r\n        <h:panelGrid id=\"dateDetails\" columns=\"2\">\r\n            <p:outputLabel for=\"from\" value=\"Hora Inicial:\" />\r\n            <p:calendar id=\"from\" mindate=\"#{scheduleView.event.startDate}\" maxdate=\"#{scheduleView.event.endDate.minusHours(1)}\" value=\"#{scheduleView.fechaini}\" pattern=\"yyyy/mm/dd HH\"/>\r\n            <p:outputLabel for=\"from1\" value=\"Hora Final:\" />\r\n            <p:calendar id=\"from1\" mindate=\"#{scheduleView.event.startDate}\" maxdate=\"#{scheduleView.event.endDate.minusHours(1)}\" value=\"#{scheduleView.fechafin}\" pattern=\"yyyy/mm/dd HH\"/>\r\n            <center>\r\n                <p:commandButton update=\"formCalendario\" value=\"Reservar\" action=\"#{userBean.setRedirectUrl(userBean.reservar)}\"\r\n                                 actionListener=\"#{reservaBean.inicializar(scheduleView.idRecurso,scheduleView.fechaini)}\"/>\r\n            </center>\r\n        </h:panelGrid>\r\n    </p:dialog>\r\n</h:form></center>\r\n</body>\r\n\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/webapp/horarios.xhtml b/src/main/webapp/horarios.xhtml
+--- a/src/main/webapp/horarios.xhtml	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/webapp/horarios.xhtml	(date 1652759961505)
+@@ -158,6 +158,8 @@
+         <h:panelGrid id="reservaDetails" columns="2">
+             <h:outputText value="Nombre De Reserva: " />
+             <h:outputLabel value="#{scheduleView.getreservaName()}" />
++            <h:outputText value="Nombre De Usuario: " />
++            <h:outputLabel value="#{scheduleView.getNameuser()}" />
+             <h:outputText value="Fecha de solicitud: " />
+             <h:outputLabel value="#{scheduleView.getfechasol()}" />
+             <h:outputText value="Fecha inicial: " />
+@@ -167,17 +169,17 @@
+         </h:panelGrid>
+     </p:dialog>
+     <p:dialog widgetVar="dateDialog" header="Añadir Reserva" showEffect="clip" hideEffect="clip">
+-        <h:panelGrid id="dateDetails" columns="2">
+-            <p:outputLabel for="from" value="Hora Inicial:" />
+-            <p:calendar id="from" mindate="#{scheduleView.event.startDate}" maxdate="#{scheduleView.event.endDate.minusHours(1)}" value="#{scheduleView.fechaini}" pattern="yyyy/mm/dd HH"/>
+-            <p:outputLabel for="from1" value="Hora Final:" />
+-            <p:calendar id="from1" mindate="#{scheduleView.event.startDate}" maxdate="#{scheduleView.event.endDate.minusHours(1)}" value="#{scheduleView.fechafin}" pattern="yyyy/mm/dd HH"/>
+-            <center>
+-                <p:commandButton update="formCalendario" value="Reservar" action="#{userBean.setRedirectUrl(userBean.reservar)}"
+-                                 actionListener="#{reservaBean.inicializar(scheduleView.idRecurso,scheduleView.fechaini)}"/>
+-            </center>
+-        </h:panelGrid>
+-    </p:dialog>
++    <h:panelGrid id="dateDetails" columns="2">
++        <p:outputLabel for="from" value="Hora Inicial:" />
++        <p:calendar id="from" mindate="#{scheduleView.event.startDate}" maxdate="#{scheduleView.event.endDate.minusHours(1)}" value="#{scheduleView.fechaini}" pattern="yyyy/mm/dd HH"/>
++        <p:outputLabel for="from1" value="Hora Final:" />
++        <p:calendar id="from1" mindate="#{scheduleView.event.startDate}" maxdate="#{scheduleView.event.endDate.minusHours(1)}" value="#{scheduleView.fechafin}" pattern="yyyy/mm/dd HH"/>
++        <center>
++            <p:commandButton update="formCalendario" value="Reservar" action="#{userBean.setRedirectUrl(userBean.reservar)}"
++                             actionListener="#{reservaBean.inicializar(scheduleView.idRecurso,scheduleView.fechaini)}"/>
++        </center>
++    </h:panelGrid>
++</p:dialog>
+ </h:form></center>
+ </body>
+ 
+Index: src/main/java/edu/eci/cvds/persistence/mappers/ReservaMapper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.persistence.mappers;\r\n\r\nimport edu.eci.cvds.entities.Reserva;\r\nimport org.apache.ibatis.annotations.Param;\r\n\r\nimport java.util.List;\r\n\r\npublic interface ReservaMapper {\r\n    public void reservarRecurso(@Param(\"Reserva\") Reserva reserva);\r\n\r\n    public List<Reserva> consultarReservas();\r\n\r\n    public List<Reserva> consultarReservasRecurso(@Param(\"rRecurso\") int idrecurso);\r\n\r\n    public void CancelarReserva(@Param(\"reserva\") Reserva reserva);\r\n\r\n    public Reserva consultarReserva(@Param(\"idReserva\") int idReserva);\r\n    public void CancelarReserva(@Param(\"idReserva\") int idReserva);\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/persistence/mappers/ReservaMapper.java b/src/main/java/edu/eci/cvds/persistence/mappers/ReservaMapper.java
+--- a/src/main/java/edu/eci/cvds/persistence/mappers/ReservaMapper.java	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/java/edu/eci/cvds/persistence/mappers/ReservaMapper.java	(date 1652760815035)
+@@ -15,5 +15,6 @@
+     public void CancelarReserva(@Param("reserva") Reserva reserva);
+ 
+     public Reserva consultarReserva(@Param("idReserva") int idReserva);
++
+     public void CancelarReserva(@Param("idReserva") int idReserva);
+ }
+Index: src/main/java/edu/eci/cvds/persistence/ReservaDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.persistence;\r\n\r\nimport edu.eci.cvds.entities.Reserva;\r\nimport org.apache.ibatis.exceptions.PersistenceException;\r\n\r\nimport java.util.List;\r\n\r\npublic interface ReservaDAO {\r\n    public List<Reserva> consultarReservas() throws PersistenceException;\r\n\r\n    public void reservarRecurso(Reserva reserva) throws PersistenceException;\r\n\r\n    public List<Reserva> consultarReservasRecurso(int idrecurso);\r\n\r\n    Reserva consultarReserva(int idReserva)throws PersistenceException;\r\n\r\n    public void CancelarReserva(int idReserva) throws PersistenceException;\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/persistence/ReservaDAO.java b/src/main/java/edu/eci/cvds/persistence/ReservaDAO.java
+--- a/src/main/java/edu/eci/cvds/persistence/ReservaDAO.java	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/java/edu/eci/cvds/persistence/ReservaDAO.java	(date 1652770022867)
+@@ -10,7 +10,7 @@
+ 
+     public void reservarRecurso(Reserva reserva) throws PersistenceException;
+ 
+-    public List<Reserva> consultarReservasRecurso(int idrecurso);
++    public List<Reserva> consultarReservasRecurso(int idrecurso) throws PersistenceException;
+ 
+     Reserva consultarReserva(int idReserva)throws PersistenceException;
+ 
+Index: src/main/java/edu/eci/cvds/entities/Reserva.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.entities;\r\n\r\nimport java.io.Serializable;\r\nimport java.sql.Timestamp;\r\nimport java.sql.Time;\r\nimport java.time.LocalDate;\r\nimport java.time.LocalDateTime;\r\nimport java.util.Date;\r\n\r\npublic class Reserva implements Serializable{\r\n\r\n    private int id_reserva;\r\n    private String nombre;\r\n    private Timestamp fechasoli;\r\n    private Timestamp fechaini;\r\n    private Timestamp fechafin;\r\n    private boolean estado;\r\n    private User usuario;\r\n    private Recurso recurso;\r\n    private TipoReserva tiporeserva;\r\n\r\n    public Reserva() {super(); }\r\n\r\n    public Reserva(int id_reserva, String nombre, Timestamp fechasoli, Timestamp fechaini, Timestamp fechafin, boolean estado,  User usuario, Recurso recurso, TipoReserva tiporeserva) {\r\n        this.id_reserva = id_reserva;\r\n        this.nombre = nombre;\r\n        this.fechasoli = fechasoli;\r\n        this.fechaini = fechaini;\r\n        this.fechafin = fechafin;\r\n        this.estado = estado;\r\n        this.usuario = usuario;\r\n        this.recurso = recurso;\r\n        this.tiporeserva = tiporeserva;\r\n    }\r\n\r\n    public int getId_reserva() {\r\n        return id_reserva;\r\n    }\r\n\r\n    public void setId_reserva(int id_reserva) {\r\n        this.id_reserva = id_reserva;\r\n    }\r\n\r\n    public String getNombre() {\r\n        return nombre;\r\n    }\r\n\r\n    public void setNombre(String nombre) {\r\n        this.nombre = nombre;\r\n    }\r\n\r\n    public LocalDateTime getFechasoli() {\r\n        return fechasoli.toLocalDateTime();\r\n    }\r\n\r\n    public void setFechasoli(Timestamp fechasoli) {\r\n        this.fechasoli = fechasoli;\r\n    }\r\n\r\n    public LocalDateTime getFechaini() {\r\n        return fechaini.toLocalDateTime();\r\n    }\r\n\r\n    public void setFechaini(Timestamp fechaini) {\r\n        this.fechaini = fechaini;\r\n    }\r\n\r\n    public LocalDateTime getFechafin() {\r\n        return fechafin.toLocalDateTime();\r\n    }\r\n\r\n    public boolean isEstado() {\r\n        return estado;\r\n    }\r\n\r\n    public void setEstado(boolean estado) {\r\n        this.estado = estado;\r\n    }\r\n\r\n    public void setFechafin(Timestamp fechafin) {\r\n        this.fechafin = fechafin;\r\n    }\r\n\r\n    public User getUsuario() {\r\n        return usuario;\r\n    }\r\n\r\n    public void setUsuario(User usuario) {\r\n        this.usuario = usuario;\r\n    }\r\n\r\n    public Recurso getRecurso() {\r\n        return recurso;\r\n    }\r\n\r\n    public void setRecurso(Recurso recurso) {\r\n        this.recurso = recurso;\r\n    }\r\n\r\n    public TipoReserva getTiporeserva() {\r\n        return tiporeserva;\r\n    }\r\n\r\n    public void setTiporeserva(TipoReserva tiporeserva) {\r\n        this.tiporeserva = tiporeserva;\r\n    }\r\n\r\n    @Override\r\n    public String toString() {\r\n        return \"Reserva{\" +\r\n                \"id_reserva=\" + id_reserva +\r\n                \", nombre='\" + nombre + '\\'' +\r\n                \", fechasoli=\" + fechasoli +\r\n                \", fechaini=\" + fechaini +\r\n                \", fechafin=\" + fechafin +\r\n                \", usuario=\" + usuario +\r\n                \", recurso=\" + recurso +\r\n                \", tiporeserva=\" + tiporeserva +\r\n                '}';\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/entities/Reserva.java b/src/main/java/edu/eci/cvds/entities/Reserva.java
+--- a/src/main/java/edu/eci/cvds/entities/Reserva.java	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/java/edu/eci/cvds/entities/Reserva.java	(date 1652769639834)
+@@ -2,10 +2,7 @@
+ 
+ import java.io.Serializable;
+ import java.sql.Timestamp;
+-import java.sql.Time;
+-import java.time.LocalDate;
+ import java.time.LocalDateTime;
+-import java.util.Date;
+ 
+ public class Reserva implements Serializable{
+ 
+@@ -113,6 +110,7 @@
+                 ", fechasoli=" + fechasoli +
+                 ", fechaini=" + fechaini +
+                 ", fechafin=" + fechafin +
++                ", estado= " + estado +
+                 ", usuario=" + usuario +
+                 ", recurso=" + recurso +
+                 ", tiporeserva=" + tiporeserva +
+Index: src/main/java/edu/eci/cvds/services/main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.services;\r\nimport edu.eci.cvds.Exceptions.BibliotecaException;\r\nimport edu.eci.cvds.entities.Recurso;\r\nimport edu.eci.cvds.entities.Reserva;\r\nimport edu.eci.cvds.entities.Ubicacion;\r\nimport edu.eci.cvds.services.ECILibraryServices;\r\nimport edu.eci.cvds.services.impl.ECILibraryServicesImpl;\r\n\r\nimport javax.faces.model.SelectItem;\r\n\r\n\r\npublic class main {\r\n    public static void main(String[] args) throws BibliotecaException {\r\n        ECILibraryServices instance = ECILibraryServicesFactory.getInstance().getECILibraryServices();\r\n        for(Recurso r: instance.consultarRecursos()){\r\n            System.out.println(r.toString());\r\n        }\r\n\r\n\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/services/main.java b/src/main/java/edu/eci/cvds/services/main.java
+--- a/src/main/java/edu/eci/cvds/services/main.java	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/java/edu/eci/cvds/services/main.java	(date 1652808254258)
+@@ -3,6 +3,7 @@
+ import edu.eci.cvds.entities.Recurso;
+ import edu.eci.cvds.entities.Reserva;
+ import edu.eci.cvds.entities.Ubicacion;
++import edu.eci.cvds.entities.User;
+ import edu.eci.cvds.services.ECILibraryServices;
+ import edu.eci.cvds.services.impl.ECILibraryServicesImpl;
+ 
+@@ -12,7 +13,7 @@
+ public class main {
+     public static void main(String[] args) throws BibliotecaException {
+         ECILibraryServices instance = ECILibraryServicesFactory.getInstance().getECILibraryServices();
+-        for(Recurso r: instance.consultarRecursos()){
++        for(Reserva r: instance.consultarReservas()){
+             System.out.println(r.toString());
+         }
+ 
+Index: src/main/resources/mappers/UserMapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\"\r\n        \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\r\n<mapper namespace=\"edu.eci.cvds.persistence.mappers.UserMapper\">\r\n    <resultMap type='user' id='UserResult'>\r\n        <id property='documento' column='documento'/>\r\n        <result property='nombre' column='nombre'/>\r\n        <result property='contrasena' column='contrasena'/>\r\n        <result property='correo' column='correo'/>\r\n        <result property='telefono' column='telefono'/>\r\n        <association property=\"tipousuario\" javaType=\"TipoUser\" resultMap=\"edu.eci.cvds.persistence.mappers.TipoUserMapper.tipoUserResult\" columnPrefix=\"us_\"/>\r\n    </resultMap>\r\n    <select id = \"consultarUsuarios\" resultMap=\"UserResult\">\r\n        select\r\n        u.documento,\r\n        u.nombre,\r\n        u.contrasena,\r\n        u.correo,\r\n        u.telefono,\r\n        tu.id\r\n        FROM\r\n        usuarios as u\r\n        JOIN tipousuario as tu ON(tu.id = u.tipousuario)\r\n    </select>\r\n</mapper>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/mappers/UserMapper.xml b/src/main/resources/mappers/UserMapper.xml
+--- a/src/main/resources/mappers/UserMapper.xml	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/resources/mappers/UserMapper.xml	(date 1652810852472)
+@@ -8,18 +8,11 @@
+         <result property='contrasena' column='contrasena'/>
+         <result property='correo' column='correo'/>
+         <result property='telefono' column='telefono'/>
+-        <association property="tipousuario" javaType="TipoUser" resultMap="edu.eci.cvds.persistence.mappers.TipoUserMapper.tipoUserResult" columnPrefix="us_"/>
++
+     </resultMap>
+     <select id = "consultarUsuarios" resultMap="UserResult">
+-        select
+-        u.documento,
+-        u.nombre,
+-        u.contrasena,
+-        u.correo,
+-        u.telefono,
+-        tu.id
++        select *
+         FROM
+-        usuarios as u
+-        JOIN tipousuario as tu ON(tu.id = u.tipousuario)
++        public.usuarios
+     </select>
+ </mapper>
+\ No newline at end of file
+Index: src/main/resources/mappers/TipoUserMapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\"\r\n        \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\r\n<mapper namespace=\"edu.eci.cvds.persistence.mappers.UserMapper\">\r\n    <resultMap type='TipoUser' id='tipoUserResult'>\r\n        <id property='id' column='id'/>\r\n        <result property='nombre' column='nombre'/>\r\n    </resultMap>\r\n</mapper>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/mappers/TipoUserMapper.xml b/src/main/resources/mappers/TipoUserMapper.xml
+--- a/src/main/resources/mappers/TipoUserMapper.xml	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/resources/mappers/TipoUserMapper.xml	(date 1652810852480)
+@@ -1,9 +1,15 @@
+ <?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+-<mapper namespace="edu.eci.cvds.persistence.mappers.UserMapper">
++<mapper namespace="edu.eci.cvds.persistence.mappers.TipoUserMapper">
+     <resultMap type='TipoUser' id='tipoUserResult'>
+         <id property='id' column='id'/>
+         <result property='nombre' column='nombre'/>
+     </resultMap>
++    <select id = "consultartipoUsuarios" resultMap="tipoUserResult">
++        select
++        *
++        FROM
++        public.tipousuario
++    </select>
+ </mapper>
+\ No newline at end of file
+Index: src/main/java/edu/eci/cvds/view/ScheduleView.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.view;\r\n\r\nimport java.io.IOException;\r\nimport java.util.Date;\r\nimport java.time.LocalDateTime;\r\nimport java.time.ZoneId;\r\nimport java.time.format.DateTimeFormatter;\r\nimport java.util.List;\r\nimport javax.faces.bean.ManagedBean;\r\nimport javax.faces.bean.SessionScoped;\r\nimport javax.faces.context.FacesContext;\r\n\r\nimport com.google.inject.Inject;\r\nimport edu.eci.cvds.Exceptions.BibliotecaException;\r\nimport edu.eci.cvds.entities.Recurso;\r\nimport edu.eci.cvds.entities.Reserva;\r\nimport edu.eci.cvds.services.ECILibraryServices;\r\nimport edu.eci.cvds.services.impl.ECILibraryServicesImpl;\r\nimport org.primefaces.event.SelectEvent;\r\nimport org.primefaces.model.DefaultScheduleEvent;\r\nimport org.primefaces.model.DefaultScheduleModel;\r\nimport org.primefaces.model.ScheduleEvent;\r\nimport org.primefaces.model.ScheduleModel;\r\n\r\n@ManagedBean(name = \"scheduleView\")\r\n@SessionScoped\r\npublic class ScheduleView extends BasePageBean {\r\n\r\n    @Inject\r\n    private ECILibraryServices eciLibraryServices;\r\n\r\n    private int idRecurso;\r\n    private ScheduleModel eventModel;\r\n    private ScheduleEvent<?> event = new DefaultScheduleEvent<>();\r\n    private LocalDateTime fechaini ;\r\n    private LocalDateTime fechafin;\r\n    private int idReserva;\r\n    private Reserva r;\r\n\r\n    public void inicializar(int id) throws IOException{\r\n        this.idRecurso = id;\r\n        eventModel = new DefaultScheduleModel();\r\n        loadEventos();\r\n        FacesContext.getCurrentInstance().getExternalContext().redirect(\"./CVDS.Project/horarios.xhtml\");\r\n    }\r\n\r\n    public int getIdReserva() {\r\n        return idReserva;\r\n    }\r\n\r\n    public void setIdReserva(int idReserva) {\r\n        this.idReserva = idReserva;\r\n    }\r\n\r\n    private void loadEventos() {\r\n        try {\r\n            List<Reserva> reservas = eciLibraryServices.consultarReservasRecurso(idRecurso);\r\n            LocalDateTime hoy = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);\r\n            for (Reserva reserva : reservas) {\r\n                this.fechaini = reserva.getFechaini();\r\n                this.fechafin = reserva.getFechafin();\r\n                this.idReserva = reserva.getId_reserva();\r\n//                this.idRecurso = reserva.getRecurso().getId();\r\n                if (fechafin.isAfter(hoy)) {\r\n                    DefaultScheduleEvent<?> event1 = DefaultScheduleEvent.builder()\r\n                            .title(\"prueba\")\r\n                            .startDate(fechaini)\r\n                            .endDate(fechafin)\r\n                            .borderColor(\"blue\")\r\n                            .overlapAllowed(true)\r\n                            .build();\r\n                    eventModel.addEvent(event1);\r\n                }\r\n            }\r\n        } catch (Exception e) {\r\n            System.out.println(e);\r\n        }\r\n    }\r\n\r\n    public void onEventSelect(SelectEvent selectEvent) {\r\n        this.event = (ScheduleEvent<?>) selectEvent.getObject();\r\n        this.idReserva = Integer.parseInt(event.getId());\r\n\r\n    }\r\n\r\n    public void onDateSelect(SelectEvent<LocalDateTime> selectEvent) {\r\n        event = DefaultScheduleEvent.builder()\r\n                .startDate(selectEvent.getObject())\r\n                .endDate(selectEvent.getObject().plusHours(1))\r\n                .build();\r\n    }\r\n\r\n    public ECILibraryServices getEciLibraryServices() {\r\n        return eciLibraryServices;\r\n    }\r\n\r\n    public void setEciLibraryServices(ECILibraryServices eciLibraryServices) {\r\n        this.eciLibraryServices = eciLibraryServices;\r\n    }\r\n\r\n    public String getreservaName() throws BibliotecaException {\r\n        r = eciLibraryServices.consultarReserva(idReserva);\r\n        return r.getNombre();\r\n    }\r\n\r\n    public String getNameuser(){\r\n        return r.getUsuario().getNombre();\r\n    }\r\n\r\n    public String getfechasol() {\r\n        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm\");\r\n        String formattedDateTime = r.getFechasoli().format(dateTimeFormatter);\r\n        return formattedDateTime;\r\n    }\r\n\r\n    public LocalDateTime getFechaini() {\r\n        return fechaini;\r\n    }\r\n\r\n    public String getSfechaini(){\r\n        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm\");\r\n        String formattedDateTime = fechaini.format(dateTimeFormatter);\r\n        return formattedDateTime;\r\n    }\r\n\r\n    public String getSfechafin(){\r\n        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(\"yyyy-MM-dd HH:mm\");\r\n        String formattedDateTime = fechafin.format(dateTimeFormatter);\r\n        return formattedDateTime;\r\n    }\r\n\r\n    public void setFechaini(LocalDateTime fechaini) {\r\n        this.fechaini = fechaini;\r\n    }\r\n\r\n    public LocalDateTime getFechafin() {\r\n        return fechafin;\r\n    }\r\n\r\n    public void setFechafin(LocalDateTime fechafin) {\r\n        this.fechafin = fechafin;\r\n    }\r\n\r\n    public ScheduleModel getEventModel() {\r\n        return eventModel;\r\n    }\r\n\r\n    public void setEventModel(ScheduleModel eventModel) {\r\n        this.eventModel = eventModel;\r\n    }\r\n\r\n    public ScheduleEvent<?> getEvent() {\r\n        return event;\r\n    }\r\n\r\n    public void setEvent(ScheduleEvent<?> event) {\r\n        this.event = event;\r\n    }\r\n\r\n    public int getIdRecurso() {\r\n        return idRecurso;\r\n    }\r\n\r\n    public void setIdRecurso(int idRecurso) {\r\n        this.idRecurso = idRecurso;\r\n    }\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/view/ScheduleView.java b/src/main/java/edu/eci/cvds/view/ScheduleView.java
+--- a/src/main/java/edu/eci/cvds/view/ScheduleView.java	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/java/edu/eci/cvds/view/ScheduleView.java	(date 1652760436325)
+@@ -14,6 +14,7 @@
+ import edu.eci.cvds.Exceptions.BibliotecaException;
+ import edu.eci.cvds.entities.Recurso;
+ import edu.eci.cvds.entities.Reserva;
++import edu.eci.cvds.entities.User;
+ import edu.eci.cvds.services.ECILibraryServices;
+ import edu.eci.cvds.services.impl.ECILibraryServicesImpl;
+ import org.primefaces.event.SelectEvent;
+@@ -60,7 +61,6 @@
+                 this.fechaini = reserva.getFechaini();
+                 this.fechafin = reserva.getFechafin();
+                 this.idReserva = reserva.getId_reserva();
+-//                this.idRecurso = reserva.getRecurso().getId();
+                 if (fechafin.isAfter(hoy)) {
+                     DefaultScheduleEvent<?> event1 = DefaultScheduleEvent.builder()
+                             .title("prueba")
+@@ -79,7 +79,6 @@
+ 
+     public void onEventSelect(SelectEvent selectEvent) {
+         this.event = (ScheduleEvent<?>) selectEvent.getObject();
+-        this.idReserva = Integer.parseInt(event.getId());
+ 
+     }
+ 
+@@ -99,12 +98,14 @@
+     }
+ 
+     public String getreservaName() throws BibliotecaException {
+-        r = eciLibraryServices.consultarReserva(idReserva);
++        this.r = eciLibraryServices.consultarReserva(idReserva);
+         return r.getNombre();
+     }
+ 
+-    public String getNameuser(){
+-        return r.getUsuario().getNombre();
++    public User getNameuser(){
++        System.out.println(r.toString());
++        System.out.println(r.getUsuario().toString());
++        return r.getUsuario();
+     }
+ 
+     public String getfechasol() {
+Index: src/main/resources/mappers/TipoReservaMapper.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\" ?>\r\n<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\"\r\n        \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\">\r\n<mapper namespace=\"edu.eci.cvds.persistence.mappers.TipoReservaMapper\">\r\n    <resultMap id=\"TipoReservaResult\" type=\"TipoReserva\">\r\n        <id property='id' column='id'/>\r\n        <id property='tipore' column='tipore'/>\r\n    </resultMap>\r\n    <select id=\"consultarTipores\" resultMap=\"TipoReservaResult\">\r\n        select\r\n        tre.id,\r\n        tre.tipo\r\n        FROM\r\n        tiporeserva as tre\r\n    </select>\r\n</mapper>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/resources/mappers/TipoReservaMapper.xml b/src/main/resources/mappers/TipoReservaMapper.xml
+--- a/src/main/resources/mappers/TipoReservaMapper.xml	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/resources/mappers/TipoReservaMapper.xml	(date 1652764914901)
+@@ -8,9 +8,9 @@
+     </resultMap>
+     <select id="consultarTipores" resultMap="TipoReservaResult">
+         select
+-        tre.id,
+-        tre.tipo
++        tr.id,
++        tr.tipo
+         FROM
+-        tiporeserva as tre
++        tiporeserva as tr
+     </select>
+ </mapper>
+\ No newline at end of file
+Index: src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.services.impl;\r\n\r\nimport com.google.inject.Inject;\r\nimport com.google.inject.Singleton;\r\nimport edu.eci.cvds.Exceptions.BibliotecaException;\r\nimport edu.eci.cvds.entities.*;\r\nimport edu.eci.cvds.persistence.*;\r\nimport edu.eci.cvds.services.ECILibraryServices;\r\nimport org.apache.ibatis.exceptions.PersistenceException;\r\n\r\nimport java.util.List;\r\n\r\n@Singleton\r\npublic class ECILibraryServicesImpl implements ECILibraryServices {\r\n\r\n    @Inject\r\n    private RecursoDAO RecursoDAO;\r\n\r\n    @Inject\r\n    private TipoRecursoDAO tipoRecursoDAO;\r\n\r\n    @Inject\r\n    private UbicacionDAO ubicacionDAO;\r\n\r\n    @Inject\r\n    private ReservaDAO reservaDAO;\r\n\r\n    @Inject\r\n    private TipoReservaDAO tipoReservaDAO;\r\n\r\n    @Inject\r\n    private UserDAO userDAO;\r\n\r\n    @Override\r\n    public List<Reserva> consultarReservas() throws BibliotecaException {\r\n        try{\r\n            return reservaDAO.consultarReservas();\r\n        }catch (PersistenceException ex){\r\n            throw new BibliotecaException(\"Error al consultar recursos\",ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public List<Reserva> consultarReservasRecurso(int idrecurso) throws BibliotecaException {\r\n        try{\r\n            return reservaDAO.consultarReservasRecurso(idrecurso);\r\n        }catch (PersistenceException ex){\r\n            ex.printStackTrace();\r\n            throw new BibliotecaException(\"Error al consultar reserva\", ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public Reserva consultarReserva(int idReserva) throws BibliotecaException{\r\n        System.out.println(\"entro impl\");\r\n        try{\r\n            return reservaDAO.consultarReserva(idReserva);\r\n        }catch (PersistenceException ex){\r\n            throw new BibliotecaException(\"Error al consultar Reserva\", ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public List<Recurso> consultarRecursos() throws BibliotecaException {\r\n        try{\r\n            return RecursoDAO.consultarRecursos();\r\n        }catch (PersistenceException ex){\r\n            throw new BibliotecaException(\"Error al consultar recursos\",ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public List<TipoRecurso> consultarTiporec() throws BibliotecaException {\r\n        try {\r\n            return tipoRecursoDAO.consultarTiporec();\r\n        }catch (PersistenceException ex){\r\n            throw new BibliotecaException(\"Error al consultar tipo de recursos\",ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public List<Ubicacion> consultarUbicacion() throws BibliotecaException {\r\n        try {\r\n            return ubicacionDAO.consultarUbicacion();\r\n        }catch (PersistenceException ex){\r\n            throw new BibliotecaException(\"Error al consultar ubicaciones\",ex);\r\n        }\r\n    }\r\n\r\n\r\n    @Override\r\n    public void registrarRecursos(Recurso recurso) throws BibliotecaException {\r\n        try{\r\n            RecursoDAO.agregarRecursos(recurso);\r\n        }catch (PersistenceException ex){\r\n            throw  new BibliotecaException(\"Error al registrar recursos\",ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void cambiarEstadoRecurso(int idRecurso) throws BibliotecaException{\r\n        try{\r\n            RecursoDAO.cambiarEstadoRecurso(idRecurso);\r\n        }catch (PersistenceException ex){\r\n            throw  new BibliotecaException(\"Error al cambiar estado del recurso\",ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public void reservarRecurso(Reserva reserva) throws BibliotecaException {\r\n        System.out.println(\"intra reservar\");\r\n        try{\r\n            reservaDAO.reservarRecurso(reserva);\r\n        }catch (PersistenceException ex){\r\n            throw  new BibliotecaException(\"Error al reservar un recursos\",ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public List<TipoReserva> consultarTipores() throws BibliotecaException {\r\n        try{\r\n            return tipoReservaDAO.consultarTipores();\r\n        }catch (PersistenceException ex){\r\n            throw new BibliotecaException(\"Error al consultar tipos de reservas\",ex);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public List<User> consultarUsuarios() throws BibliotecaException {\r\n        try{\r\n            return userDAO.consultarUsuarios();\r\n        }catch (PersistenceException ex){\r\n            throw new BibliotecaException(\"Error al consultar usuarios\", ex);\r\n        }\r\n    }\r\n\r\n\r\n    @Override\r\n    public void CancelarReserva(int idReserva) throws BibliotecaException {\r\n        try{\r\n            reservaDAO.CancelarReserva(idReserva);\r\n        }catch (PersistenceException ex){\r\n            throw new BibliotecaException(\"Error al consultar tipos de reservas\",ex);\r\n        }\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java b/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java
+--- a/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java	(date 1652759254492)
+@@ -52,7 +52,6 @@
+ 
+     @Override
+     public Reserva consultarReserva(int idReserva) throws BibliotecaException{
+-        System.out.println("entro impl");
+         try{
+             return reservaDAO.consultarReserva(idReserva);
+         }catch (PersistenceException ex){
+@@ -108,7 +107,6 @@
+ 
+     @Override
+     public void reservarRecurso(Reserva reserva) throws BibliotecaException {
+-        System.out.println("intra reservar");
+         try{
+             reservaDAO.reservarRecurso(reserva);
+         }catch (PersistenceException ex){
+Index: .idea/codeStyles/codeStyleConfig.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/codeStyles/codeStyleConfig.xml b/.idea/codeStyles/codeStyleConfig.xml
+new file mode 100644
+--- /dev/null	(date 1652804788409)
++++ b/.idea/codeStyles/codeStyleConfig.xml	(date 1652804788409)
+@@ -0,0 +1,5 @@
++<component name="ProjectCodeStyleConfiguration">
++  <state>
++    <option name="PREFERRED_PROJECT_CODE_STYLE" value="Default" />
++  </state>
++</component>
+\ No newline at end of file
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"AutoImportSettings\">\r\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\r\n  </component>\r\n  <component name=\"ChangeListManager\">\r\n    <list default=\"true\" id=\"9aaec5bd-b9de-4298-b4e8-968a2ab9324a\" name=\"Changes\" comment=\"\">\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_10_00_p__m___Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_10_00_p__m___Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_9_58_p__m___Changes_.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_9_58_p__m___Changes_.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_9_58_p__m___Changes_1.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_9_58_p__m___Changes_1.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/RecursoDAO.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/RecursoDAO.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mappers/RecursoMapper.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mappers/RecursoMapper.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisRecursoDAO.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisRecursoDAO.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/ECILibraryServices.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/ECILibraryServices.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/RecursoBean.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/RecursoBean.java\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/resources/mappers/RecursoMapper.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/resources/mappers/RecursoMapper.xml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/main/webapp/cambiarrecurso.xhtml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/webapp/cambiarrecurso.xhtml\" afterDir=\"false\" />\r\n      <change beforePath=\"$PROJECT_DIR$/src/test/java/edu/eci/cvds/test/BibliotecaTest.java\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/test/java/edu/eci/cvds/test/BibliotecaTest.java\" afterDir=\"false\" />\r\n    </list>\r\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\r\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\r\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\r\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\r\n  </component>\r\n  <component name=\"Git.Settings\">\r\n    <option name=\"RECENT_BRANCH_BY_REPOSITORY\">\r\n      <map>\r\n        <entry key=\"$PROJECT_DIR$\" value=\"cambiarEstadoRecurso\" />\r\n      </map>\r\n    </option>\r\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\r\n  </component>\r\n  <component name=\"MarkdownSettingsMigration\">\r\n    <option name=\"stateVersion\" value=\"1\" />\r\n  </component>\r\n  <component name=\"MavenImportPreferences\">\r\n    <option name=\"generalSettings\">\r\n      <MavenGeneralSettings>\r\n        <option name=\"useMavenConfig\" value=\"true\" />\r\n      </MavenGeneralSettings>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectId\" id=\"291bkBcjL65hHhnJQZCIZoYGyNO\" />\r\n  <component name=\"ProjectViewState\">\r\n    <option name=\"flattenPackages\" value=\"true\" />\r\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\r\n    <option name=\"showLibraryContents\" value=\"true\" />\r\n  </component>\r\n  <component name=\"PropertiesComponent\">\r\n    <property name=\"RunOnceActivity.OpenProjectViewOnStart\" value=\"true\" />\r\n    <property name=\"RunOnceActivity.ShowReadmeOnStart\" value=\"true\" />\r\n    <property name=\"last_opened_file_path\" value=\"$PROJECT_DIR$/../Parcial2\" />\r\n  </component>\r\n  <component name=\"RunManager\">\r\n    <configuration name=\"BibliotecaTest\" type=\"JUnit\" factoryName=\"JUnit\" temporary=\"true\" nameIsGenerated=\"true\">\r\n      <module name=\"CVDS.Project\" />\r\n      <extension name=\"coverage\">\r\n        <pattern>\r\n          <option name=\"PATTERN\" value=\"edu.eci.cvds.test.*\" />\r\n          <option name=\"ENABLED\" value=\"true\" />\r\n        </pattern>\r\n      </extension>\r\n      <option name=\"PACKAGE_NAME\" value=\"edu.eci.cvds.test\" />\r\n      <option name=\"MAIN_CLASS_NAME\" value=\"edu.eci.cvds.test.BibliotecaTest\" />\r\n      <option name=\"TEST_OBJECT\" value=\"class\" />\r\n      <method v=\"2\">\r\n        <option name=\"Make\" enabled=\"true\" />\r\n      </method>\r\n    </configuration>\r\n    <recent_temporary>\r\n      <list>\r\n        <item itemvalue=\"JUnit.BibliotecaTest\" />\r\n      </list>\r\n    </recent_temporary>\r\n  </component>\r\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\r\n  <component name=\"TaskManager\">\r\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\r\n      <changelist id=\"9aaec5bd-b9de-4298-b4e8-968a2ab9324a\" name=\"Changes\" comment=\"\" />\r\n      <created>1652283684867</created>\r\n      <option name=\"number\" value=\"Default\" />\r\n      <option name=\"presentableId\" value=\"Default\" />\r\n      <updated>1652283684867</updated>\r\n    </task>\r\n    <servers />\r\n  </component>\r\n  <component name=\"Vcs.Log.Tabs.Properties\">\r\n    <option name=\"TAB_STATES\">\r\n      <map>\r\n        <entry key=\"MAIN\">\r\n          <value>\r\n            <State />\r\n          </value>\r\n        </entry>\r\n      </map>\r\n    </option>\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/.idea/workspace.xml	(date 1652808220599)
+@@ -4,25 +4,38 @@
+     <option name="autoReloadType" value="SELECTIVE" />
+   </component>
+   <component name="ChangeListManager">
+-    <list default="true" id="9aaec5bd-b9de-4298-b4e8-968a2ab9324a" name="Changes" comment="">
++    <list default="true" id="028dda56-561b-4352-a6e8-007cf58a70f6" name="Changes" comment="">
++      <change afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_10_00_p__m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_10_00_p__m___Changes_.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_10_07_p__m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_10_07_p__m___Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_9_58_p__m___Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_9_58_p__m___Changes_.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_9_58_p__m___Changes_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_12_05_2022_9_58_p__m___Changes_1.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/RecursoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/RecursoDAO.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mappers/RecursoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mappers/RecursoMapper.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisRecursoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisRecursoDAO.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/ECILibraryServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/ECILibraryServices.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/entities/Reserva.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/entities/Reserva.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/ReservaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/ReservaDAO.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mappers/ReservaMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mappers/ReservaMapper.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mappers/TipoUserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mappers/TipoUserMapper.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisReservaDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisReservaDAO.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/RecursoBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/RecursoBean.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/main.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ReservaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ReservaBean.java" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ScheduleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ScheduleView.java" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/RecursoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/RecursoMapper.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/webapp/cambiarrecurso.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/cambiarrecurso.xhtml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/ReservaMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/ReservaMapper.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/TipoReservaMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/TipoReservaMapper.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/TipoUserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/TipoUserMapper.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/UserMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/UserMapper.xml" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/webapp/horarios.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/horarios.xhtml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/src/test/java/edu/eci/cvds/test/BibliotecaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/eci/cvds/test/BibliotecaTest.java" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+     <option name="LAST_RESOLUTION" value="IGNORE" />
++  </component>
++  <component name="CodeStyleSettingsInfer">
++    <option name="done" value="true" />
+   </component>
+   <component name="Git.Settings">
+     <option name="RECENT_BRANCH_BY_REPOSITORY">
+@@ -31,6 +44,18 @@
+       </map>
+     </option>
+     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
++  </component>
++  <component name="JpbToolWindowState">
++    <option name="myId2FirstActivated">
++      <map>
++        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
++      </map>
++    </option>
++    <option name="myId2Visible">
++      <map>
++        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
++      </map>
++    </option>
+   </component>
+   <component name="MarkdownSettingsMigration">
+     <option name="stateVersion" value="1" />
+@@ -42,6 +67,9 @@
+       </MavenGeneralSettings>
+     </option>
+   </component>
++  <component name="ProjectCodeStyleSettingsMigration">
++    <option name="version" value="2" />
++  </component>
+   <component name="ProjectId" id="291bkBcjL65hHhnJQZCIZoYGyNO" />
+   <component name="ProjectViewState">
+     <option name="flattenPackages" value="true" />
+@@ -51,9 +79,23 @@
+   <component name="PropertiesComponent">
+     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
++    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Parcial2" />
+   </component>
+-  <component name="RunManager">
++  <component name="RunManager" selected="Application.main">
++    <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
++      <option name="MAIN_CLASS_NAME" value="edu.eci.cvds.services.main" />
++      <module name="CVDS.Project" />
++      <extension name="coverage">
++        <pattern>
++          <option name="PATTERN" value="edu.eci.cvds.services.*" />
++          <option name="ENABLED" value="true" />
++        </pattern>
++      </extension>
++      <method v="2">
++        <option name="Make" enabled="true" />
++      </method>
++    </configuration>
+     <configuration name="BibliotecaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+       <module name="CVDS.Project" />
+       <extension name="coverage">
+@@ -71,6 +113,7 @@
+     </configuration>
+     <recent_temporary>
+       <list>
++        <item itemvalue="Application.main" />
+         <item itemvalue="JUnit.BibliotecaTest" />
+       </list>
+     </recent_temporary>
+@@ -78,7 +121,7 @@
+   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+   <component name="TaskManager">
+     <task active="true" id="Default" summary="Default task">
+-      <changelist id="9aaec5bd-b9de-4298-b4e8-968a2ab9324a" name="Changes" comment="" />
++      <changelist id="028dda56-561b-4352-a6e8-007cf58a70f6" name="Changes" comment="" />
+       <created>1652283684867</created>
+       <option name="number" value="Default" />
+       <option name="presentableId" value="Default" />
+Index: src/test/java/edu/eci/cvds/test/BibliotecaTest.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.test;\r\n\r\nimport edu.eci.cvds.Exceptions.BibliotecaException;\r\nimport edu.eci.cvds.entities.*;\r\nimport edu.eci.cvds.services.ECILibraryServices;\r\nimport edu.eci.cvds.services.ECILibraryServicesFactory;\r\nimport org.junit.Test;\r\n\r\nimport java.sql.Time;\r\nimport java.sql.Timestamp;\r\nimport java.text.DateFormat;\r\nimport java.text.ParseException;\r\nimport java.text.SimpleDateFormat;\r\nimport java.time.LocalDate;\r\nimport java.sql.Timestamp;\r\nimport java.time.LocalDateTime;\r\nimport java.time.Month;\r\nimport java.util.Date;\r\nimport java.util.List;\r\n\r\nimport static org.junit.Assert.*;\r\n\r\n\r\npublic class BibliotecaTest {\r\n    private ECILibraryServices eciLibraryServices;\r\n\r\n\r\n    public BibliotecaTest(){\r\n        eciLibraryServices = ECILibraryServicesFactory.getInstance().getECILibraryServices();\r\n    }\r\n\r\n    @Test\r\n    public void deberiaregistrarRecurso() throws BibliotecaException, ParseException {\r\n        Timestamp horaInicio =  Timestamp.valueOf(\"2022-05-11 7:00:00\");\r\n        Timestamp horaFinal = Timestamp.valueOf(\"2022-05-12 19:00:00\");\r\n        List<Recurso> listarecursos = eciLibraryServices.consultarRecursos();\r\n        int long1 = listarecursos.size();\r\n        int id = (int) Math.floor(Math.random()*(2000-1000+1)+2000);\r\n        Recurso r = new Recurso();\r\n        r.setId(id);\r\n        r.setNombre(\"libroo\");\r\n        r.setUbicacion(new Ubicacion(1,\"BloqueG\"));\r\n        r.setCapacidad(2);\r\n        r.setHorario_inicial(horaInicio);\r\n        r.setHorario_final(horaFinal);\r\n        r.setDisponibilidad(true);\r\n        r.setTiporecurso(new TipoRecurso(1,\"Equipodecomputo\"));\r\n        eciLibraryServices.registrarRecursos(r);\r\n        List<Recurso> listarecursos2 = eciLibraryServices.consultarRecursos();\r\n        int long2 = listarecursos2.size();\r\n        assertTrue(long2>long1);\r\n\r\n    }\r\n\r\n    @Test\r\n    public void deberiareservarRecurso() throws BibliotecaException, ParseException {\r\n        Timestamp horaInicio = Timestamp.valueOf(\"2022-05-12 8:00:00\");\r\n        Timestamp horaFinal = Timestamp.valueOf(\"2022-05-12 9:00:00\");\r\n        Timestamp horasol = Timestamp.valueOf(LocalDateTime.now());\r\n        int id = (int) Math.floor(Math.random()*(2000-1000+1)+2000);\r\n        Recurso rec = new Recurso(id,\"libro R\",new Ubicacion(1,\"BloqueG\"),3,horaFinal,horasol,true,new TipoRecurso(1,\"Equipodecomputo\"));\r\n        eciLibraryServices.registrarRecursos(rec);\r\n        Reserva re = new Reserva();\r\n        re.setNombre(\"reserva4\");\r\n        re.setId_reserva(id);\r\n        re.setFechasoli(horasol);\r\n        re.setFechaini(horaInicio);\r\n        re.setFechafin(horaFinal);\r\n        re.setRecurso(new Recurso(id,\"libro R\",new Ubicacion(1,\"BloqueG\"),3,horaFinal,horasol,true,new TipoRecurso(1,\"Equipodecomputo\")));\r\n        re.setUsuario(new User(0000,\"pepito\",\"98765\",\"pepito@gmail.com\",\"6383743\",\"user\"));\r\n        re.setTiporeserva(new TipoReserva(1,\"Diario\"));\r\n        eciLibraryServices.reservarRecurso(re);\r\n        assertTrue(re.getNombre() == \"reserva4\");\r\n    }\r\n\r\n    @Test\r\n    public void deberiaCambiarEstadoRecurso() throws  BibliotecaException, ParseException{\r\n        List<Recurso> listarecursos = eciLibraryServices.consultarRecursos();\r\n        boolean flag = listarecursos.get(listarecursos.size() - 1).getDisponibilidad();\r\n        eciLibraryServices.cambiarEstadoRecurso(listarecursos.get(listarecursos.size() - 1));\r\n        assertTrue(listarecursos.get(listarecursos.size() - 1).getDisponibilidad() != flag);\r\n    }\r\n\r\n    @Test\r\n    public void deberiacancelarReserva() throws BibliotecaException, ParseException {\r\n        SimpleDateFormat fechaHora = new SimpleDateFormat(\"yyyMMdd\");\r\n        Date horaInicio = fechaHora.parse(\"20110210\");\r\n        java.sql.Date sql = new java.sql.Date(horaInicio.getTime());\r\n        SimpleDateFormat fechafi = new SimpleDateFormat(\"yyyMMdd\");\r\n        Date horaFinal = fechaHora.parse(\"20110210\");\r\n        java.sql.Date sql2 = new java.sql.Date(horaFinal.getTime());\r\n        SimpleDateFormat fechasol = new SimpleDateFormat(\"yyyMMdd\");\r\n        Date horasol = fechaHora.parse(\"20110210\");\r\n        java.sql.Date sql3 = new java.sql.Date(horaFinal.getTime());\r\n        int id = (int) Math.floor(Math.random()*(2000-1000+1)+2000);\r\n        Recurso rec = new Recurso(id,\"libro R\",new Ubicacion(1,\"BloqueG\"),3,sql2,sql3,true,new TipoRecurso(1,\"Equipodecomputo\"));\r\n        eciLibraryServices.registrarRecursos(rec);\r\n        Reserva re = new Reserva();\r\n        re.setNombre(\"reserva4\");\r\n        re.setId_reserva(id);\r\n        re.setFechasoli(sql3);\r\n        re.setFechaini(sql);\r\n        re.setFechafin(sql2);\r\n        re.setEstado(false);\r\n        re.setRecurso(new Recurso(id,\"libro R\",new Ubicacion(1,\"BloqueG\"),3,sql2,sql3,true,new TipoRecurso(1,\"Equipodecomputo\")));\r\n        re.setUsuario(new User(0000,\"pepito\",\"98765\",\"pepito@gmail.com\",\"6383743\",\"user\"));\r\n        re.setTiporeserva(new TipoReserva(1,\"Diario\"));\r\n        eciLibraryServices.reservarRecurso(re);\r\n        eciLibraryServices.CancelarReserva(re.getId_reserva());\r\n        assertTrue(re.isEstado() == false);\r\n    }\r\n\r\n\r\n\r\n        assertTrue(re.getNombre() == \"reserva4\");\r\n    /**\r\n    @Test\r\n    public void deberiaCambiarEstadoRecurso() throws  BibliotecaException, ParseException{\r\n        List<Recurso> listarecursos = eciLibraryServices.consultarRecursos();\r\n        boolean flag = listarecursos.get(listarecursos.size() - 1).getDisponibilidad();\r\n        eciLibraryServices.cambiarEstadoRecurso(listarecursos.get(listarecursos.size() - 1));\r\n        assertTrue(listarecursos.get(listarecursos.size() - 1).getDisponibilidad() != flag);\r\n    }\r\n    **/\r\n}\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/test/java/edu/eci/cvds/test/BibliotecaTest.java b/src/test/java/edu/eci/cvds/test/BibliotecaTest.java
+--- a/src/test/java/edu/eci/cvds/test/BibliotecaTest.java	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/test/java/edu/eci/cvds/test/BibliotecaTest.java	(date 1652767884376)
+@@ -29,90 +29,87 @@
+         eciLibraryServices = ECILibraryServicesFactory.getInstance().getECILibraryServices();
+     }
+ 
+-    @Test
+-    public void deberiaregistrarRecurso() throws BibliotecaException, ParseException {
+-        Timestamp horaInicio =  Timestamp.valueOf("2022-05-11 7:00:00");
+-        Timestamp horaFinal = Timestamp.valueOf("2022-05-12 19:00:00");
+-        List<Recurso> listarecursos = eciLibraryServices.consultarRecursos();
+-        int long1 = listarecursos.size();
+-        int id = (int) Math.floor(Math.random()*(2000-1000+1)+2000);
+-        Recurso r = new Recurso();
+-        r.setId(id);
+-        r.setNombre("libroo");
+-        r.setUbicacion(new Ubicacion(1,"BloqueG"));
+-        r.setCapacidad(2);
+-        r.setHorario_inicial(horaInicio);
+-        r.setHorario_final(horaFinal);
+-        r.setDisponibilidad(true);
+-        r.setTiporecurso(new TipoRecurso(1,"Equipodecomputo"));
+-        eciLibraryServices.registrarRecursos(r);
+-        List<Recurso> listarecursos2 = eciLibraryServices.consultarRecursos();
+-        int long2 = listarecursos2.size();
+-        assertTrue(long2>long1);
+-
+-    }
+-
+-    @Test
+-    public void deberiareservarRecurso() throws BibliotecaException, ParseException {
+-        Timestamp horaInicio = Timestamp.valueOf("2022-05-12 8:00:00");
+-        Timestamp horaFinal = Timestamp.valueOf("2022-05-12 9:00:00");
+-        Timestamp horasol = Timestamp.valueOf(LocalDateTime.now());
+-        int id = (int) Math.floor(Math.random()*(2000-1000+1)+2000);
+-        Recurso rec = new Recurso(id,"libro R",new Ubicacion(1,"BloqueG"),3,horaFinal,horasol,true,new TipoRecurso(1,"Equipodecomputo"));
+-        eciLibraryServices.registrarRecursos(rec);
+-        Reserva re = new Reserva();
+-        re.setNombre("reserva4");
+-        re.setId_reserva(id);
+-        re.setFechasoli(horasol);
+-        re.setFechaini(horaInicio);
+-        re.setFechafin(horaFinal);
+-        re.setRecurso(new Recurso(id,"libro R",new Ubicacion(1,"BloqueG"),3,horaFinal,horasol,true,new TipoRecurso(1,"Equipodecomputo")));
+-        re.setUsuario(new User(0000,"pepito","98765","pepito@gmail.com","6383743","user"));
+-        re.setTiporeserva(new TipoReserva(1,"Diario"));
+-        eciLibraryServices.reservarRecurso(re);
+-        assertTrue(re.getNombre() == "reserva4");
+-    }
+-
+-    @Test
+-    public void deberiaCambiarEstadoRecurso() throws  BibliotecaException, ParseException{
+-        List<Recurso> listarecursos = eciLibraryServices.consultarRecursos();
+-        boolean flag = listarecursos.get(listarecursos.size() - 1).getDisponibilidad();
+-        eciLibraryServices.cambiarEstadoRecurso(listarecursos.get(listarecursos.size() - 1));
+-        assertTrue(listarecursos.get(listarecursos.size() - 1).getDisponibilidad() != flag);
+-    }
+-
+-    @Test
+-    public void deberiacancelarReserva() throws BibliotecaException, ParseException {
+-        SimpleDateFormat fechaHora = new SimpleDateFormat("yyyMMdd");
+-        Date horaInicio = fechaHora.parse("20110210");
+-        java.sql.Date sql = new java.sql.Date(horaInicio.getTime());
+-        SimpleDateFormat fechafi = new SimpleDateFormat("yyyMMdd");
+-        Date horaFinal = fechaHora.parse("20110210");
+-        java.sql.Date sql2 = new java.sql.Date(horaFinal.getTime());
+-        SimpleDateFormat fechasol = new SimpleDateFormat("yyyMMdd");
+-        Date horasol = fechaHora.parse("20110210");
+-        java.sql.Date sql3 = new java.sql.Date(horaFinal.getTime());
+-        int id = (int) Math.floor(Math.random()*(2000-1000+1)+2000);
+-        Recurso rec = new Recurso(id,"libro R",new Ubicacion(1,"BloqueG"),3,sql2,sql3,true,new TipoRecurso(1,"Equipodecomputo"));
+-        eciLibraryServices.registrarRecursos(rec);
+-        Reserva re = new Reserva();
+-        re.setNombre("reserva4");
+-        re.setId_reserva(id);
+-        re.setFechasoli(sql3);
+-        re.setFechaini(sql);
+-        re.setFechafin(sql2);
+-        re.setEstado(false);
+-        re.setRecurso(new Recurso(id,"libro R",new Ubicacion(1,"BloqueG"),3,sql2,sql3,true,new TipoRecurso(1,"Equipodecomputo")));
+-        re.setUsuario(new User(0000,"pepito","98765","pepito@gmail.com","6383743","user"));
+-        re.setTiporeserva(new TipoReserva(1,"Diario"));
+-        eciLibraryServices.reservarRecurso(re);
+-        eciLibraryServices.CancelarReserva(re.getId_reserva());
+-        assertTrue(re.isEstado() == false);
+-    }
++//    @Test
++//    public void deberiaregistrarRecurso() throws BibliotecaException, ParseException {
++//        Timestamp horaInicio =  Timestamp.valueOf("2022-05-11 7:00:00");
++//        Timestamp horaFinal = Timestamp.valueOf("2022-05-12 19:00:00");
++//        List<Recurso> listarecursos = eciLibraryServices.consultarRecursos();
++//        int long1 = listarecursos.size();
++//        int id = (int) Math.floor(Math.random()*(2000-1000+1)+2000);
++//        Recurso r = new Recurso();
++//        r.setId(id);
++//        r.setNombre("libroo");
++//        r.setUbicacion(new Ubicacion(1,"BloqueG"));
++//        r.setCapacidad(2);
++//        r.setHorario_inicial(horaInicio);
++//        r.setHorario_final(horaFinal);
++//        r.setDisponibilidad(true);
++//        r.setTiporecurso(new TipoRecurso(1,"Equipodecomputo"));
++//        eciLibraryServices.registrarRecursos(r);
++//        List<Recurso> listarecursos2 = eciLibraryServices.consultarRecursos();
++//        int long2 = listarecursos2.size();
++//        assertTrue(long2>long1);
++//
++//    }
++//
++//    @Test
++//    public void deberiareservarRecurso() throws BibliotecaException, ParseException {
++//        Timestamp horaInicio = Timestamp.valueOf("2022-05-12 8:00:00");
++//        Timestamp horaFinal = Timestamp.valueOf("2022-05-12 9:00:00");
++//        Timestamp horasol = Timestamp.valueOf(LocalDateTime.now());
++//        int id = (int) Math.floor(Math.random()*(2000-1000+1)+2000);
++//        Recurso rec = new Recurso(id,"libro R",new Ubicacion(1,"BloqueG"),3,horaFinal,horasol,true,new TipoRecurso(1,"Equipodecomputo"));
++//        eciLibraryServices.registrarRecursos(rec);
++//        Reserva re = new Reserva();
++//        re.setNombre("reserva4");
++//        re.setId_reserva(id);
++//        re.setFechasoli(horasol);
++//        re.setFechaini(horaInicio);
++//        re.setFechafin(horaFinal);
++//        re.setRecurso(new Recurso(id,"libro R",new Ubicacion(1,"BloqueG"),3,horaFinal,horasol,true,new TipoRecurso(1,"Equipodecomputo")));
++//        re.setUsuario(new User(0000,"pepito","98765","pepito@gmail.com","6383743","user"));
++//        re.setTiporeserva(new TipoReserva(1,"Diario"));
++//        eciLibraryServices.reservarRecurso(re);
++//        assertTrue(re.getNombre() == "reserva4");
++//    }
++//
++//    @Test
++//    public void deberiaCambiarEstadoRecurso() throws  BibliotecaException, ParseException{
++//        List<Recurso> listarecursos = eciLibraryServices.consultarRecursos();
++//        boolean flag = listarecursos.get(listarecursos.size() - 1).getDisponibilidad();
++//        eciLibraryServices.cambiarEstadoRecurso(listarecursos.get(listarecursos.size() - 1));
++//        assertTrue(listarecursos.get(listarecursos.size() - 1).getDisponibilidad() != flag);
++//    }
++//
++//    @Test
++//    public void deberiacancelarReserva() throws BibliotecaException, ParseException {
++//        SimpleDateFormat fechaHora = new SimpleDateFormat("yyyMMdd");
++//        Date horaInicio = fechaHora.parse("20110210");
++//        java.sql.Date sql = new java.sql.Date(horaInicio.getTime());
++//        SimpleDateFormat fechafi = new SimpleDateFormat("yyyMMdd");
++//        Date horaFinal = fechaHora.parse("20110210");
++//        java.sql.Date sql2 = new java.sql.Date(horaFinal.getTime());
++//        SimpleDateFormat fechasol = new SimpleDateFormat("yyyMMdd");
++//        Date horasol = fechaHora.parse("20110210");
++//        java.sql.Date sql3 = new java.sql.Date(horaFinal.getTime());
++//        int id = (int) Math.floor(Math.random()*(2000-1000+1)+2000);
++//        Recurso rec = new Recurso(id,"libro R",new Ubicacion(1,"BloqueG"),3,sql2,sql3,true,new TipoRecurso(1,"Equipodecomputo"));
++//        eciLibraryServices.registrarRecursos(rec);
++//        Reserva re = new Reserva();
++//        re.setNombre("reserva4");
++//        re.setId_reserva(id);
++//        re.setFechasoli(sql3);
++//        re.setFechaini(sql);
++//        re.setFechafin(sql2);
++//        re.setEstado(false);
++//        re.setRecurso(new Recurso(id,"libro R",new Ubicacion(1,"BloqueG"),3,sql2,sql3,true,new TipoRecurso(1,"Equipodecomputo")));
++//        re.setUsuario(new User(0000,"pepito","98765","pepito@gmail.com","6383743","user"));
++//        re.setTiporeserva(new TipoReserva(1,"Diario"));
++//        eciLibraryServices.reservarRecurso(re);
++//        eciLibraryServices.CancelarReserva(re.getId_reserva());
++//        assertTrue(re.isEstado() == false);
++//    }
+ 
+-
+-
+-        assertTrue(re.getNombre() == "reserva4");
+     /**
+     @Test
+     public void deberiaCambiarEstadoRecurso() throws  BibliotecaException, ParseException{
+@@ -123,4 +120,4 @@
+     }
+     **/
+ }
+-}
++
+Index: src/main/java/edu/eci/cvds/view/ReservaBean.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.view;\r\n\r\n\r\nimport com.google.inject.Inject;\r\nimport edu.eci.cvds.Exceptions.BibliotecaException;\r\nimport edu.eci.cvds.entities.Recurso;\r\nimport edu.eci.cvds.entities.Reserva;\r\nimport edu.eci.cvds.services.ECILibraryServices;\r\nimport org.primefaces.model.DefaultScheduleModel;\r\n\r\nimport javax.faces.bean.ManagedBean;\r\nimport javax.faces.bean.RequestScoped;\r\nimport java.io.IOException;\r\nimport java.time.LocalDateTime;\r\nimport java.util.Date;\r\nimport java.util.List;\r\n\r\n@ManagedBean(name = \"ReservaBean\")\r\n@RequestScoped\r\npublic class ReservaBean extends BasePageBean {\r\n\r\n\r\n    @Inject\r\n    private ECILibraryServices eciLibraryServices;\r\n\r\n    private int id_recurso;\r\n    private String nombre_recurso;\r\n    private LocalDateTime fechainicialreserva;\r\n    private LocalDateTime fechafinalreserva;\r\n    private DefaultScheduleModel eventModel;\r\n\r\n\r\n    public List<Reserva> consultarReserva(int id) throws BibliotecaException {\r\n        List<Reserva> r = null;\r\n        try {\r\n            r = eciLibraryServices.consultarReservasRecurso(id);\r\n        } catch (Exception e) {\r\n            e.printStackTrace();\r\n        }\r\n        return r;\r\n    }\r\n\r\n    public Reserva consultarReservaid(int idReserva) {\r\n        System.out.println(\"entro bean\");\r\n        Reserva reserva = null;\r\n        try{\r\n            reserva = eciLibraryServices.consultarReserva(idReserva);\r\n        }catch (Exception e){\r\n            e.printStackTrace();\r\n        }\r\n        return reserva;\r\n    }\r\n\r\n\r\n    public LocalDateTime getFechainicialreserva() {\r\n        return fechainicialreserva;\r\n    }\r\n\r\n    public LocalDateTime getFechafinalreserva() {\r\n        return fechafinalreserva;\r\n    }\r\n\r\n    public void setFechainicialreserva(LocalDateTime fechainicialreserva) {\r\n        this.fechainicialreserva = fechainicialreserva;\r\n        System.out.println(fechainicialreserva);\r\n    }\r\n\r\n    public void setFechafinalreserva(LocalDateTime fechafinalreserva) {\r\n        this.fechafinalreserva = fechafinalreserva;\r\n        System.out.println(fechafinalreserva);\r\n    }\r\n\r\n    public ECILibraryServices getEciLibraryServices() {\r\n        return eciLibraryServices;\r\n    }\r\n\r\n    public int getId_recurso() {\r\n        return id_recurso;\r\n    }\r\n\r\n    public void setEciLibraryServices(ECILibraryServices eciLibraryServices) {\r\n        this.eciLibraryServices = eciLibraryServices;\r\n    }\r\n\r\n    public void setId_recurso(int id_recurso) {\r\n        this.id_recurso = id_recurso;\r\n    }\r\n\r\n    public void setNombre_recurso(String nombre_recurso) {\r\n        this.nombre_recurso = nombre_recurso;\r\n    }\r\n\r\n    public String getNombre_recurso() {\r\n        return nombre_recurso;\r\n    }\r\n\r\n\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/view/ReservaBean.java b/src/main/java/edu/eci/cvds/view/ReservaBean.java
+--- a/src/main/java/edu/eci/cvds/view/ReservaBean.java	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/java/edu/eci/cvds/view/ReservaBean.java	(date 1652764547151)
+@@ -3,16 +3,13 @@
+ 
+ import com.google.inject.Inject;
+ import edu.eci.cvds.Exceptions.BibliotecaException;
+-import edu.eci.cvds.entities.Recurso;
+ import edu.eci.cvds.entities.Reserva;
+ import edu.eci.cvds.services.ECILibraryServices;
+ import org.primefaces.model.DefaultScheduleModel;
+ 
+ import javax.faces.bean.ManagedBean;
+ import javax.faces.bean.RequestScoped;
+-import java.io.IOException;
+ import java.time.LocalDateTime;
+-import java.util.Date;
+ import java.util.List;
+ 
+ @ManagedBean(name = "ReservaBean")
+@@ -41,7 +38,6 @@
+     }
+ 
+     public Reserva consultarReservaid(int idReserva) {
+-        System.out.println("entro bean");
+         Reserva reserva = null;
+         try{
+             reserva = eciLibraryServices.consultarReserva(idReserva);
+Index: .idea/codeStyles/Project.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/codeStyles/Project.xml b/.idea/codeStyles/Project.xml
+new file mode 100644
+--- /dev/null	(date 1652804788377)
++++ b/.idea/codeStyles/Project.xml	(date 1652804788377)
+@@ -0,0 +1,7 @@
++<component name="ProjectCodeStyleConfiguration">
++  <code_scheme name="Project" version="173">
++    <ScalaCodeStyleSettings>
++      <option name="MULTILINE_STRING_CLOSING_QUOTES_ON_NEW_LINE" value="true" />
++    </ScalaCodeStyleSettings>
++  </code_scheme>
++</component>
+\ No newline at end of file
+Index: src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisReservaDAO.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.persistence.mybatisimpl;\r\n\r\nimport edu.eci.cvds.entities.Reserva;\r\nimport edu.eci.cvds.persistence.mappers.ReservaMapper;\r\nimport edu.eci.cvds.persistence.ReservaDAO;\r\nimport org.apache.ibatis.exceptions.PersistenceException;\r\n\r\nimport javax.inject.Inject;\r\nimport java.util.List;\r\n\r\npublic class MyBatisReservaDAO implements ReservaDAO{\r\n\r\n    @Inject\r\n    private ReservaMapper reservaMapper;\r\n\r\n    @Override\r\n    public List<Reserva> consultarReservas() throws PersistenceException {\r\n        List<Reserva> lisreserva = null;\r\n        try{\r\n            lisreserva = reservaMapper.consultarReservas();\r\n        }catch (org.apache.ibatis.exceptions.PersistenceException e){\r\n            throw new PersistenceException(\"Error al consultar recursos mb\",e);\r\n        }\r\n        return lisreserva;\r\n    }\r\n\r\n    @Override\r\n    public void reservarRecurso(Reserva reserva) {\r\n        try{\r\n            reservaMapper.reservarRecurso(reserva);\r\n        }catch (org.apache.ibatis.exceptions.PersistenceException e){\r\n            throw new PersistenceException(\"Error al registrar recurso\",e);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public List<Reserva> consultarReservasRecurso(int idrecurso) {\r\n        List<Reserva> lisreservasrecurso = null;\r\n        try{\r\n            lisreservasrecurso = reservaMapper.consultarReservasRecurso(idrecurso);\r\n        }catch (org.apache.ibatis.exceptions.PersistenceException e){\r\n            throw new PersistenceException(\"Error al consultar reservas recurso\",e);\r\n        }\r\n        return lisreservasrecurso;\r\n    }\r\n\r\n\r\n    @Override\r\n    public void CancelarReserva(int idReserva){\r\n        try{\r\n            reservaMapper.CancelarReserva(idReserva);\r\n        }catch (org.apache.ibatis.exceptions.PersistenceException e){\r\n            throw new PersistenceException(\"Error al registrar recurso\",e);\r\n        }\r\n    }\r\n\r\n    @Override\r\n    public Reserva consultarReserva(int idReserva) throws PersistenceException {\r\n        System.out.println(\"entro mybatis\");\r\n        try{\r\n            return reservaMapper.consultarReserva(idReserva);\r\n        }catch (org.apache.ibatis.exceptions.PersistenceException e){\r\n            throw new PersistenceException(\"Error al consultar recursos mb\",e);\r\n        }\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisReservaDAO.java b/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisReservaDAO.java
+--- a/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisReservaDAO.java	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisReservaDAO.java	(date 1652759254498)
+@@ -56,7 +56,6 @@
+ 
+     @Override
+     public Reserva consultarReserva(int idReserva) throws PersistenceException {
+-        System.out.println("entro mybatis");
+         try{
+             return reservaMapper.consultarReserva(idReserva);
+         }catch (org.apache.ibatis.exceptions.PersistenceException e){
+Index: .idea/dbnavigator.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/dbnavigator.xml b/.idea/dbnavigator.xml
+new file mode 100644
+--- /dev/null	(date 1652756931842)
++++ b/.idea/dbnavigator.xml	(date 1652756931842)
+@@ -0,0 +1,461 @@
++<?xml version="1.0" encoding="UTF-8"?>
++<project version="4">
++  <component name="DBNavigator.Project.DataEditorManager">
++    <record-view-column-sorting-type value="BY_INDEX" />
++    <value-preview-text-wrapping value="false" />
++    <value-preview-pinned value="false" />
++  </component>
++  <component name="DBNavigator.Project.DataExportManager">
++    <export-instructions>
++      <create-header value="true" />
++      <friendly-headers value="false" />
++      <quote-values-containing-separator value="true" />
++      <quote-all-values value="false" />
++      <value-separator value="" />
++      <file-name value="" />
++      <file-location value="" />
++      <scope value="GLOBAL" />
++      <destination value="FILE" />
++      <format value="EXCEL" />
++      <charset value="windows-1252" />
++    </export-instructions>
++  </component>
++  <component name="DBNavigator.Project.DatabaseBrowserManager">
++    <autoscroll-to-editor value="false" />
++    <autoscroll-from-editor value="true" />
++    <show-object-properties value="true" />
++    <loaded-nodes />
++  </component>
++  <component name="DBNavigator.Project.DatabaseFileManager">
++    <open-files />
++  </component>
++  <component name="DBNavigator.Project.EditorStateManager">
++    <last-used-providers />
++  </component>
++  <component name="DBNavigator.Project.ExecutionManager">
++    <retain-sticky-names value="false" />
++  </component>
++  <component name="DBNavigator.Project.MethodExecutionManager">
++    <method-browser />
++    <execution-history>
++      <group-entries value="true" />
++      <execution-inputs />
++    </execution-history>
++    <argument-values-cache />
++  </component>
++  <component name="DBNavigator.Project.ObjectDependencyManager">
++    <last-used-dependency-type value="INCOMING" />
++  </component>
++  <component name="DBNavigator.Project.ObjectQuickFilterManager">
++    <last-used-operator value="EQUAL" />
++    <filters />
++  </component>
++  <component name="DBNavigator.Project.ParserDiagnosticsManager">
++    <diagnostics-history />
++  </component>
++  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
++    <recently-used-interfaces />
++  </component>
++  <component name="DBNavigator.Project.Settings">
++    <connections />
++    <browser-settings>
++      <general>
++        <display-mode value="TABBED" />
++        <navigation-history-size value="100" />
++        <show-object-details value="false" />
++      </general>
++      <filters>
++        <object-type-filter>
++          <object-type name="SCHEMA" enabled="true" />
++          <object-type name="USER" enabled="true" />
++          <object-type name="ROLE" enabled="true" />
++          <object-type name="PRIVILEGE" enabled="true" />
++          <object-type name="CHARSET" enabled="true" />
++          <object-type name="TABLE" enabled="true" />
++          <object-type name="VIEW" enabled="true" />
++          <object-type name="MATERIALIZED_VIEW" enabled="true" />
++          <object-type name="NESTED_TABLE" enabled="true" />
++          <object-type name="COLUMN" enabled="true" />
++          <object-type name="INDEX" enabled="true" />
++          <object-type name="CONSTRAINT" enabled="true" />
++          <object-type name="DATASET_TRIGGER" enabled="true" />
++          <object-type name="DATABASE_TRIGGER" enabled="true" />
++          <object-type name="SYNONYM" enabled="true" />
++          <object-type name="SEQUENCE" enabled="true" />
++          <object-type name="PROCEDURE" enabled="true" />
++          <object-type name="FUNCTION" enabled="true" />
++          <object-type name="PACKAGE" enabled="true" />
++          <object-type name="TYPE" enabled="true" />
++          <object-type name="TYPE_ATTRIBUTE" enabled="true" />
++          <object-type name="ARGUMENT" enabled="true" />
++          <object-type name="DIMENSION" enabled="true" />
++          <object-type name="CLUSTER" enabled="true" />
++          <object-type name="DBLINK" enabled="true" />
++        </object-type-filter>
++      </filters>
++      <sorting>
++        <object-type name="COLUMN" sorting-type="NAME" />
++        <object-type name="FUNCTION" sorting-type="NAME" />
++        <object-type name="PROCEDURE" sorting-type="NAME" />
++        <object-type name="ARGUMENT" sorting-type="POSITION" />
++      </sorting>
++      <default-editors>
++        <object-type name="VIEW" editor-type="SELECTION" />
++        <object-type name="PACKAGE" editor-type="SELECTION" />
++        <object-type name="TYPE" editor-type="SELECTION" />
++      </default-editors>
++    </browser-settings>
++    <navigation-settings>
++      <lookup-filters>
++        <lookup-objects>
++          <object-type name="SCHEMA" enabled="true" />
++          <object-type name="USER" enabled="false" />
++          <object-type name="ROLE" enabled="false" />
++          <object-type name="PRIVILEGE" enabled="false" />
++          <object-type name="CHARSET" enabled="false" />
++          <object-type name="TABLE" enabled="true" />
++          <object-type name="VIEW" enabled="true" />
++          <object-type name="MATERIALIZED VIEW" enabled="true" />
++          <object-type name="INDEX" enabled="true" />
++          <object-type name="CONSTRAINT" enabled="true" />
++          <object-type name="DATASET TRIGGER" enabled="true" />
++          <object-type name="DATABASE TRIGGER" enabled="true" />
++          <object-type name="SYNONYM" enabled="false" />
++          <object-type name="SEQUENCE" enabled="true" />
++          <object-type name="PROCEDURE" enabled="true" />
++          <object-type name="FUNCTION" enabled="true" />
++          <object-type name="PACKAGE" enabled="true" />
++          <object-type name="TYPE" enabled="true" />
++          <object-type name="DIMENSION" enabled="false" />
++          <object-type name="CLUSTER" enabled="false" />
++          <object-type name="DBLINK" enabled="true" />
++        </lookup-objects>
++        <force-database-load value="false" />
++        <prompt-connection-selection value="true" />
++        <prompt-schema-selection value="true" />
++      </lookup-filters>
++    </navigation-settings>
++    <dataset-grid-settings>
++      <general>
++        <enable-zooming value="true" />
++        <enable-column-tooltip value="true" />
++      </general>
++      <sorting>
++        <nulls-first value="true" />
++        <max-sorting-columns value="4" />
++      </sorting>
++      <tracking-columns>
++        <columnNames value="" />
++        <visible value="true" />
++        <editable value="false" />
++      </tracking-columns>
++    </dataset-grid-settings>
++    <dataset-editor-settings>
++      <text-editor-popup>
++        <active value="false" />
++        <active-if-empty value="false" />
++        <data-length-threshold value="100" />
++        <popup-delay value="1000" />
++      </text-editor-popup>
++      <values-actions-popup>
++        <show-popup-button value="true" />
++        <element-count-threshold value="1000" />
++        <data-length-threshold value="250" />
++      </values-actions-popup>
++      <general>
++        <fetch-block-size value="100" />
++        <fetch-timeout value="30" />
++        <trim-whitespaces value="true" />
++        <convert-empty-strings-to-null value="true" />
++        <select-content-on-cell-edit value="true" />
++        <large-value-preview-active value="true" />
++      </general>
++      <filters>
++        <prompt-filter-dialog value="true" />
++        <default-filter-type value="BASIC" />
++      </filters>
++      <qualified-text-editor text-length-threshold="300">
++        <content-types>
++          <content-type name="Text" enabled="true" />
++          <content-type name="Properties" enabled="true" />
++          <content-type name="XML" enabled="true" />
++          <content-type name="DTD" enabled="true" />
++          <content-type name="HTML" enabled="true" />
++          <content-type name="XHTML" enabled="true" />
++          <content-type name="Java" enabled="true" />
++          <content-type name="SQL" enabled="true" />
++          <content-type name="PL/SQL" enabled="true" />
++          <content-type name="JSON" enabled="true" />
++          <content-type name="JSON5" enabled="true" />
++          <content-type name="Groovy" enabled="true" />
++          <content-type name="AIDL" enabled="true" />
++          <content-type name="YAML" enabled="true" />
++          <content-type name="Manifest" enabled="true" />
++        </content-types>
++      </qualified-text-editor>
++      <record-navigation>
++        <navigation-target value="VIEWER" />
++      </record-navigation>
++    </dataset-editor-settings>
++    <code-editor-settings>
++      <general>
++        <show-object-navigation-gutter value="false" />
++        <show-spec-declaration-navigation-gutter value="true" />
++        <enable-spellchecking value="true" />
++        <enable-reference-spellchecking value="false" />
++      </general>
++      <confirmations>
++        <save-changes value="false" />
++        <revert-changes value="true" />
++      </confirmations>
++    </code-editor-settings>
++    <code-completion-settings>
++      <filters>
++        <basic-filter>
++          <filter-element type="RESERVED_WORD" id="keyword" selected="true" />
++          <filter-element type="RESERVED_WORD" id="function" selected="true" />
++          <filter-element type="RESERVED_WORD" id="parameter" selected="true" />
++          <filter-element type="RESERVED_WORD" id="datatype" selected="true" />
++          <filter-element type="RESERVED_WORD" id="exception" selected="true" />
++          <filter-element type="OBJECT" id="schema" selected="true" />
++          <filter-element type="OBJECT" id="role" selected="true" />
++          <filter-element type="OBJECT" id="user" selected="true" />
++          <filter-element type="OBJECT" id="privilege" selected="true" />
++          <user-schema>
++            <filter-element type="OBJECT" id="table" selected="true" />
++            <filter-element type="OBJECT" id="view" selected="true" />
++            <filter-element type="OBJECT" id="materialized view" selected="true" />
++            <filter-element type="OBJECT" id="index" selected="true" />
++            <filter-element type="OBJECT" id="constraint" selected="true" />
++            <filter-element type="OBJECT" id="trigger" selected="true" />
++            <filter-element type="OBJECT" id="synonym" selected="false" />
++            <filter-element type="OBJECT" id="sequence" selected="true" />
++            <filter-element type="OBJECT" id="procedure" selected="true" />
++            <filter-element type="OBJECT" id="function" selected="true" />
++            <filter-element type="OBJECT" id="package" selected="true" />
++            <filter-element type="OBJECT" id="type" selected="true" />
++            <filter-element type="OBJECT" id="dimension" selected="true" />
++            <filter-element type="OBJECT" id="cluster" selected="true" />
++            <filter-element type="OBJECT" id="dblink" selected="true" />
++          </user-schema>
++          <public-schema>
++            <filter-element type="OBJECT" id="table" selected="false" />
++            <filter-element type="OBJECT" id="view" selected="false" />
++            <filter-element type="OBJECT" id="materialized view" selected="false" />
++            <filter-element type="OBJECT" id="index" selected="false" />
++            <filter-element type="OBJECT" id="constraint" selected="false" />
++            <filter-element type="OBJECT" id="trigger" selected="false" />
++            <filter-element type="OBJECT" id="synonym" selected="false" />
++            <filter-element type="OBJECT" id="sequence" selected="false" />
++            <filter-element type="OBJECT" id="procedure" selected="false" />
++            <filter-element type="OBJECT" id="function" selected="false" />
++            <filter-element type="OBJECT" id="package" selected="false" />
++            <filter-element type="OBJECT" id="type" selected="false" />
++            <filter-element type="OBJECT" id="dimension" selected="false" />
++            <filter-element type="OBJECT" id="cluster" selected="false" />
++            <filter-element type="OBJECT" id="dblink" selected="false" />
++          </public-schema>
++          <any-schema>
++            <filter-element type="OBJECT" id="table" selected="true" />
++            <filter-element type="OBJECT" id="view" selected="true" />
++            <filter-element type="OBJECT" id="materialized view" selected="true" />
++            <filter-element type="OBJECT" id="index" selected="true" />
++            <filter-element type="OBJECT" id="constraint" selected="true" />
++            <filter-element type="OBJECT" id="trigger" selected="true" />
++            <filter-element type="OBJECT" id="synonym" selected="true" />
++            <filter-element type="OBJECT" id="sequence" selected="true" />
++            <filter-element type="OBJECT" id="procedure" selected="true" />
++            <filter-element type="OBJECT" id="function" selected="true" />
++            <filter-element type="OBJECT" id="package" selected="true" />
++            <filter-element type="OBJECT" id="type" selected="true" />
++            <filter-element type="OBJECT" id="dimension" selected="true" />
++            <filter-element type="OBJECT" id="cluster" selected="true" />
++            <filter-element type="OBJECT" id="dblink" selected="true" />
++          </any-schema>
++        </basic-filter>
++        <extended-filter>
++          <filter-element type="RESERVED_WORD" id="keyword" selected="true" />
++          <filter-element type="RESERVED_WORD" id="function" selected="true" />
++          <filter-element type="RESERVED_WORD" id="parameter" selected="true" />
++          <filter-element type="RESERVED_WORD" id="datatype" selected="true" />
++          <filter-element type="RESERVED_WORD" id="exception" selected="true" />
++          <filter-element type="OBJECT" id="schema" selected="true" />
++          <filter-element type="OBJECT" id="user" selected="true" />
++          <filter-element type="OBJECT" id="role" selected="true" />
++          <filter-element type="OBJECT" id="privilege" selected="true" />
++          <user-schema>
++            <filter-element type="OBJECT" id="table" selected="true" />
++            <filter-element type="OBJECT" id="view" selected="true" />
++            <filter-element type="OBJECT" id="materialized view" selected="true" />
++            <filter-element type="OBJECT" id="index" selected="true" />
++            <filter-element type="OBJECT" id="constraint" selected="true" />
++            <filter-element type="OBJECT" id="trigger" selected="true" />
++            <filter-element type="OBJECT" id="synonym" selected="true" />
++            <filter-element type="OBJECT" id="sequence" selected="true" />
++            <filter-element type="OBJECT" id="procedure" selected="true" />
++            <filter-element type="OBJECT" id="function" selected="true" />
++            <filter-element type="OBJECT" id="package" selected="true" />
++            <filter-element type="OBJECT" id="type" selected="true" />
++            <filter-element type="OBJECT" id="dimension" selected="true" />
++            <filter-element type="OBJECT" id="cluster" selected="true" />
++            <filter-element type="OBJECT" id="dblink" selected="true" />
++          </user-schema>
++          <public-schema>
++            <filter-element type="OBJECT" id="table" selected="true" />
++            <filter-element type="OBJECT" id="view" selected="true" />
++            <filter-element type="OBJECT" id="materialized view" selected="true" />
++            <filter-element type="OBJECT" id="index" selected="true" />
++            <filter-element type="OBJECT" id="constraint" selected="true" />
++            <filter-element type="OBJECT" id="trigger" selected="true" />
++            <filter-element type="OBJECT" id="synonym" selected="true" />
++            <filter-element type="OBJECT" id="sequence" selected="true" />
++            <filter-element type="OBJECT" id="procedure" selected="true" />
++            <filter-element type="OBJECT" id="function" selected="true" />
++            <filter-element type="OBJECT" id="package" selected="true" />
++            <filter-element type="OBJECT" id="type" selected="true" />
++            <filter-element type="OBJECT" id="dimension" selected="true" />
++            <filter-element type="OBJECT" id="cluster" selected="true" />
++            <filter-element type="OBJECT" id="dblink" selected="true" />
++          </public-schema>
++          <any-schema>
++            <filter-element type="OBJECT" id="table" selected="true" />
++            <filter-element type="OBJECT" id="view" selected="true" />
++            <filter-element type="OBJECT" id="materialized view" selected="true" />
++            <filter-element type="OBJECT" id="index" selected="true" />
++            <filter-element type="OBJECT" id="constraint" selected="true" />
++            <filter-element type="OBJECT" id="trigger" selected="true" />
++            <filter-element type="OBJECT" id="synonym" selected="true" />
++            <filter-element type="OBJECT" id="sequence" selected="true" />
++            <filter-element type="OBJECT" id="procedure" selected="true" />
++            <filter-element type="OBJECT" id="function" selected="true" />
++            <filter-element type="OBJECT" id="package" selected="true" />
++            <filter-element type="OBJECT" id="type" selected="true" />
++            <filter-element type="OBJECT" id="dimension" selected="true" />
++            <filter-element type="OBJECT" id="cluster" selected="true" />
++            <filter-element type="OBJECT" id="dblink" selected="true" />
++          </any-schema>
++        </extended-filter>
++      </filters>
++      <sorting enabled="true">
++        <sorting-element type="RESERVED_WORD" id="keyword" />
++        <sorting-element type="RESERVED_WORD" id="datatype" />
++        <sorting-element type="OBJECT" id="column" />
++        <sorting-element type="OBJECT" id="table" />
++        <sorting-element type="OBJECT" id="view" />
++        <sorting-element type="OBJECT" id="materialized view" />
++        <sorting-element type="OBJECT" id="index" />
++        <sorting-element type="OBJECT" id="constraint" />
++        <sorting-element type="OBJECT" id="trigger" />
++        <sorting-element type="OBJECT" id="synonym" />
++        <sorting-element type="OBJECT" id="sequence" />
++        <sorting-element type="OBJECT" id="procedure" />
++        <sorting-element type="OBJECT" id="function" />
++        <sorting-element type="OBJECT" id="package" />
++        <sorting-element type="OBJECT" id="type" />
++        <sorting-element type="OBJECT" id="dimension" />
++        <sorting-element type="OBJECT" id="cluster" />
++        <sorting-element type="OBJECT" id="dblink" />
++        <sorting-element type="OBJECT" id="schema" />
++        <sorting-element type="OBJECT" id="role" />
++        <sorting-element type="OBJECT" id="user" />
++        <sorting-element type="RESERVED_WORD" id="function" />
++        <sorting-element type="RESERVED_WORD" id="parameter" />
++      </sorting>
++      <format>
++        <enforce-code-style-case value="true" />
++      </format>
++    </code-completion-settings>
++    <execution-engine-settings>
++      <statement-execution>
++        <fetch-block-size value="100" />
++        <execution-timeout value="20" />
++        <debug-execution-timeout value="600" />
++        <focus-result value="false" />
++        <prompt-execution value="false" />
++      </statement-execution>
++      <script-execution>
++        <command-line-interfaces />
++        <execution-timeout value="300" />
++      </script-execution>
++      <method-execution>
++        <execution-timeout value="30" />
++        <debug-execution-timeout value="600" />
++        <parameter-history-size value="10" />
++      </method-execution>
++    </execution-engine-settings>
++    <operation-settings>
++      <transactions>
++        <uncommitted-changes>
++          <on-project-close value="ASK" />
++          <on-disconnect value="ASK" />
++          <on-autocommit-toggle value="ASK" />
++        </uncommitted-changes>
++        <multiple-uncommitted-changes>
++          <on-commit value="ASK" />
++          <on-rollback value="ASK" />
++        </multiple-uncommitted-changes>
++      </transactions>
++      <session-browser>
++        <disconnect-session value="ASK" />
++        <kill-session value="ASK" />
++        <reload-on-filter-change value="false" />
++      </session-browser>
++      <compiler>
++        <compile-type value="KEEP" />
++        <compile-dependencies value="ASK" />
++        <always-show-controls value="false" />
++      </compiler>
++      <debugger>
++        <debugger-type value="ASK" />
++        <use-generic-runners value="true" />
++      </debugger>
++    </operation-settings>
++    <ddl-file-settings>
++      <extensions>
++        <mapping file-type-id="VIEW" extensions="vw" />
++        <mapping file-type-id="TRIGGER" extensions="trg" />
++        <mapping file-type-id="PROCEDURE" extensions="prc" />
++        <mapping file-type-id="FUNCTION" extensions="fnc" />
++        <mapping file-type-id="PACKAGE" extensions="pkg" />
++        <mapping file-type-id="PACKAGE_SPEC" extensions="pks" />
++        <mapping file-type-id="PACKAGE_BODY" extensions="pkb" />
++        <mapping file-type-id="TYPE" extensions="tpe" />
++        <mapping file-type-id="TYPE_SPEC" extensions="tps" />
++        <mapping file-type-id="TYPE_BODY" extensions="tpb" />
++      </extensions>
++      <general>
++        <lookup-ddl-files value="true" />
++        <create-ddl-files value="false" />
++        <synchronize-ddl-files value="true" />
++        <use-qualified-names value="false" />
++        <make-scripts-rerunnable value="true" />
++      </general>
++    </ddl-file-settings>
++    <general-settings>
++      <regional-settings>
++        <date-format value="MEDIUM" />
++        <number-format value="UNGROUPED" />
++        <locale value="SYSTEM_DEFAULT" />
++        <use-custom-formats value="false" />
++      </regional-settings>
++      <environment>
++        <environment-types>
++          <environment-type id="development" name="Development" description="Development environment" color="-2430209/-12296320" readonly-code="false" readonly-data="false" />
++          <environment-type id="integration" name="Integration" description="Integration environment" color="-2621494/-12163514" readonly-code="true" readonly-data="false" />
++          <environment-type id="production" name="Production" description="Productive environment" color="-11574/-10271420" readonly-code="true" readonly-data="true" />
++          <environment-type id="other" name="Other" description="" color="-1576/-10724543" readonly-code="false" readonly-data="false" />
++        </environment-types>
++        <visibility-settings>
++          <connection-tabs value="true" />
++          <dialog-headers value="true" />
++          <object-editor-tabs value="true" />
++          <script-editor-tabs value="false" />
++          <execution-result-tabs value="true" />
++        </visibility-settings>
++      </environment>
++    </general-settings>
++  </component>
++  <component name="DBNavigator.Project.StatementExecutionManager">
++    <execution-variables />
++  </component>
++</project>
+\ No newline at end of file
+Index: .idea/misc.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"ExternalStorageConfigurationManager\" enabled=\"true\" />\r\n  <component name=\"MavenProjectsManager\">\r\n    <option name=\"originalFiles\">\r\n      <list>\r\n        <option value=\"$PROJECT_DIR$/pom.xml\" />\r\n      </list>\r\n    </option>\r\n  </component>\r\n  <component name=\"ProjectRootManager\" version=\"2\" languageLevel=\"JDK_16\" default=\"true\" project-jdk-name=\"11\" project-jdk-type=\"JavaSDK\" />\r\n  <component name=\"ProjectType\">\r\n    <option name=\"id\" value=\"jpab\" />\r\n  </component>\r\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/misc.xml b/.idea/misc.xml
+--- a/.idea/misc.xml	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/.idea/misc.xml	(date 1652756931805)
+@@ -8,7 +8,7 @@
+       </list>
+     </option>
+   </component>
+-  <component name="ProjectRootManager" version="2" languageLevel="JDK_16" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
++  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK" />
+   <component name="ProjectType">
+     <option name="id" value="jpab" />
+   </component>
+Index: src/main/java/edu/eci/cvds/persistence/mappers/TipoUserMapper.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package edu.eci.cvds.persistence.mappers;\r\n\r\nimport edu.eci.cvds.entities.Reserva;\r\n\r\nimport java.util.List;\r\n\r\npublic interface TipoUserMapper {\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/java/edu/eci/cvds/persistence/mappers/TipoUserMapper.java b/src/main/java/edu/eci/cvds/persistence/mappers/TipoUserMapper.java
+--- a/src/main/java/edu/eci/cvds/persistence/mappers/TipoUserMapper.java	(revision c159413e080c2c946ec425bdb039c4cfa7276c48)
++++ b/src/main/java/edu/eci/cvds/persistence/mappers/TipoUserMapper.java	(date 1652768758758)
+@@ -1,6 +1,6 @@
+ package edu.eci.cvds.persistence.mappers;
+ 
+-import edu.eci.cvds.entities.Reserva;
++import edu.eci.cvds.entities.User;
+ 
+ import java.util.List;
+ 

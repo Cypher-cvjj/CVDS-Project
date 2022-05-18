@@ -4,6 +4,7 @@ package edu.eci.cvds.view;
 import com.google.inject.Inject;
 import edu.eci.cvds.Exceptions.BibliotecaException;
 import edu.eci.cvds.entities.*;
+import edu.eci.cvds.entities.Reserva;
 import edu.eci.cvds.services.ECILibraryServices;
 import org.primefaces.model.DefaultScheduleModel;
 
@@ -53,13 +54,22 @@ public class ReservaBean extends BasePageBean {
         return r;
     }
 
+    public List<Reserva> consultarReservasUser(int documento) throws BibliotecaException {
+        List<Reserva> r = null;
+        try {
+            r = eciLibraryServices.consultarReservasUser(documento);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return r;
+    }
+
     /**
      * consultar reserva por id
      * @param idReserva
      * @return
      */
     public Reserva consultarReservaid(int idReserva) {
-        System.out.println("entro bean");
         Reserva reserva = null;
         try{
             reserva = eciLibraryServices.consultarReserva(idReserva);
@@ -87,9 +97,6 @@ public class ReservaBean extends BasePageBean {
      * @throws BibliotecaException
      */
     public void addReserva(int idRecurso) throws BibliotecaException {
-        System.out.println("----------------------------------------------------------------------------------------------------");
-        System.out.println(idRecurso);
-        System.out.println("----------------------------------------------------------------------------------------------------");
         Timestamp time2sql = new Timestamp(fechainicialreserva.getTime());
             Timestamp time1sql = new Timestamp(fechafinalreserva.getTime());
             Date datenow = new Date(System.currentTimeMillis());

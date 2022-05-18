@@ -9,13 +9,13 @@ public class Session implements Serializable{
     private String password;
     private String username;
     private String career;
-    private String document;
+    private long document;
 
     private int community = 0;
     private int admin = 1;
     private int student = 2;
 
-    public void logIn(int rol, String email, String password, String username, String career, String document) {
+    public void logIn(int rol, String email, String password, String username, String career, long document) {
         this.email = email;
         this.password = password;
         this.username = username;
@@ -76,7 +76,7 @@ public class Session implements Serializable{
         return career;
     }
 
-    public String getDocument() {
+    public long getDocument() {
         return document;
     }
 
@@ -100,7 +100,7 @@ public class Session implements Serializable{
         this.career = career;
     }
 
-    public void setDocument(String document){
+    public void setDocument(long document){
         this.document = document;
     }
 }

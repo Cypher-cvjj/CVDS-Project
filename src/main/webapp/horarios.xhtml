@@ -158,12 +158,18 @@
         <h:panelGrid id="reservaDetails" columns="2">
             <h:outputText value="Nombre De Reserva: " />
             <h:outputLabel value="#{scheduleView.getreservaName()}" />
+            <h:outputText value="Nombre De Usuario: " />
+            <h:outputLabel value="#{scheduleView.getNameuser()}" />
+            <h:outputText value="Nombre De Recurso: " />
+            <h:outputLabel value="#{scheduleView.getNamerecurso()}" />
             <h:outputText value="Fecha de solicitud: " />
             <h:outputLabel value="#{scheduleView.getfechasol()}" />
             <h:outputText value="Fecha inicial: " />
             <h:outputLabel value="#{scheduleView.getSfechaini()}" />
             <h:outputText value="Fecha final: " />
             <h:outputLabel value="#{scheduleView.getSfechafin()}" />
+            <h:outputText value="Tipo de Reserva: " />
+            <h:outputLabel value="#{scheduleView.gettiporeserva()}" />
             <h:outputText value="Estado: " />
             <h:outputLabel value="#{scheduleView.getEstado()}" />
             <center>
@@ -173,19 +179,19 @@
         </h:panelGrid>
     </p:dialog>
     <p:dialog widgetVar="dateDialog" header="Añadir Reserva" showEffect="clip" hideEffect="clip">
-        <h:panelGrid id="dateDetails" columns="2">
-            <label>Id Reserva: </label>
+    <h:panelGrid id="dateDetails" columns="2">
+        <label>Id Reserva: </label>
             <p:inputText class="form-control" id="id" type="number" value="#{ReservaBean.idreserva}" />
             <label>Nombre: </label>
             <p:inputText class="form-control" id="Nombre" type="String" value="#{ReservaBean.nombre}" />
             <label></label>
             <p:outputLabel for="from" value="Hora Inicial:" />
-            <br></br>
+        <br></br>
             <p:datePicker id ="from"  value="#{ReservaBean.fechainicialreserva}" showTime="true"/>
             <br></br>
-            <p:outputLabel for="from1" value="Hora Final:" />
+        <p:outputLabel for="from1" value="Hora Final:" />
             <br></br>
-            <p:datePicker id="from1"  value="#{ReservaBean.fechafinalreserva}" showTime="true" appendTo="@(body)"/>
+        <p:datePicker id="from1"  value="#{ReservaBean.fechafinalreserva}" showTime="true" appendTo="@(body)"/>
             <label>Tipo reserva</label>
             <p:selectOneMenu class="select" id="ubicacion" value = "#{ReservaBean.tiporeserva}" >
                 <f:selectItem itemLabel="Diaria" itemValue="1" />
@@ -193,12 +199,12 @@
                 <f:selectItem itemLabel="Mensual" itemValue="3" />
                 <f:selectItem itemLabel="ninguna" itemValue="4" />
             </p:selectOneMenu>
-            <center>
-                <p:commandButton update="formCalendario" value="Reservar"
-                                 actionListener="#{ReservaBean.addReserva(scheduleView.getIdRecurso())}"/>
-            </center>
-        </h:panelGrid>
-    </p:dialog>
+        <center>
+            <p:commandButton update="formCalendario" value="Reservar"
+                             actionListener="#{ReservaBean.addReserva(scheduleView.getIdRecurso())}" action ="#{scheduleView.succes}"/>
+        </center>
+    </h:panelGrid>
+</p:dialog>
 </h:form></center>
 </body>
 

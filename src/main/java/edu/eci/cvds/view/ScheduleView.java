@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -14,6 +15,7 @@ import com.google.inject.Inject;
 import edu.eci.cvds.Exceptions.BibliotecaException;
 import edu.eci.cvds.entities.Recurso;
 import edu.eci.cvds.entities.Reserva;
+import edu.eci.cvds.entities.User;
 import edu.eci.cvds.services.ECILibraryServices;
 import edu.eci.cvds.services.impl.ECILibraryServicesImpl;
 import org.primefaces.event.SelectEvent;
@@ -38,13 +40,15 @@ public class ScheduleView extends BasePageBean {
     private Reserva r;
 
     public void inicializar(int id) throws IOException {
-        System.out.println("----------------------------------------");
-        System.out.println(id);
-        System.out.println("----------------------------------------");
         this.idRecurso = id;
         eventModel = new DefaultScheduleModel();
         loadEventos();
         FacesContext.getCurrentInstance().getExternalContext().redirect("./horarios.xhtml");
+    }
+
+    public void succes() throws IOException{
+        FacesContext.getCurrentInstance().getExternalContext().redirect("./recursos.xhtml");
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Succes", "Reserva realizada con exito"));
     }
 
     public int getIdReserva() {
@@ -64,7 +68,6 @@ public class ScheduleView extends BasePageBean {
                 this.fechafin = reserva.getFechafin();
                 this.idReserva = reserva.getId_reserva();
                 this.r = reserva;
-//                this.idRecurso = reserva.getRecurso().getId();
                 if (fechafin.isAfter(hoy)) {
                     DefaultScheduleEvent<?> event1 = DefaultScheduleEvent.builder()
                             .title("prueba")
@@ -83,6 +86,7 @@ public class ScheduleView extends BasePageBean {
 
     public void onEventSelect(SelectEvent selectEvent) {
         this.event = (ScheduleEvent<?>) selectEvent.getObject();
+
     }
 
     public void onDateSelect(SelectEvent<LocalDateTime> selectEvent) {
@@ -101,10 +105,17 @@ public class ScheduleView extends BasePageBean {
     }
 
     public String getreservaName() throws BibliotecaException {
-        r = eciLibraryServices.consultarReserva(idReserva);
+        this.r = eciLibraryServices.consultarReserva(idReserva);
         return r.getNombre();
     }
 
+    public String getNameuser(){
+        return r.getUsuario().getNombre();
+    }
+
+    public String getNamerecurso(){ return r.getRecurso().getNombre();}
+
+    public String gettiporeserva(){ return r.getTiporeserva().getTipo();}
 
 
     public String getfechasol() {
