@@ -83,7 +83,7 @@ Al ingresar a la página, se presenta lo siguiente:
 
 **Diagrama de Clases**
 
-![image](https://user-images.githubusercontent.com/60302534/168958777-0abd9d06-8696-4f31-8c28-49d6af88baad.png)
+![image](https://user-images.githubusercontent.com/60302534/168961496-af16de1c-fc40-415d-8107-237b5851c81b.png)
 ##
 
 **Descripción de la arquitectura y Tecnologías utilizadas**
