@@ -106,6 +106,8 @@ Al ingresar a la página, se presenta lo siguiente:
 - Jose Olarte
 ##
 **[Backlog](https://tree.taiga.io/project/lauraval19-gestion-de-recursos-biblioteca/backlog)**
+![image](https://user-images.githubusercontent.com/60302534/168951964-85d63da6-4dfb-4d1f-bd8f-cc8b2ff3be9b.png)
+
 ##
 ![image](https://user-images.githubusercontent.com/60302534/167256387-084b66c9-a933-4034-9df7-de31cbbd3793.png)
 
