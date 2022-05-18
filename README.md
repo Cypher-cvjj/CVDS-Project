@@ -130,13 +130,34 @@ Al ingresar a la página, se presenta lo siguiente:
 ## Sprint 1
 ![image](https://user-images.githubusercontent.com/60302534/167256387-084b66c9-a933-4034-9df7-de31cbbd3793.png)
 
+**Descripción del Proceso**
+
+Un sprint bastante retante, debido a que el equipo no se acopló al principio de la mejor manera para distribuir la tarea de la mejor manera, y de manera óptima, por lo tanto, se implementó tiempo, en la parte de distribución, creación, planeación del sprint, ya que al principio para un equipo, es importante conocer a cada integrante y su manera de trabajar.
+
+##
+
 ## Sprint 2
 ![image](https://user-images.githubusercontent.com/60302534/168905636-db5af32e-0c36-475e-b267-1bb0b97ea27d.png)
+
+**Descripción del Proceso**
+
+Un sprint más técnico, debido que, hubieron complicaciones, temas, que el equipo no podía resolver, unicamente buscando, indagando e inclusive investigando ya sea por internet, ayuda externa (Profesor, monitor, compañeros), para poder llegar a una solución a los problemas que se presentaban. El trabajo se decide distribuirlo por historias de usuario.
+
+![image](https://user-images.githubusercontent.com/60302534/168963508-8b63a10b-6ee4-4caf-a145-0c88b7b9778f.png)
+
+
+##
 
 ## Sprint 3
 ![image](https://user-images.githubusercontent.com/60302534/168952457-80d06aab-4b25-464d-8085-5e16478372ab.png)
 
+**Descripción del Proceso**
 
+Un sprint donde debemos pulir detalles, mejorar fallas del sprint pasado, debido a que no se alcanzó el objetivo de completarlo, por complicaciones técnicas, debido a la distribución de las tareas a cada uno de los intengrantes del grupo, se vió una mejora en el rendimiento de trabajo para cada persona.
+
+##
+
+## Reporte de Pruebas
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a11283095aaf45db9360bde2de48ffbf)](https://www.codacy.com/gh/Cypher-cvjj/CVDS-Project/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Cypher-cvjj/CVDS-Project&amp;utm_campaign=Badge_Grade)
 
 [![CircleCI](https://circleci.com/gh/Cypher-cvjj/CVDS-Project/tree/master.svg?style=svg)](https://circleci.com/gh/Cypher-cvjj/CVDS-Project/tree/master)
