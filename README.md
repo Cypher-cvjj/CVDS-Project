@@ -83,6 +83,9 @@ Al ingresar a la página, se presenta lo siguiente:
 
 **Diagrama de Clases**
 
+![image](https://user-images.githubusercontent.com/60302534/168962141-c5f08888-877e-407b-b02c-4c8dec6edea1.png)
+
+
 ![image](https://user-images.githubusercontent.com/60302534/168961496-af16de1c-fc40-415d-8107-237b5851c81b.png)
 ##
 
