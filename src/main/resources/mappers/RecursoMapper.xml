@@ -28,6 +28,23 @@
         INNER JOIN ubicacion as ub ON (ub.id = re.ubicacion)
     </select>
 
+    <select id="consultarRecurso" resultMap="RecursoResult">
+        select
+        re.id_recursos,
+        re.nombre,
+        re.capacidad,
+        re.horario_inicial,
+        re.horario_final,
+        re.disponibilidad,
+        tre.tipo,
+        ub.ubicacion
+        FROM
+        recursos as re
+        INNER JOIN tiporecurso as tre ON (tre.id = re.tiporecurso)
+        INNER JOIN ubicacion as ub ON (ub.id = re.ubicacion)
+        where re.id_recursos = #{idRecurso}
+    </select>
+
     <insert id="agregarRecursos" parameterType="edu.eci.cvds.entities.Recurso">
         INSERT INTO Recursos(
         id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso

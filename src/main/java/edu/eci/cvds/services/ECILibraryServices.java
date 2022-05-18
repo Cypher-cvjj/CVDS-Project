@@ -40,4 +40,5 @@ public interface ECILibraryServices {
 
     public Session consultarSession(String email, String password) throws BibliotecaException;
 
+    public Recurso consultarRecurso(int idRecurso) throws BibliotecaException;
 }

@@ -14,4 +14,5 @@ public interface RecursoDAO {
 
     public void cambiarEstadoRecurso(int idRecurso) throws  PersistenceException;
 
+    public Recurso consultarRecurso(int idRecurso) throws PersistenceException;
 }

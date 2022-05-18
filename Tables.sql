@@ -98,13 +98,16 @@ insert into tipousuario (id,nombre) values (2,'user');
 
 
 insert into usuarios(documento,nombre,contrasena,correo,telefono,tipousuario)
-values(00000,'pepito','9876','pepito@escuelaing.edu.co',876543,1);
+values(00000,'pepitoadmin','9876','pepitoadmin@escuelaing.edu.co',876543,1);
+
+insert into usuarios(documento,nombre,contrasena,correo,telefono,tipousuario)
+values(1234,'pepitouser','9876','pepitouser@escuelaing.edu.co',876543,2);
 
 INSERT INTO recursos (id_recursos,nombre,ubicacion,capacidad,horario_inicial,horario_final,disponibilidad,tiporecurso)
-VALUES (6,'libro',1,1,'2022-05-05 07:00','2022-05-05 19:00',true,1);
+VALUES (6,'libro',1,1,'2022-05-17 07:00','2022-05-19 19:00',true,1);
 
 insert into reserva(id_reserva,nombre,fechasoli,fechaini,fechafin,estado,usuario,recurso,tiporeserva)
-VALUES (1,'reserva 1','2022-05-12','2022-05-13','2022-06-13',true,00000,6,1);
+VALUES (1,'reserva 1','2022-05-17','2022-05-19','2022-06-13',true,00000,6,1);
 
 
 

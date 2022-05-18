@@ -164,4 +164,13 @@ public class ECILibraryServicesImpl implements ECILibraryServices {
         }
     }
 
+    @Override
+    public Recurso consultarRecurso(int idRecurso) throws BibliotecaException {
+        try{
+            return RecursoDAO.consultarRecurso(idRecurso);
+        }catch (PersistenceException ex){
+            throw new BibliotecaException("Error al consultar recursos",ex);
+        }
+    }
+
 }

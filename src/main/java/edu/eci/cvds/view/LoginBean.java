@@ -22,8 +22,8 @@ public class LoginBean extends BasePageBean implements Serializable{
     @Inject
     private ECILibraryServices eciLibraryServices;
 
-    private static final String URL_0 = "http://localhost:8080/CVDS.Project/recursos.xhtml";
-    private static final String URL_1 = "http://localhost:8080/CVDS.Project/anadirrecurso.xhtml";
+    private static final String URL_0 = "http://localhost:8080/CVDS.Project/recursosAdmin.xhtml";
+    private static final String URL_1 = "http://localhost:8080/CVDS.Project/recursos.xhtml";
     private static final String URL_2 = "http://localhost:8080/CVDS.Project/anadirrecurso.xhtml";
     private static final String URL_3 = "http://localhost:8080/CVDS.Project/login.xhtml";
     private static String email;
@@ -38,15 +38,13 @@ public class LoginBean extends BasePageBean implements Serializable{
              this.documento = currentSession.getDocument();
              switch (currentSession.getRol()){
                 case 0:
-                    FacesContext.getCurrentInstance().getExternalContext().redirect(URL_0);
-                case 1:
                     FacesContext.getCurrentInstance().getExternalContext().redirect(URL_1);
+                case 1:
+                    FacesContext.getCurrentInstance().getExternalContext().redirect(URL_0);
                 case 2:
-                    FacesContext.getCurrentInstance().getExternalContext().redirect(URL_2);
+                    FacesContext.getCurrentInstance().getExternalContext().redirect(URL_1);
              }
-
          }
-        
     }
 
     public void notAllowed() throws IOException{
@@ -64,7 +62,7 @@ public class LoginBean extends BasePageBean implements Serializable{
 
     public Boolean isAdmin() throws BibliotecaException{
         Session currentSession =  eciLibraryServices.consultarSession(email, password);
-        if (currentSession != null && currentSession.getRol() == 0){
+        if (currentSession != null && currentSession.getRol() == 1){
             return true;
         }else{
             return false;
@@ -73,7 +71,7 @@ public class LoginBean extends BasePageBean implements Serializable{
 
     public Boolean isStudent() throws BibliotecaException{
         Session currentSession =  eciLibraryServices.consultarSession(email, password);
-        if (currentSession != null && currentSession.getRol() == 1){
+        if (currentSession != null && currentSession.getRol() == 2){
             return true;
         }else{
             return false;

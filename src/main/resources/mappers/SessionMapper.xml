@@ -7,7 +7,7 @@
         <result property='username' column='nombre'/>
         <result property='password' column='contrasena'/>
         <result property='email' column='correo'/>
-        <result property='rol' column='tipousuaruio'/>
+        <result property='rol' column='tipousuario'/>
     </resultMap>
     <select id="consultarSession" resultMap="SessionResult">
         select  

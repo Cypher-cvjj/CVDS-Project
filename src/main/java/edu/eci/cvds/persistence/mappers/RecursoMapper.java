@@ -14,5 +14,5 @@ public interface RecursoMapper {
 
     public void cambiarEstadoRecurso(@Param("idRecurso") int idRecurso);
 
-
-   }
+    public Recurso consultarRecurso(@Param("idRecurso") int idRecurso);
+}

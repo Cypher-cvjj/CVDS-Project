@@ -8,8 +8,10 @@ import edu.eci.cvds.entities.Reserva;
 import edu.eci.cvds.services.ECILibraryServices;
 import org.primefaces.model.DefaultScheduleModel;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import javax.json.bind.annotation.JsonbProperty;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -98,9 +100,10 @@ public class ReservaBean extends BasePageBean {
      */
     public void addReserva(int idRecurso) throws BibliotecaException {
         Timestamp time2sql = new Timestamp(fechainicialreserva.getTime());
-            Timestamp time1sql = new Timestamp(fechafinalreserva.getTime());
-            Date datenow = new Date(System.currentTimeMillis());
-            Timestamp time3sql = new Timestamp(datenow.getTime());
+        Timestamp time1sql = new Timestamp(fechafinalreserva.getTime());
+        Date datenow = new Date(System.currentTimeMillis());
+        Timestamp time3sql = new Timestamp(datenow.getTime());
+        if(time2sql.after(Timestamp.valueOf(eciLibraryServices.consultarRecurso(idRecurso).getHorario_inicial())) && time1sql.before(Timestamp.valueOf(eciLibraryServices.consultarRecurso(idRecurso).getHorario_inicial()))) {
             try {
                 Reserva r = new Reserva();
                 r.setId_reserva(idreserva);
@@ -113,10 +116,13 @@ public class ReservaBean extends BasePageBean {
                 r.setUsuario(new User());
                 r.setRecurso(new Recurso(idRecurso));
                 eciLibraryServices.reservarRecurso(r);
-        } catch (Exception e) {
-            e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
-
+        else{
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Message Content."));
+        }
     }
 
     public int getTiporeserva() {
