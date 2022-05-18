@@ -47,6 +47,14 @@ public class LoginBean extends BasePageBean implements Serializable{
          }
     }
 
+    public void Logout() throws BibliotecaException,IOException{
+        email = "";
+        password = "";
+        name = "";
+        documento = 0;
+        FacesContext.getCurrentInstance().getExternalContext().redirect(URL_3);
+    }
+
     public void notAllowed() throws IOException{
         FacesContext.getCurrentInstance().getExternalContext().redirect(URL_3);
     }

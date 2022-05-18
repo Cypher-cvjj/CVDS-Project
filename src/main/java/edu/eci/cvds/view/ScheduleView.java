@@ -46,10 +46,6 @@ public class ScheduleView extends BasePageBean {
         FacesContext.getCurrentInstance().getExternalContext().redirect("./horarios.xhtml");
     }
 
-    public void succes() throws IOException{
-        FacesContext.getCurrentInstance().getExternalContext().redirect("./recursos.xhtml");
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Succes", "Reserva realizada con exito"));
-    }
 
     public int getIdReserva() {
         return idReserva;
@@ -64,10 +60,10 @@ public class ScheduleView extends BasePageBean {
             List<Reserva> reservas = eciLibraryServices.consultarReservasRecurso(idRecurso);
             LocalDateTime hoy = LocalDateTime.now().withHour(0).withMinute(0).withSecond(0).withNano(0);
             for (Reserva reserva : reservas) {
+                this.r = reserva;
                 this.fechaini = reserva.getFechaini();
                 this.fechafin = reserva.getFechafin();
                 this.idReserva = reserva.getId_reserva();
-                this.r = reserva;
                 if (fechafin.isAfter(hoy)) {
                     DefaultScheduleEvent<?> event1 = DefaultScheduleEvent.builder()
                             .title("prueba")

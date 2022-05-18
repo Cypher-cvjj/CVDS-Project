@@ -13,8 +13,8 @@ import javax.faces.model.SelectItem;
 public class main {
     public static void main(String[] args) throws BibliotecaException {
         ECILibraryServices instance = ECILibraryServicesFactory.getInstance().getECILibraryServices();
-        for(Reserva r: instance.consultarReservasUser(0)) {
-            System.out.println(r.toString());
-        }
+//        for(Reserva r: instance.consultarReservasUser(0)) {
+            System.out.println(instance.consultarReserva(1).getNombre());
+//        }
     }
 }

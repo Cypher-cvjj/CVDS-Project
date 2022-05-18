@@ -72,7 +72,7 @@
                 <p:menuButton icon="pi pi-users" value="Perfil">
                     <p:menuitem value="#{LoginBean.getName()}" icon="pi pi-user"/>
                     <p:menuitem value="Mis Reservas" action="#{RecursoBean.misreservas()}" icon="pi pi-book"/>
-                    <p:menuitem value="Cerrar Sesion" icon="pi pi-sign-out"/>
+                    <p:menuitem value="Cerrar Sesion" icon="pi pi-sign-out" action="#{LoginBean.Logout()}"/>
                 </p:menuButton>
             </p:toolbarGroup>
             </div>
@@ -116,7 +116,7 @@
             <p:commandButton  value="Reservar"
                               action="#{LoginBean.notAllowed()}" />
             </c:if>
-            <c:if test="#{LoginBean.isAdmin()}" >
+            <c:if test="#{LoginBean.isStudent()}" >
             <p:commandButton  value="Reservar"
                               action="#{scheduleView.inicializar(recursos.id)}"/>
             </c:if>

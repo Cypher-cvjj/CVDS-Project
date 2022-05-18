@@ -5,29 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="028dda56-561b-4352-a6e8-007cf58a70f6" name="Changes" comment="">
-<<<<<<< HEAD
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_17_2022_11_47_PM__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_5_17_2022_11_47_PM__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Tables.sql" beforeDir="false" afterPath="$PROJECT_DIR$/Tables.sql" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/RecursoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/RecursoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mappers/RecursoMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mappers/RecursoMapper.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisRecursoDAO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/persistence/mybatisimpl/MyBatisRecursoDAO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/ECILibraryServices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/ECILibraryServices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/impl/ECILibraryServicesImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/services/main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/LoginBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/LoginBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ReservaBean.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ReservaBean.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/RecursoMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/RecursoMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/mappers/SessionMapper.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/mappers/SessionMapper.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/recursosAdmin.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/recursosAdmin.xhtml" afterDir="false" />
-=======
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/anadirrecurso.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/anadirrecurso.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/estilosinicio.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/estilosinicio.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/css/registrar.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/css/registrar.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ScheduleView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/edu/eci/cvds/view/ScheduleView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/recursos.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/recursos.xhtml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/recursosAdmin.xhtml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/recursosAdmin.xhtml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/edu/eci/cvds/test/BibliotecaTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/edu/eci/cvds/test/BibliotecaTest.java" afterDir="false" />
->>>>>>> a4ea38fa81eb7c95ffb31ec08e0c04097acf1da0
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,7 +72,20 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../Parcial2" />
   </component>
-  <component name="RunManager" selected="JUnit.BibliotecaTest">
+  <component name="RunManager" selected="Application.main">
+    <configuration name="main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="edu.eci.cvds.services.main" />
+      <module name="CVDS.Project" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="edu.eci.cvds.services.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="BibliotecaTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="CVDS.Project" />
       <extension name="coverage">
@@ -152,29 +149,13 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BibliotecaTest.deberiareservarRecursomensual" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="CVDS.Project" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="edu.eci.cvds.test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="edu.eci.cvds.test" />
-      <option name="MAIN_CLASS_NAME" value="edu.eci.cvds.test.BibliotecaTest" />
-      <option name="METHOD_NAME" value="deberiareservarRecursomensual" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Application.main" />
         <item itemvalue="JUnit.BibliotecaTest" />
         <item itemvalue="JUnit.BibliotecaTest.deberiacancelarReserva2" />
         <item itemvalue="JUnit.BibliotecaTest.deberiaconsultarReserva" />
         <item itemvalue="JUnit.BibliotecaTest.deberiaregistrarRecursotipo" />
-        <item itemvalue="JUnit.BibliotecaTest.deberiareservarRecursomensual" />
       </list>
     </recent_temporary>
   </component>
