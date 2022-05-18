@@ -100,6 +100,7 @@ Al ingresar a la página, se presenta lo siguiente:
 - PostgreSQL
 - JAVA
 - XML
+- CSS
 - HTML
 - XHTML
 
@@ -108,7 +109,6 @@ Al ingresar a la página, se presenta lo siguiente:
 
 [_Click here_](https://proyecto-cvds2022-cypher-cvjj.herokuapp.com/)
 
-**Integración Continua**
 
 
 
@@ -131,6 +131,9 @@ Al ingresar a la página, se presenta lo siguiente:
 
 ## Backlog
 ![image](https://user-images.githubusercontent.com/60302534/168951964-85d63da6-4dfb-4d1f-bd8f-cc8b2ff3be9b.png)
+![image](https://user-images.githubusercontent.com/60302534/169041043-03e6bdcf-6523-46ad-8d97-59b3d5ffae3e.png)
+![image](https://user-images.githubusercontent.com/60302534/169041082-652d7abd-cea4-4d1f-9c15-5ed1306a4416.png)
+
 
 ## Sprint 1
 ![image](https://user-images.githubusercontent.com/60302534/167256387-084b66c9-a933-4034-9df7-de31cbbd3793.png)
