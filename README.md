@@ -167,5 +167,5 @@ Un sprint donde debemos pulir detalles, mejorar fallas del sprint pasado, debido
 ## Codacy
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a11283095aaf45db9360bde2de48ffbf)](https://www.codacy.com/gh/Cypher-cvjj/CVDS-Project/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Cypher-cvjj/CVDS-Project&amp;utm_campaign=Badge_Grade)
 
-##CircleCI
+## CircleCI
 [![CircleCI](https://circleci.com/gh/Cypher-cvjj/CVDS-Project/tree/master.svg?style=svg)](https://circleci.com/gh/Cypher-cvjj/CVDS-Project/tree/master)
