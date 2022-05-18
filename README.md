@@ -88,6 +88,18 @@ Al ingresar a la página, se presenta lo siguiente:
 
 **Descripción de la arquitectura y Tecnologías utilizadas**
 
+# Capas
+- Aplicación
+- Presentación
+- Persistencia
+# Tecnologías
+- Guice
+- Primfaces
+- PostgreSQL
+- JAVA
+- XML
+- HTML
+- XHTML
 
 ##
 **Despliegue Heroku**
@@ -123,6 +135,6 @@ Al ingresar a la página, se presenta lo siguiente:
 ![image](https://user-images.githubusercontent.com/60302534/168952457-80d06aab-4b25-464d-8085-5e16478372ab.png)
 
 
-[![CircleCI](https://circleci.com/gh/Cypher-cvjj/CVDS-Project/tree/master.svg?style=svg)](https://circleci.com/gh/Cypher-cvjj/CVDS-Project/tree/master)
-
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/a11283095aaf45db9360bde2de48ffbf)](https://www.codacy.com/gh/Cypher-cvjj/CVDS-Project/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Cypher-cvjj/CVDS-Project&amp;utm_campaign=Badge_Grade)
+
+[![CircleCI](https://circleci.com/gh/Cypher-cvjj/CVDS-Project/tree/master.svg?style=svg)](https://circleci.com/gh/Cypher-cvjj/CVDS-Project/tree/master)
