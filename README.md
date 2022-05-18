@@ -123,7 +123,12 @@ Al ingresar a la página, se presenta lo siguiente:
 ##
 
 
-**[_Click Here_](https://tree.taiga.io/project/lauraval19-gestion-de-recursos-biblioteca/backlog)**
+**[_Taiga_](https://tree.taiga.io/project/lauraval19-gestion-de-recursos-biblioteca/backlog)**
+
+##
+
+![image](https://user-images.githubusercontent.com/60302534/168964078-7c307e76-bb95-4adb-afce-96e4569a5f5b.png)
+
 ## Backlog
 ![image](https://user-images.githubusercontent.com/60302534/168951964-85d63da6-4dfb-4d1f-bd8f-cc8b2ff3be9b.png)
 
